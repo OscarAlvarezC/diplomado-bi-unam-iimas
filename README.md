@@ -1,46 +1,38 @@
-# Diplomado de Inteligencia de Negocios y SQL Avanzado — IIMAS / UNAM
+# Módulo 4: Inteligencia de Negocios y SQL Avanzado
 
-Material de soporte para el **Módulo 4** del Diplomado en alianza con AWS Academy. Contiene los datasets congelados, los scripts SQL de construcción del data warehouse y las guías paso a paso para que cada alumno configure su entorno desde cero.
+Diplomado **IIMAS – UNAM** en alianza con **AWS Academy**.
 
-## Para empezar
+## :wave: Bienvenid@s
 
-Si eres alumno del módulo, abre **`setup/01_cluster_aurora.md`** y sigue las 5 guías en orden. En ~2 horas tendrás todo el entorno listo.
+Al finalizar el módulo podrás diseñar e implementar un **data warehouse** sobre PostgreSQL, ejecutar **procesos ETL** en Python para integrar datos de fuentes heterogéneas, escribir **consultas analíticas avanzadas** con funciones de ventana, CTE recursivas y procedimientos almacenados, y **gestionar datos semiestructurados** con JSONB. Saldrás con habilidades transferibles a cualquier stack moderno de inteligencia de negocios y data engineering.
 
-```
-setup/
-├── 01_cluster_aurora.md       Crear cluster Aurora PostgreSQL en Learner Lab
-├── 02_dbeaver_conexion.md     Instalar DBeaver y conectar
-├── 03_northwind_oltp.md       Cargar Northwind transaccional
-├── 04_northwind_dwh.md        Construir el data warehouse (star schema)
-└── 05_airbnb.md               Cargar Airbnb CDMX
-```
+## :dart: Objetivo
 
-## Contenido del repo
+Integrar los conceptos de OLAP, ETL y SQL avanzado en un caso práctico de inteligencia de negocios, generando reportes descriptivos y consultas analíticas de valor empresarial sobre Aurora PostgreSQL.
 
-```
-diplomado-bi-unam-iimas/
-├── README.md                   ← este archivo
-├── LICENSE                     ← MIT (código y guías)
-│
-├── setup/                      ← guías paso a paso para alumnos
-│
-├── datasets/                   ← snapshot congelado de los datos
-│   ├── airbnb/                 (Inside Airbnb CDMX, snapshot 2025-09-27, CC0)
-│   │   ├── listings.csv.gz
-│   │   ├── neighbourhoods.csv
-│   │   └── neighbourhoods.geojson
-│   └── northwind/
-│       └── northwind.sql       (Northwind PostgreSQL dump, dominio público)
-│
-└── scripts/                    ← SQL ejecutable, en orden
-    ├── 01_northwind_dwh_ddl.sql       Crear el star schema (5 dims + fact)
-    ├── 02_dim_date_populate.sql       Generar dim_date con generate_series
-    ├── 03_dims_populate.sql           Poblar las 4 dims OLTP-derivadas
-    ├── 04_fact_populate.sql           Poblar fact_sales (resolución de surrogate keys)
-    └── 05_airbnb_ddl.sql              Crear schema y tablas para Airbnb CDMX
-```
+## ⚙ Requisitos
 
-## Datos: orígenes y atribución
+Antes de la primera sesión:
+
+- [`Configuración del entorno`](./setup/README.md) — 5 guías paso a paso (~2.5 h totales): cluster Aurora, DBeaver, Northwind OLTP, data warehouse, Airbnb CDMX.
+- [`Datasets congelados`](./datasets/README.md) — Northwind y snapshot 2025-09-27 de Inside Airbnb CDMX.
+- [`Scripts SQL`](./scripts/README.md) — DDL del star schema y poblado de dimensiones/hechos.
+
+> :bulb: **Tip:** completa los 5 documentos de `setup/` **antes** del primer día de clase. La primera sesión arranca asumiendo que ya tienes el entorno listo.
+
+## :bookmark_tabs: Bloques
+
+- [`Bloque-01:` Fundamentos OLAP](./Bloque-01/Readme.md) — 5 h
+- [`Bloque-02:` Implementación del warehouse](./Bloque-02/Readme.md) — 6 h
+- [`Bloque-03:` ETL con Python](./Bloque-03/Readme.md) — 8 h (4 subsesiones de 2 h)
+- [`Bloque-04:` SQL avanzado y PL/pgSQL](./Bloque-04/Readme.md) — 7 h
+- [`Bloque-05:` Funciones de ventana y CTE](./Bloque-05/Readme.md) — 7 h
+- [`Bloque-06:` Datos semiestructurados (hstore, JSONB)](./Bloque-06/Readme.md) — 4.5 h
+- [`Bloque-07:` Caso integrador](./Bloque-07/Readme.md) — 2.5 h
+
+**Total:** 40 horas.
+
+## :bar_chart: Datos: orígenes y atribución
 
 ### Northwind
 
@@ -50,17 +42,17 @@ Dataset clásico de demostración de Microsoft (público, sin restricciones). Ve
 
 Snapshot del **27 de septiembre de 2025** publicado por [Inside Airbnb](http://insideairbnb.com/) — proyecto independiente de transparencia urbana, **no afiliado a Airbnb la empresa**. Datos liberados bajo **CC0** (dominio público). Inside Airbnb publica snapshots mensuales y borra los anteriores; este repo congela la versión usada en el módulo para reproducibilidad entre semestres.
 
-Más información sobre Inside Airbnb: <http://insideairbnb.com/about/>.
+Más información: <http://insideairbnb.com/about/>.
 
-## Licencia
+## :scroll: Licencia
 
-- **Scripts SQL, guías de setup y código en general:** MIT (ver `LICENSE`).
+- **Scripts SQL, guías de setup, contenido por bloque y código en general:** MIT (ver `LICENSE`).
 - **Datasets:** licencias originales de cada fuente (CC0 para Inside Airbnb, dominio público para Northwind).
 
-## Contexto académico
+## :school: Contexto académico
 
-Curso impartido por **Oscar Alvarez** en el **Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS)** de la UNAM, en alianza con AWS Academy. Las decisiones técnicas (Aurora PostgreSQL Provisioned `db.t3.medium`, DBeaver Community, ETL en Python con SQLAlchemy + pandas) responden a las restricciones del Educator Learner Lab y a un enfoque pedagógico de profundidad sobre amplitud.
+Curso impartido por **Oscar Alvarez** en el **Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS)** de la UNAM, en alianza con AWS Academy. Las decisiones técnicas (Aurora PostgreSQL Provisioned `db.t3.medium`, DBeaver Community, ETL en Python con SQLAlchemy + pandas) responden a las restricciones del Educator Learner Lab y a un enfoque pedagógico de profundidad sobre amplitud — pocas herramientas dominadas a fondo, alta transferibilidad de habilidades.
 
-## Reportar problemas
+## :wrench: Reportar problemas
 
 Si encuentras errores en las guías, scripts o datos, abre un issue en este repo o avisa en clase.
