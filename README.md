@@ -12,13 +12,17 @@ Integrar los conceptos de OLAP, ETL y SQL avanzado en un caso práctico de intel
 
 ## ⚙ Requisitos
 
-Antes de la primera sesión:
+**Cero pre-trabajo.** Llegas a clase con tu laptop e internet, todo lo demás se monta en vivo durante las sesiones correspondientes.
 
-- [`Configuración del entorno`](./setup/README.md) — 5 guías paso a paso (~2.5 h totales): cluster Aurora, DBeaver, Northwind OLTP, data warehouse, Airbnb CDMX.
+Material de referencia que se usa en clase (no se requiere leerlo antes):
+
+- [`Guías de setup técnico`](./setup/README.md) — 5 guías paso a paso que el instructor sigue contigo durante las sesiones 01, 02, 05 y 14.
 - [`Datasets congelados`](./datasets/README.md) — Northwind y snapshot 2025-09-27 de Inside Airbnb CDMX.
 - [`Scripts SQL`](./scripts/README.md) — DDL del star schema y poblado de dimensiones/hechos.
 
-> :bulb: **Tip:** completa los 5 documentos de `setup/` **antes** del primer día de clase. La primera sesión arranca asumiendo que ya tienes el entorno listo.
+**Lo único que necesitas antes del primer día:**
+- Cuenta de **AWS Academy Learner Lab** activa (la asigna IIMAS / coordinación del diplomado).
+- Laptop con **conexión a internet** y permisos para instalar software.
 
 ## :bookmark_tabs: Sesiones
 

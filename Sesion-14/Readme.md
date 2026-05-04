@@ -2,11 +2,15 @@
 
 ## :dart: Objetivo
 
-Modelar y consultar datos clave-valor planos con la extensión `hstore` de PostgreSQL, y aplicar indexación GIN para optimizar queries sobre estos datos.
+Modelar y consultar datos clave-valor planos con la extensión `hstore` de PostgreSQL, y aplicar indexación GIN para optimizar queries sobre estos datos. **Al cierre cada alumno tiene cargado el dataset Airbnb CDMX**, base para la siguiente sesión de JSONB.
 
 ## :clock1: Duración
 
 2.5 horas.
+
+## :wrench: Setup técnico en vivo (~30 min)
+
+- [`../setup/05_airbnb.md`](../setup/05_airbnb.md) — descargar y cargar el snapshot 2025-09-27 de Inside Airbnb CDMX (27 051 listings) en el schema `airbnb` mediante DBeaver Import Wizard.
 
 ## :pushpin: Temas
 
