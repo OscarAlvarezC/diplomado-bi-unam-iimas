@@ -42,7 +42,7 @@ Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constr
 mkdir -p ~/diplomado-bi/datasets/airbnb
 cd ~/diplomado-bi/datasets/airbnb
 
-BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam/main/datasets/airbnb"
+BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/datasets/airbnb"
 
 # Listings comprimido (14 MB, snapshot CDMX 2025-09-27)
 curl -L -O "$BASE/listings.csv.gz"
@@ -83,7 +83,7 @@ Esperado: `listings.csv` ~59 MB sin comprimir.
 ```bash
 cd ~/diplomado-bi/scripts
 
-curl -L -O "https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam/main/scripts/05_airbnb_ddl.sql"
+curl -L -O "https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/scripts/05_airbnb_ddl.sql"
 ```
 
 En DBeaver, conexión `aurora-mod4`:

@@ -68,11 +68,11 @@ Tienes dos opciones, cualquiera funciona:
 # Linux/macOS:
 mkdir -p ~/diplomado-bi/datasets
 curl -L -o ~/diplomado-bi/datasets/northwind.sql \
-  https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam/main/datasets/northwind/northwind.sql
+  https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/datasets/northwind/northwind.sql
 
 # Windows PowerShell:
 mkdir -p ~/diplomado-bi/datasets
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam/main/datasets/northwind/northwind.sql" -OutFile "~/diplomado-bi/datasets/northwind.sql"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/datasets/northwind/northwind.sql" -OutFile "~/diplomado-bi/datasets/northwind.sql"
 ```
 
 ### Opción B — Desde la fuente original (pthom/northwind_psql)

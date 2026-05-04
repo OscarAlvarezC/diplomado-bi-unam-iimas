@@ -18,7 +18,7 @@ setup/
 ## Contenido del repo
 
 ```
-diplomado-bi-unam/
+diplomado-bi-unam-iimas/
 ├── README.md                   ← este archivo
 ├── LICENSE                     ← MIT (código y guías)
 │

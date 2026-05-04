@@ -47,7 +47,7 @@ No hace falta entender todo esto a fondo ahora — los scripts están comentados
 mkdir -p ~/diplomado-bi/scripts
 cd ~/diplomado-bi/scripts
 
-BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam/main/scripts"
+BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/scripts"
 
 curl -L -O "$BASE/01_northwind_dwh_ddl.sql"
 curl -L -O "$BASE/02_dim_date_populate.sql"
