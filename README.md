@@ -20,17 +20,26 @@ Antes de la primera sesión:
 
 > :bulb: **Tip:** completa los 5 documentos de `setup/` **antes** del primer día de clase. La primera sesión arranca asumiendo que ya tienes el entorno listo.
 
-## :bookmark_tabs: Bloques
+## :bookmark_tabs: Sesiones
 
-- [`Bloque-01:` Fundamentos OLAP](./Bloque-01/Readme.md) — 5 h
-- [`Bloque-02:` Implementación del warehouse](./Bloque-02/Readme.md) — 6 h
-- [`Bloque-03:` ETL con Python](./Bloque-03/Readme.md) — 8 h (4 subsesiones de 2 h)
-- [`Bloque-04:` SQL avanzado y PL/pgSQL](./Bloque-04/Readme.md) — 7 h
-- [`Bloque-05:` Funciones de ventana y CTE](./Bloque-05/Readme.md) — 7 h
-- [`Bloque-06:` Datos semiestructurados (hstore, JSONB)](./Bloque-06/Readme.md) — 4.5 h
-- [`Bloque-07:` Caso integrador](./Bloque-07/Readme.md) — 2.5 h
+16 sesiones de 2.5 horas cada una, 40 horas en total.
 
-**Total:** 40 horas.
+- [`Sesion-01:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Sesion-01/Readme.md)
+- [`Sesion-02:` Esquemas dimensionales — estrella, copo de nieve, galaxy](./Sesion-02/Readme.md)
+- [`Sesion-03:` Implementación del DW I — DDL del esquema estrella](./Sesion-03/Readme.md)
+- [`Sesion-04:` Implementación del DW II — Población y verificación](./Sesion-04/Readme.md)
+- [`Sesion-05:` ETL con Python I — Fundamentos y extracción](./Sesion-05/Readme.md)
+- [`Sesion-06:` ETL con Python II — Limpieza y perfilado](./Sesion-06/Readme.md)
+- [`Sesion-07:` ETL con Python III — Transformación según reglas de negocio](./Sesion-07/Readme.md)
+- [`Sesion-08:` ETL con Python IV — Carga, orquestación y buenas prácticas](./Sesion-08/Readme.md)
+- [`Sesion-09:` SQL avanzado I — Funciones predefinidas](./Sesion-09/Readme.md)
+- [`Sesion-10:` SQL avanzado II — Estructuras de control y cursores](./Sesion-10/Readme.md)
+- [`Sesion-11:` PL/pgSQL — Procedimientos almacenados y funciones definidas](./Sesion-11/Readme.md)
+- [`Sesion-12:` Funciones de ventana](./Sesion-12/Readme.md)
+- [`Sesion-13:` Common Table Expressions y análisis jerárquico](./Sesion-13/Readme.md)
+- [`Sesion-14:` Datos semiestructurados I — hstore](./Sesion-14/Readme.md)
+- [`Sesion-15:` Datos semiestructurados II — JSONB](./Sesion-15/Readme.md)
+- [`Sesion-16:` Caso integrador](./Sesion-16/Readme.md)
 
 ## :bar_chart: Datos: orígenes y atribución
 
