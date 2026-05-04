@@ -28,10 +28,10 @@ Material de referencia que se usa en clase (no se requiere leerlo antes):
 
 16 sesiones de 2.5 horas cada una, 40 horas en total.
 
-- [`Sesion-01:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Sesion-01/Readme.md)
-- [`Sesion-02:` Esquemas dimensionales — estrella, copo de nieve, galaxy](./Sesion-02/Readme.md)
-- [`Sesion-03:` Implementación del DW I — DDL del esquema estrella](./Sesion-03/Readme.md)
-- [`Sesion-04:` Implementación del DW II — Población y verificación](./Sesion-04/Readme.md)
+- [`Sesion-01:` Setup técnico — montar el entorno de trabajo](./Sesion-01/Readme.md)
+- [`Sesion-02:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Sesion-02/Readme.md)
+- [`Sesion-03:` Esquemas dimensionales — estrella, copo de nieve, galaxy](./Sesion-03/Readme.md)
+- [`Sesion-04:` Implementación del DW — análisis del DDL y la transformación SQL](./Sesion-04/Readme.md)
 - [`Sesion-05:` ETL con Python I — Fundamentos y extracción](./Sesion-05/Readme.md)
 - [`Sesion-06:` ETL con Python II — Limpieza y perfilado](./Sesion-06/Readme.md)
 - [`Sesion-07:` ETL con Python III — Transformación según reglas de negocio](./Sesion-07/Readme.md)
@@ -44,6 +44,8 @@ Material de referencia que se usa en clase (no se requiere leerlo antes):
 - [`Sesion-14:` Datos semiestructurados I — hstore](./Sesion-14/Readme.md)
 - [`Sesion-15:` Datos semiestructurados II — JSONB](./Sesion-15/Readme.md)
 - [`Sesion-16:` Caso integrador](./Sesion-16/Readme.md)
+
+> **Sesión 01 es 100% operacional**: cluster Aurora + DBeaver + carga de los 3 schemas (Northwind OLTP, DWH, Airbnb). A partir de Sesión 02 todo es contenido analítico sobre datos ya disponibles.
 
 ## :bar_chart: Datos: orígenes y atribución
 

@@ -1,8 +1,8 @@
-# Sesión 03: Implementación del DW I — DDL del esquema estrella
+# Sesión 03: Esquemas dimensionales — estrella, copo de nieve, galaxy
 
 ## :dart: Objetivo
 
-Construir la estructura completa del data warehouse de Northwind en PostgreSQL: schema, dimensiones y tabla de hechos, aplicando los patrones canónicos de Kimball.
+Diferenciar los tres patrones de modelado dimensional, entender los trade-offs entre normalización y desnormalización en un contexto analítico, y aplicar el patrón estrella al diseño en papel del data warehouse de Northwind.
 
 ## :clock1: Duración
 
@@ -10,16 +10,12 @@ Construir la estructura completa del data warehouse de Northwind en PostgreSQL: 
 
 ## :pushpin: Temas
 
-- Creación del schema `northwind_dwh`.
-- DDL de las 5 dimensiones (`dim_customer`, `dim_product`, `dim_employee`, `dim_shipper`, `dim_date`).
-- **Surrogate keys** vs **natural keys**: por qué las dims tienen ambos.
-- **Smart key** en `dim_date` (YYYYMMDD como entero).
-- DDL de `fact_sales`: FKs a las dims, **degenerate dimension** (`order_id`), **role-playing** (3 FKs a `dim_date`).
-- **Generated columns** (`extended_price`, `line_total`) — PostgreSQL las mantiene automáticamente.
-- Verificación: las 6 tablas creadas y vacías.
+- **Esquema estrella (star schema)** — el patrón canónico de Kimball: hecho central + dimensiones planas.
+- **Esquema copo de nieve (snowflake)** — variante normalizada y por qué Kimball lo desaconseja.
+- **Constelación / galaxy** — múltiples tablas de hechos compartiendo dimensiones.
+- Trade-off **espacio vs velocidad de lectura** en analítica.
+- **Caso de estudio práctico:** diseñar en papel el star schema de Northwind (cubriendo dimensiones, hechos, grano, role-playing). En la siguiente sesión analizamos cómo se materializó este diseño en el DW que ya tienen cargado.
 
 ## :books: Material
 
 > Por publicar.
-
-Script de referencia: [`../scripts/01_northwind_dwh_ddl.sql`](../scripts/01_northwind_dwh_ddl.sql).

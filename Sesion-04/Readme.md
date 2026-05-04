@@ -1,8 +1,8 @@
-# Sesión 04: Implementación del DW II — Población y verificación
+# Sesión 04: Implementación del DW — análisis del DDL y la transformación SQL
 
 ## :dart: Objetivo
 
-Poblar el data warehouse con datos del OLTP usando SQL puro como ETL, y verificar que la transformación preservó la integridad de los datos.
+Analizar a profundidad el data warehouse que ya está cargado en `northwind_dwh`: entender por qué cada decisión de diseño está donde está, qué hace cada script de population, y cómo se resolvieron las natural keys del OLTP a las surrogate keys del DW.
 
 ## :clock1: Duración
 
@@ -10,20 +10,28 @@ Poblar el data warehouse con datos del OLTP usando SQL puro como ETL, y verifica
 
 ## :pushpin: Temas
 
-- **Generación de `dim_date`** con `generate_series` y `EXTRACT` para los atributos calendáricos.
-- **Población de las 4 dims OLTP-derivadas** con `INSERT … SELECT … JOIN`:
-  - Aplanamiento de `categories` y `suppliers` dentro de `dim_product`.
-  - Self-join sobre `employees.reports_to` para `dim_employee.reports_to_name`.
-- **Población de `fact_sales`**: la pieza clave — resolución de **natural keys → surrogate keys** vía joins con cada dim.
-- **Tipo fixes durante el ETL**: `REAL` → `NUMERIC` con `ROUND(..., 2)` para corregir la imprecisión binaria del origen.
+### Análisis del DDL (~75 min)
+
+Lectura guiada de [`../scripts/01_northwind_dwh_ddl.sql`](../scripts/01_northwind_dwh_ddl.sql), explicando cada patrón Kimball aplicado:
+
+- **Surrogate keys + natural keys** en cada dim — desacoplamiento del DW del sistema fuente.
+- **Smart key** en `dim_date` (YYYYMMDD como entero, sin surrogate) — filtrable sin join.
+- **Degenerate dimension** (`order_id` en `fact_sales` sin tabla propia) — sirve para `COUNT(DISTINCT)` pero no tiene atributos descriptivos.
+- **Role-playing** — una sola `dim_date` con tres FKs en `fact_sales` (order, required, shipped).
+- **Generated columns** (`extended_price`, `line_total`) — PG las calcula automáticamente.
+
+### Análisis de la transformación SQL (~75 min)
+
+Lectura guiada de los scripts `02_..` a `04_..`:
+
+- **`generate_series` para `dim_date`** — la única dimensión "manufacturada" desde cero (no viene del OLTP).
+- **`INSERT … SELECT … JOIN`** para poblar las dims OLTP-derivadas. Aplanamiento de jerarquías (`categories` y `suppliers` aplastados en `dim_product`). Self-join sobre `employees.reports_to` para `dim_employee`.
+- **Resolución natural→surrogate keys** en `fact_sales`: el patrón central del star schema en código.
+- **Tipo fixes durante el ETL**: `REAL` → `NUMERIC(10,2)` con `ROUND` para corregir la imprecisión binaria del origen.
 - **Verificación cross-OLTP/DWH**: `SUM(quantity)` y `SUM(line_total)` consistentes entre las dos representaciones.
-- Comparación de la misma query analítica (ventas por categoría) en OLTP vs DWH — la justificación del modelado dimensional en una imagen.
 
 ## :books: Material
 
 > Por publicar.
 
-Scripts de referencia:
-- [`../scripts/02_dim_date_populate.sql`](../scripts/02_dim_date_populate.sql)
-- [`../scripts/03_dims_populate.sql`](../scripts/03_dims_populate.sql)
-- [`../scripts/04_fact_populate.sql`](../scripts/04_fact_populate.sql)
+Scripts de referencia en [`../scripts/`](../scripts/).
