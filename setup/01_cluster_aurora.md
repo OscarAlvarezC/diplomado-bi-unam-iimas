@@ -37,6 +37,8 @@ En la barra de búsqueda superior de la consola AWS, escribe **RDS** y selecció
 
 Llena el formulario con estos valores. Los que **no menciono explícitamente** déjalos en su valor default.
 
+![Vista general del formulario de creación](img/paso2_2.png)
+
 #### Método de creación
 
 - **Configuración estándar** (NO Easy Create).
@@ -66,6 +68,8 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 | Master password | Genera un password fuerte y **guárdalo** ya en tu password manager — lo necesitarás cada vez que conectes. Sugerencia: usa `openssl rand -base64 24` en una terminal para generar uno bueno |
 | Confirm password | (el mismo) |
 
+![Tipo de escalabilidad, versión del motor, identifier y master username](img/paso2_2_1.png)
+
 #### Instance configuration
 
 | Campo | Valor |
@@ -75,6 +79,8 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 #### Disponibilidad
 
 - **No crear una réplica de Aurora.** (El Learner Lab no soporta multi-AZ; intentar agregar réplica falla.)
+
+![Password, autenticación y opciones de almacenamiento](img/paso2_2_2.png)
 
 #### Connectivity
 
@@ -90,6 +96,10 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 | RDS Proxy | desmarcado |
 | Certificate authority | `rds-ca-rsa2048-g1` (default) |
 
+![Conectividad: compute, tipo de red, VPC](img/paso2_2_3.png)
+
+![Public access, security group y certificate authority](img/paso2_2_4.png)
+
 > ⚠️ **Public access** debe estar marcado. Si lo dejas en No, tu cluster queda solo accesible desde dentro de la VPC de AWS — y desde tu laptop no podrás llegar. Lo arreglas después editando el cluster, pero es más fácil ponerlo bien ahora.
 
 #### Database authentication
@@ -101,6 +111,8 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 - **Database Insights:** Estándar (default).
 - **Performance Insights:** desactivado.
 - **Enhanced Monitoring:** desactivado (no soportado en Learner Lab).
+
+![Puerto, etiquetas y supervisión Database Insights](img/paso2_2_5.png)
 
 #### Configuración adicional
 
@@ -116,6 +128,10 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 | Auto minor version upgrade | habilitado |
 | Maintenance window | Sin preferencia |
 | Deletion protection | **desactivado** (importante para poder eliminar el cluster sin trámite) |
+
+![Initial database name (`northwind`) y parameter groups](img/paso2_2_6.png)
+
+![Backup, cifrado, mantenimiento y deletion protection](img/paso2_2_7.png)
 
 ### 2.3 — Crear
 
