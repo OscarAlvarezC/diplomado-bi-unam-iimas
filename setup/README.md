@@ -4,14 +4,13 @@
 
 **Las 5 guías se siguen consecutivamente durante la Sesión 01** (única sesión 100% operacional del módulo).
 
-| # | Guía | Tiempo en clase | Resultado |
-|---|---|---|---|
-| 01 | [`01_cluster_aurora.md`](01_cluster_aurora.md) | ~25 min | Cluster Aurora PostgreSQL `aurora-mod4` corriendo en tu Learner Lab |
-| 02 | [`02_dbeaver_conexion.md`](02_dbeaver_conexion.md) | ~25 min | DBeaver Community instalado, security group abierto, conexión validada |
-| 03 | [`03_northwind_oltp.md`](03_northwind_oltp.md) | ~15 min | Schema `northwind_oltp` con 14 tablas, dataset transaccional cargado |
-| 04 | [`04_northwind_dwh.md`](04_northwind_dwh.md) | ~30 min | Schema `northwind_dwh` con star schema completo (5 dims + fact, 2 155 filas) |
-| 05 | [`05_airbnb.md`](05_airbnb.md) | ~30 min | Schema `airbnb` con 27 051 listings de CDMX |
-| | **Total Sesión 01** | **~125 min** | Entorno completo, listo para los 15 sesiones restantes |
+| # | Guía | Resultado |
+|---|---|---|
+| 01 | [`01_cluster_aurora.md`](01_cluster_aurora.md) | Cluster Aurora PostgreSQL `aurora-mod4` corriendo en tu Learner Lab |
+| 02 | [`02_dbeaver_conexion.md`](02_dbeaver_conexion.md) | DBeaver Community instalado, security group abierto, conexión validada |
+| 03 | [`03_northwind_oltp.md`](03_northwind_oltp.md) | Schema `northwind_oltp` con 14 tablas, dataset transaccional cargado |
+| 04 | [`04_northwind_dwh.md`](04_northwind_dwh.md) | Schema `northwind_dwh` con star schema completo (5 dims + fact, 2 155 filas) |
+| 05 | [`05_airbnb.md`](05_airbnb.md) | Schema `airbnb` con 27 051 listings de CDMX |
 
 ## Si te quedaste atrás de algún tema
 

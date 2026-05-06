@@ -4,10 +4,6 @@
 
 Modelar y consultar datos clave-valor planos con la extensión `hstore` de PostgreSQL, y aplicar indexación GIN para optimizar queries sobre estos datos.
 
-## :clock1: Duración
-
-2.5 horas (todo contenido — Airbnb ya está cargado desde Sesión 01).
-
 ## :pushpin: Temas
 
 - **Por qué datos semi-estructurados:** el problema de schemas que cambian por entidad (e.g., propiedades de productos heterogéneos, atributos de usuarios).

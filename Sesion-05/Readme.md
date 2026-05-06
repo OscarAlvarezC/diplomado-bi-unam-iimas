@@ -4,20 +4,14 @@
 
 Comprender el rol del ETL como integrador de fuentes heterogéneas, configurar el entorno Python para data engineering, y extraer datos desde Aurora PostgreSQL hacia DataFrames de pandas. **Al cierre cada alumno tiene Anaconda funcionando con las librerías del módulo y conexión validada a su Aurora.**
 
-## :clock1: Duración
-
-2.5 horas.
-
-## :wrench: Setup técnico en vivo (~45 min)
+## :wrench: Setup técnico en vivo
 
 - Instalación / verificación de **Anaconda** (incluye Jupyter Lab).
 - Instalación de las librerías del módulo en el environment: `pandas`, `sqlalchemy`, `psycopg2-binary`.
 - Configuración del **engine SQLAlchemy** con la URL de conexión de Aurora.
 - Validación: notebook que abre conexión y corre `SELECT 1` en Aurora desde Jupyter.
 
-> :bulb: Si ya tenías Anaconda instalado antes de la sesión, este bloque baja a ~15 min.
-
-## :pushpin: Temas (~105 min)
+## :pushpin: Temas
 
 - Por qué existe el ETL: el problema de las fuentes heterogéneas.
 - Los tres pasos: **Extract**, **Transform**, **Load**.

@@ -4,10 +4,6 @@
 
 Escribir lógica procedural en PL/pgSQL usando estructuras de control de flujo, y entender cuándo los cursores son la herramienta correcta vs cuándo conviene quedarse en SQL set-based.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - Introducción a **PL/pgSQL** como lenguaje procedural de PostgreSQL.

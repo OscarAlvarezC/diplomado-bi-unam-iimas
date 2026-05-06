@@ -2,7 +2,6 @@
 
 Vas a cargar el dataset **Northwind**, el ejemplo clásico de un sistema transaccional (clientes, pedidos, productos, empleados). Este es el dataset que vas a usar durante todo el módulo para practicar SQL, modelado dimensional, ETL, funciones de ventana y CTEs.
 
-**Tiempo estimado:** 15-20 minutos.
 **Lo que tendrás al terminar:** los schemas `northwind_oltp` y `northwind_dwh` creados dentro de tu base `northwind`, y el dataset OLTP completamente cargado y verificado (14 tablas, ~3 200 filas).
 
 ## Prerequisitos

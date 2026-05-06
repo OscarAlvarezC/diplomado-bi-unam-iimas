@@ -4,10 +4,6 @@
 
 Reconocer las diferencias entre sistemas transaccionales (OLTP) y analíticos (OLAP), entender por qué el análisis de negocios requiere un modelado distinto de los datos, y dominar el vocabulario fundamental del modelo multidimensional.
 
-## :clock1: Duración
-
-2.5 horas (todo contenido — el setup ya pasó en Sesión 01).
-
 ## :pushpin: Temas
 
 - Diferencias OLTP vs OLAP: carga de trabajo, schema, propósito.

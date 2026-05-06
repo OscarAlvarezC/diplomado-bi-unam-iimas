@@ -2,7 +2,6 @@
 
 Vas a construir un **data warehouse** sobre Northwind: una base optimizada para queries analíticas, no transaccionales. Implementarás el patrón **estrella (star schema)** clásico de Kimball — el estándar de la industria para BI desde los 90s y aún el modelo dominante.
 
-**Tiempo estimado:** 30-40 minutos.
 **Lo que tendrás al terminar:** el schema `northwind_dwh` con 5 dimensiones y una tabla de hechos, **2 155 filas** en `fact_sales` que reflejan exactamente las ventas de `northwind_oltp` pero estructuradas para análisis.
 
 ## Prerequisitos

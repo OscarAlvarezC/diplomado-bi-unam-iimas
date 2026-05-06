@@ -4,10 +4,6 @@
 
 Aplicar técnicas de perfilado y limpieza a un dataset extraído, identificar problemas de calidad de datos, y normalizar tipos y formatos para la siguiente etapa de transformación.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **Perfilado del DataFrame:**

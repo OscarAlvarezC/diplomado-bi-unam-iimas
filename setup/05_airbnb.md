@@ -2,7 +2,6 @@
 
 Última guía del setup. Vas a cargar el snapshot de **Inside Airbnb** para Ciudad de México: 27 051 listings reales con sus alcaldías, descripciones, amenidades, precios y reseñas. Es el dataset que usarás en el Bloque 6 para explorar **datos semi-estructurados** con `JSONB`.
 
-**Tiempo estimado:** 20-30 minutos (la mayoría es la descarga y la carga del CSV grande).
 **Lo que tendrás al terminar:** schema `airbnb` con dos tablas — `listings` (27 051 filas × 79 columnas) y `neighbourhoods` (16 alcaldías).
 
 ## Prerequisitos

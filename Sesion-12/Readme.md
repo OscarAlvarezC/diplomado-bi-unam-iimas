@@ -4,10 +4,6 @@
 
 Resolver problemas analíticos clásicos (rankings, comparativas con valores adyacentes, agregados móviles) usando funciones de ventana, sin recurrir a self-joins ni subconsultas correlacionadas.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **La cláusula `OVER`:** introducción al concepto de "ventana" sobre el resultado.

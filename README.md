@@ -26,7 +26,7 @@ Material de referencia que se usa en clase (no se requiere leerlo antes):
 
 ## :bookmark_tabs: Sesiones
 
-16 sesiones de 2.5 horas cada una, 40 horas en total.
+16 sesiones, 40 horas en total.
 
 - [`Sesion-01:` Setup técnico — montar el entorno de trabajo](./Sesion-01/Readme.md)
 - [`Sesion-02:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Sesion-02/Readme.md)

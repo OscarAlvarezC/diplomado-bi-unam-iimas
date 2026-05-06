@@ -4,10 +4,6 @@
 
 Cargar los DataFrames transformados al data warehouse, estructurar el pipeline ETL como un script productivo y aplicar buenas prácticas de logging, manejo de errores y validación.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **Carga al data warehouse con `to_sql()`:**
@@ -23,7 +19,7 @@ Cargar los DataFrames transformados al data warehouse, estructurar el pipeline E
   - Conteos vs origen.
   - Sumas y agregados.
   - Integridad referencial.
-- **Cierre del bloque (~30 min):** ETL en producción real — patrones de object storage (S3), pipelines orquestados (Airflow, Prefect), formatos columnares (Parquet), compute serverless. Discusión, sin hands-on.
+- **Cierre del bloque:** ETL en producción real — patrones de object storage (S3), pipelines orquestados (Airflow, Prefect), formatos columnares (Parquet), compute serverless. Discusión, sin hands-on.
 
 ## :books: Material
 

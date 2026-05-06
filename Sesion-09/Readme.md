@@ -4,10 +4,6 @@
 
 Dominar las funciones predefinidas de PostgreSQL más usadas en queries analíticas: agregadas, de manipulación de strings y de fechas.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **Funciones agregadas:**

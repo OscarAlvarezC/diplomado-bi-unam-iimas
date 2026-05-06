@@ -4,10 +4,6 @@
 
 Transformar DataFrames limpios aplicando reglas de negocio: cálculos derivados, joins, generación de la dimensión de tiempo, y construcción de las dimensiones y la tabla de hechos en memoria.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **Cálculo de valores derivados** (márgenes, totales, ratios) con operaciones vectorizadas de pandas.

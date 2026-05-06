@@ -2,7 +2,6 @@
 
 Ahora que tu cluster `aurora-mod4` ya está corriendo en AWS, vas a configurar el cliente SQL en tu laptop y abrir la primera conexión.
 
-**Tiempo estimado:** 20-30 minutos (la mayoría descargando DBeaver).
 **Lo que tendrás al terminar:** DBeaver instalado, security group abierto a tu IP, conexión guardada y validada con `SELECT version()`.
 
 ## Prerequisitos

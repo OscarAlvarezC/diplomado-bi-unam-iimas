@@ -4,13 +4,9 @@
 
 Analizar a profundidad el data warehouse que ya está cargado en `northwind_dwh`: entender por qué cada decisión de diseño está donde está, qué hace cada script de population, y cómo se resolvieron las natural keys del OLTP a las surrogate keys del DW.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
-### Análisis del DDL (~75 min)
+### Análisis del DDL
 
 Lectura guiada de [`../scripts/01_northwind_dwh_ddl.sql`](../scripts/01_northwind_dwh_ddl.sql), explicando cada patrón Kimball aplicado:
 
@@ -20,7 +16,7 @@ Lectura guiada de [`../scripts/01_northwind_dwh_ddl.sql`](../scripts/01_northwin
 - **Role-playing** — una sola `dim_date` con tres FKs en `fact_sales` (order, required, shipped).
 - **Generated columns** (`extended_price`, `line_total`) — PG las calcula automáticamente.
 
-### Análisis de la transformación SQL (~75 min)
+### Análisis de la transformación SQL
 
 Lectura guiada de los scripts `02_..` a `04_..`:
 

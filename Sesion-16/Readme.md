@@ -4,10 +4,6 @@
 
 Integrar lo aprendido en las 15 sesiones previas en un caso práctico de inteligencia de negocios completo: pipeline ETL en Python + queries analíticas avanzadas + reporte descriptivo + presentación.
 
-## :clock1: Duración
-
-2.5 horas (presentación final del módulo).
-
 ## :pushpin: Componentes del caso integrador
 
 - **Pipeline ETL en Python** (script `etl_pipeline.py` ejecutable de extremo a extremo, refinado a partir del trabajo del Bloque ETL).

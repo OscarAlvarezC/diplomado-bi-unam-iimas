@@ -4,10 +4,6 @@
 
 Trabajar con datos jerárquicos JSON usando el tipo `JSONB` de PostgreSQL, dominar sus operadores y funciones específicas, e indexarlos eficientemente. Aplicar todo a queries reales sobre el dataset Airbnb CDMX.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **`JSON` vs `JSONB`:** diferencias de almacenamiento (texto vs binario), performance, cuándo usar cada uno.

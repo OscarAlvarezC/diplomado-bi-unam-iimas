@@ -4,10 +4,6 @@
 
 Crear, ejecutar y gestionar procedimientos almacenados y funciones definidas por el usuario en PostgreSQL, entendiendo las diferencias prácticas entre ambos.
 
-## :clock1: Duración
-
-2.5 horas.
-
 ## :pushpin: Temas
 
 - **Procedimientos almacenados:**
