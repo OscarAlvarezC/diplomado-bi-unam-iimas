@@ -70,6 +70,8 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 
 ![Tipo de escalabilidad, versión del motor, identifier y master username](img/paso2_2_1.png)
 
+> ℹ️ La captura muestra `instructor-aurora` porque es del cluster del instructor. Tú usa **`aurora-mod4`** como identifier (o el nombre que prefieras).
+
 #### Instance configuration
 
 | Campo | Valor |
