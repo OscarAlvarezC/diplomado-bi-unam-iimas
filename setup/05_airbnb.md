@@ -270,4 +270,8 @@ Si tu cluster Aurora llega a fallar en algún momento durante el semestre, hay u
 Recuerda:
 - 🔴 **Pausa el cluster** (Stop temporarily) al terminar cada sesión de trabajo.
 - 🟢 **Reanuda y refresca SG My IP** al empezar la siguiente.
-- 💰 Tu crédito Learner Lab es ~$100 USD. El cluster cuesta ~$2/día encendido.
+- 💰 Tu crédito Learner Lab es ~$50 USD. El cluster cuesta ~$2/día encendido.
+
+---
+
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)

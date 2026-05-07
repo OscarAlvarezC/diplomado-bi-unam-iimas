@@ -218,7 +218,7 @@ Al terminar de trabajar:
 | 1 semana ininterrumpida | ~$13 USD |
 | 1 mes ininterrumpido | ~$58 USD |
 
-El crédito típico de Learner Lab es ~$100 USD, así que olvidar pausar **una noche o un fin de semana** no es desastre. Olvidarlo **una semana o más** sí empieza a doler.
+El crédito de Learner Lab es de $50 USD, así que olvidar pausar **una noche o un fin de semana** no es desastre. Olvidarlo **una semana o más** sí empieza a doler.
 
 ---
 
@@ -252,3 +252,7 @@ Estás en la sección equivocada del formulario. Está dentro de **Conectividad*
 ## Siguiente paso
 
 Continúa con **`02_dbeaver_conexion.md`** — vas a instalar DBeaver Community en tu laptop, configurar el security group del cluster para permitir conexiones desde tu IP, y conectar al servidor que acabas de crear.
+
+---
+
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)

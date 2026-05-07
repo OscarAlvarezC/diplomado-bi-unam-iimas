@@ -26,3 +26,7 @@ Cargar los DataFrames transformados al data warehouse, estructurar el pipeline E
 > Por publicar.
 
 **Entregable:** cada alumno consolida su trabajo en un script `etl_pipeline.py` ejecutable de extremo a extremo. Forma parte del caso integrador (Sesión 16).
+
+---
+
+[← Volver al inicio](../README.md)

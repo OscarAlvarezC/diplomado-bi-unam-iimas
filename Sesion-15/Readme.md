@@ -33,3 +33,7 @@ Trabajar con datos jerárquicos JSON usando el tipo `JSONB` de PostgreSQL, domin
 > Por publicar.
 
 Datos en [`../datasets/airbnb/`](../datasets/airbnb/), schema bronze creado en [`../scripts/05_airbnb_ddl.sql`](../scripts/05_airbnb_ddl.sql).
+
+---
+
+[← Volver al inicio](../README.md)

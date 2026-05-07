@@ -270,3 +270,7 @@ Misma respuesta, distinto costo cognitivo. **Esa es la justificación del star s
 ## Siguiente paso
 
 Continúa con **`05_airbnb.md`** — vas a cargar el dataset **Airbnb CDMX** (snapshot de Inside Airbnb), que tiene columnas semi-estructuradas (JSON arrays, listas) que vas a explorar en el Bloque 6 con `JSONB` y operadores específicos de PostgreSQL.
+
+---
+
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)

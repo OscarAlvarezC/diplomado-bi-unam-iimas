@@ -31,3 +31,7 @@ Lectura guiada de los scripts `02_..` a `04_..`:
 > Por publicar.
 
 Scripts de referencia en [`../scripts/`](../scripts/).
+
+---
+
+[← Volver al inicio](../README.md)

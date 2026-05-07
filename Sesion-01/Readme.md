@@ -57,4 +57,8 @@ Para cerrar la sesión, una query analítica corta que toque los tres schemas a 
 
 ## :books: Material
 
-Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase. Quedan ahí como referencia para repetir o consultar pasos fuera de horas.
+Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase. Quedan ahí como referencia para repetir el ejecrcicio o consultar los pasos posteriormente.
+
+---
+
+[← Volver al inicio](../README.md)

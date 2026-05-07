@@ -24,3 +24,7 @@ Integrar lo aprendido en las 15 sesiones previas en un caso práctico de intelig
 ## :clipboard: Rúbrica
 
 > Por publicar.
+
+---
+
+[← Volver al inicio](../README.md)

@@ -247,3 +247,7 @@ SET search_path TO northwind_oltp;
 ## Siguiente paso
 
 Continúa con **`04_northwind_dwh.md`** — vas a construir un **data warehouse** sobre el OLTP que acabas de cargar. Diseñarás un esquema estrella con dimensiones y una tabla de hechos, y lo poblarás con SQL puro a partir de las tablas de `northwind_oltp`. Es el corazón del módulo.
+
+---
+
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)

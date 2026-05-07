@@ -26,3 +26,7 @@ Práctica intensiva sobre `fact_sales` × `dim_date`: top-N productos por mes, c
 ## :books: Material
 
 > Por publicar.
+
+---
+
+[← Volver al inicio](../README.md)

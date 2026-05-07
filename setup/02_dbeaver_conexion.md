@@ -37,31 +37,47 @@ Sigue el instalador estándar de tu OS. Al primer arranque, DBeaver te ofrecerá
 
 Por default, el cluster que creaste **no acepta conexiones de internet**, aunque tenga "Public access" activo. Hay que abrirle un agujero específico al puerto 5432 desde tu IP.
 
-### 2.1 — Llegar al security group
+### 2.1 — Llegar al security group desde RDS
 
-1. AWS Console → **RDS** → **Databases** → click **`aurora-mod4-instance-1`** (la instancia, no el cluster).
-2. Pestaña **Connectivity & security**.
-3. Sección **Security** → click el security group (suele decir `default (sg-XXXXXXXX)`).
-4. Esto abre la consola de **EC2** filtrando ese SG.
+1. AWS Console → **RDS** → **Bases de datos** → click **`aurora-mod4-instance-1`** (la instancia, no el cluster).
+2. Pestaña **Conectividad y seguridad**.
+3. Sección **Seguridad** → click en el security group (suele aparecer como `default (sg-XXXXXXXX)`).
+4. Esto te lleva a la consola de **EC2**, pero a una **vista filtrada de solo lectura** donde solo puedes ver las reglas existentes — todavía no las puedes editar desde aquí.
 
-### 2.2 — Agregar la regla inbound
+### 2.2 — Abrir la vista de detalle del SG (donde sí se edita)
 
-1. Tab **Inbound rules** → botón **Edit inbound rules** → **Add rule**.
+1. En la tabla de **Grupos de seguridad** que aparece, click en el **ID del security group** (`sg-xxxxxxxxxxxxxxxxx`) en la columna izquierda. Eso abre la vista de detalle del SG.
+2. Pestaña **Reglas de entrada** (Inbound rules) → botón **Editar reglas de entrada** (Edit inbound rules).
+
+### 2.3 — Agregar (o actualizar) la regla del puerto 5432
+
+Aquí hay dos casos:
+
+**Caso A — ya existe una regla de PostgreSQL (puerto 5432) con una IP fija como origen** (por ejemplo, de una sesión anterior cuando estabas en otra red):
+
+- Edita esa regla: en el campo **Origen** cambia el valor a **Mi IP** (My IP). AWS detecta tu IP pública actual y la rellena automáticamente.
+- **Guardar reglas**.
+
+**Caso B — no existe ninguna regla para 5432:**
+
+1. Click **Agregar regla** (Add rule).
 2. Configura:
 
 | Campo | Valor |
 |---|---|
-| Type | **PostgreSQL** |
-| Protocol | TCP (autollenado) |
-| Port range | 5432 (autollenado) |
-| Source | **My IP** ⚠️ esto es clave |
-| Description | `DBeaver desde mi laptop` |
+| Tipo | **PostgreSQL** |
+| Protocolo | TCP (autocompletado) |
+| Intervalo de puertos | 5432 (autocompletado) |
+| Origen | **Mi IP** ⚠️ esto es clave |
+| Descripción | `DBeaver desde mi laptop` |
 
-3. **Save rules**.
+3. **Guardar reglas**.
 
-> ⚠️ **"My IP" detecta automáticamente tu IP pública actual.** Cuando cambies de red (otro WiFi, el café, casa de un amigo, datos móviles) tu IP cambia y la regla deja de funcionar. Solución: vuelve aquí, click **Edit inbound rules**, en la regla existente click el botón **My IP** otra vez, Save. Toma ~30 segundos.
+![Pantalla "Editar reglas de entrada" con la regla PostgreSQL en 5432 y el dropdown "Origen" abierto en "Mi IP"](img/guia2_paso2.png)
 
-### 2.3 — Verifica tu IP pública
+> ⚠️ **"Mi IP" detecta automáticamente tu IP pública actual.** Cuando cambies de red (otro WiFi, el café, casa de un amigo, datos móviles) tu IP cambia y la regla deja de funcionar. Solución: vuelve a esta misma vista, **Editar reglas de entrada**, sobre la regla existente vuelve a seleccionar **Mi IP** en Origen, **Guardar reglas**. Toma ~30 segundos.
+
+### 2.4 — Verifica tu IP pública
 
 Antes de seguir, confirma que la IP que se guardó sí es la tuya:
 
@@ -198,3 +214,7 @@ A partir de ahora, el ciclo de inicio y cierre se ve así:
 ## Siguiente paso
 
 Continúa con **`03_northwind_oltp.md`** — vas a cargar el dataset Northwind (datos transaccionales clásicos: clientes, pedidos, productos) en un schema dentro de tu base `northwind`. Es la primera fuente de datos que vas a explorar con SQL.
+
+---
+
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
