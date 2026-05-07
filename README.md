@@ -16,6 +16,7 @@ Integrar los conceptos de OLAP, ETL y SQL avanzado en un caso práctico de intel
 
 Material de referencia que se usa en clase (no se requiere leerlo antes):
 
+- [`Temario del diplomado`](./temario/README.md) — los 8 módulos del diplomado completo (este repo cubre el Módulo 4).
 - [`Guías de setup técnico`](./setup/README.md) — 5 guías paso a paso que el instructor sigue contigo durante las sesiones 01, 02, 05 y 14.
 - [`Datasets congelados`](./datasets/README.md) — Northwind y snapshot 2025-09-27 de Inside Airbnb CDMX.
 - [`Scripts SQL`](./scripts/README.md) — DDL del star schema y poblado de dimensiones/hechos.
@@ -63,10 +64,6 @@ Más información: <http://insideairbnb.com/about/>.
 
 - **Scripts SQL, guías de setup, contenido por bloque y código en general:** MIT (ver `LICENSE`).
 - **Datasets:** licencias originales de cada fuente (CC0 para Inside Airbnb, dominio público para Northwind).
-
-## :school: Contexto académico
-
-Curso impartido por **Oscar Alvarez** en el **Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS)** de la UNAM, en alianza con AWS Academy. Las decisiones técnicas (Aurora PostgreSQL Provisioned `db.t3.medium`, DBeaver Community, ETL en Python con SQLAlchemy + pandas) responden a las restricciones del Educator Learner Lab y a un enfoque pedagógico de profundidad sobre amplitud — pocas herramientas dominadas a fondo, alta transferibilidad de habilidades.
 
 ## :wrench: Reportar problemas
 
