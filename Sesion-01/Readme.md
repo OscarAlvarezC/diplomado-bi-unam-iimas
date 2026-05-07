@@ -2,6 +2,8 @@
 
 En la práctica del análisis de datos, lo más común es recibir la información en alguno de dos formatos: un **dump SQL** (`.sql`, generalmente exportado desde otra base de datos con `CREATE TABLE` + `INSERT` ya listos) o un **archivo CSV** (`.csv`, planilla cruda sin tipos ni schema)[^1]. En esta sesión cargamos los dos: **Northwind** como dump SQL y el snapshot de **Inside Airbnb CDMX** como CSV. Son los dos métodos que vas a usar para incorporar cualquier dataset durante el resto del módulo.
 
+Lo que hacemos hoy es un **ETL básico**. ETL son las tres fases típicas para mover datos de una fuente a un destino: **Extract** (leer del origen — archivo, otra base, API), **Transform** (limpiar, convertir tipos, aplicar reglas de negocio) y **Load** (escribir al destino). Hoy aplicamos *Extract* y *Load* en su forma más simple. Las tres fases se profundizan más adelante: en la **Sesión 04** con un ETL hecho en SQL puro hacia el data warehouse, y en las **Sesiones 05-08** con un ETL completo en Python (`pandas` + `SQLAlchemy`) — extracción desde la base, perfilado, limpieza, transformaciones según reglas de negocio y estrategias de carga.
+
 ## :dart: Objetivos
 
 - Aprovisionar un cluster Aurora PostgreSQL personal en el AWS Academy Learner Lab.
