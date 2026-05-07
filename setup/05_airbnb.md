@@ -37,13 +37,13 @@ Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constr
 
 ## Paso 1 — Descargar archivos
 
-Cualquiera de las dos opciones funciona. Necesitas 3 archivos del repo: `listings.csv.gz` (~14 MB), `neighbourhoods.csv` (275 B) y `neighbourhoods.geojson` (~335 KB, opcional, para Bloque 6).
+Cualquiera de las dos opciones funciona. Necesitas 3 archivos del repo: `listings.csv` (~59 MB), `neighbourhoods.csv` (275 B) y `neighbourhoods.geojson` (~335 KB, opcional, para Bloque 6).
 
 ### Opción A — Navegador
 
 1. Abre la carpeta del repo: <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/tree/main/datasets/airbnb>.
 2. Entra a cada archivo y usa el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor):
-   - `listings.csv.gz`
+   - `listings.csv`
    - `neighbourhoods.csv`
    - `neighbourhoods.geojson` (opcional)
 3. Guárdalos juntos en una carpeta que recuerdes (e.g., `~/diplomado-bi/datasets/airbnb/`).
@@ -56,8 +56,8 @@ cd ~/diplomado-bi/datasets/airbnb
 
 BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/datasets/airbnb"
 
-# Listings comprimido (14 MB, snapshot CDMX 2025-09-27)
-curl -L -O "$BASE/listings.csv.gz"
+# Listings (59 MB, snapshot CDMX 2025-09-27)
+curl -L -O "$BASE/listings.csv"
 
 # Lista de las 16 alcaldías
 curl -L -O "$BASE/neighbourhoods.csv"
@@ -67,21 +67,6 @@ curl -L -O "$BASE/neighbourhoods.geojson"
 
 ls -lh
 ```
-
-### Descomprimir el listings
-
-DBeaver Import Wizard no lee `.gz` directo, hay que descomprimir:
-
-```bash
-# Linux/macOS:
-gunzip -k listings.csv.gz   # -k mantiene el .gz original
-
-# Windows (PowerShell):
-# Necesitas 7-Zip o el cmdlet Expand-Archive con un workaround
-# Más fácil: descarga listings.csv directo si está disponible, o usa 7-Zip
-```
-
-Esperado: `listings.csv` ~59 MB sin comprimir.
 
 ---
 
