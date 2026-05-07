@@ -26,4 +26,4 @@ Comprender el rol del ETL como integrador de fuentes heterogéneas, configurar e
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 06 →](../Sesion-06/Readme.md)

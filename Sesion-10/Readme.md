@@ -26,4 +26,4 @@ Escribir lógica procedural en PL/pgSQL usando estructuras de control de flujo, 
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 11 →](../Sesion-11/Readme.md)

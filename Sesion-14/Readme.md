@@ -25,4 +25,4 @@ Modelar y consultar datos clave-valor planos con la extensión `hstore` de Postg
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 15 →](../Sesion-15/Readme.md)

@@ -20,4 +20,4 @@ Reconocer las diferencias entre sistemas transaccionales (OLTP) y analíticos (O
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 03 →](../Sesion-03/Readme.md)

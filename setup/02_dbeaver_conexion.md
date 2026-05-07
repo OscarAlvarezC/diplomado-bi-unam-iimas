@@ -77,7 +77,7 @@ Aquí hay dos casos:
 
 > ⚠️ **"Mi IP" detecta automáticamente tu IP pública actual.** Cuando cambies de red (otro WiFi, el café, casa de un amigo, datos móviles) tu IP cambia y la regla deja de funcionar. Solución: vuelve a esta misma vista, **Editar reglas de entrada**, sobre la regla existente vuelve a seleccionar **Mi IP** en Origen, **Guardar reglas**. Toma ~30 segundos.
 
-### 2.4 — Verifica tu IP pública
+### 2.4 — Verifica tu IP pública (opcional)
 
 Antes de seguir, confirma que la IP que se guardó sí es la tuya:
 
@@ -217,4 +217,4 @@ Continúa con **`03_northwind_oltp.md`** — vas a cargar el dataset Northwind (
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 03 — Northwind OLTP →](03_northwind_oltp.md)

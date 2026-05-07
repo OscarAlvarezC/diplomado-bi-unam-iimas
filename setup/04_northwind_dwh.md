@@ -273,4 +273,4 @@ Continúa con **`05_airbnb.md`** — vas a cargar el dataset **Airbnb CDMX** (sn
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 05 — Airbnb →](05_airbnb.md)

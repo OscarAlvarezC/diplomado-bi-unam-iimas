@@ -255,4 +255,4 @@ Continúa con **`02_dbeaver_conexion.md`** — vas a instalar DBeaver Community 
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 02 — DBeaver →](02_dbeaver_conexion.md)

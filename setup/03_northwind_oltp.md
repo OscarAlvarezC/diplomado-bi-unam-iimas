@@ -250,4 +250,4 @@ Continúa con **`04_northwind_dwh.md`** — vas a construir un **data warehouse*
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
+[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 04 — Data warehouse →](04_northwind_dwh.md)

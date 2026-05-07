@@ -34,4 +34,4 @@ Scripts de referencia en [`../scripts/`](../scripts/).
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 05 →](../Sesion-05/Readme.md)

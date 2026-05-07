@@ -30,4 +30,4 @@ Práctica sobre el data warehouse de Northwind y el dataset Airbnb.
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 10 →](../Sesion-10/Readme.md)

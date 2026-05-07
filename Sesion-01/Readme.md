@@ -61,4 +61,4 @@ Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase
 
 ---
 
-[← Volver al inicio](../README.md)
+[← Volver al inicio](../README.md) | [Siguiente: Sesión 02 →](../Sesion-02/Readme.md)
