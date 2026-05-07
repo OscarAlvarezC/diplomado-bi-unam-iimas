@@ -1,5 +1,7 @@
 # Sesión 01: Setup técnico — montar el entorno de trabajo
 
+En la práctica del análisis de datos, lo más común es recibir la información en alguno de dos formatos: un **dump SQL** (`.sql`, generalmente exportado desde otra base de datos con `CREATE TABLE` + `INSERT` ya listos) o un **archivo CSV** (`.csv`, planilla cruda sin tipos ni schema)[^1]. En esta sesión cargamos los dos: **Northwind** como dump SQL y el snapshot de **Inside Airbnb CDMX** como CSV. Son los dos métodos que vas a usar para incorporar cualquier dataset durante el resto del módulo.
+
 ## :dart: Objetivos
 
 - Aprovisionar un cluster Aurora PostgreSQL personal en el AWS Academy Learner Lab.
@@ -80,6 +82,8 @@ Si devuelve los tres conteos sin errores, el entorno está listo y a partir de l
 ## :books: Material
 
 Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase. Quedan ahí como referencia para repetir el ejecrcicio o consultar los pasos posteriormente.
+
+[^1]: La [documentación oficial de PostgreSQL](https://www.postgresql.org/docs/current/populate.html) reconoce ambos como métodos primarios de carga (`COPY` para CSV y `pg_restore` para dumps SQL).
 
 ---
 
