@@ -66,8 +66,6 @@ curl -L -O "$BASE/01_northwind_dwh_ddl.sql"
 curl -L -O "$BASE/02_dim_date_populate.sql"
 curl -L -O "$BASE/03_dims_populate.sql"
 curl -L -O "$BASE/04_fact_populate.sql"
-
-ls -la
 ```
 
 ---

@@ -8,7 +8,6 @@ Snapshot congelado de los datos usados en el Módulo 4. Estos archivos son **inm
 |---|---|---|---|
 | `listings.csv` | 59 MB | 27 051 | Listings detallados: name, host, location, amenidades, precio, reseñas. 79 columnas. |
 | `neighbourhoods.csv` | 275 B | 16 | Las 16 alcaldías de Ciudad de México. |
-| `neighbourhoods.geojson` | 335 KB | 16 | Polígonos GIS de cada alcaldía. Para Bloque 6 (JSONB). |
 
 **Fuente:** [Inside Airbnb](http://insideairbnb.com/) — proyecto independiente de transparencia urbana.
 **Snapshot:** 27 de septiembre de 2025.

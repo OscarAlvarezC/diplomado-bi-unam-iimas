@@ -37,7 +37,7 @@ Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constr
 
 ## Paso 1 — Descargar archivos
 
-Cualquiera de las dos opciones funciona. Necesitas 3 archivos del repo: `listings.csv` (~59 MB), `neighbourhoods.csv` (275 B) y `neighbourhoods.geojson` (~335 KB, opcional, para Bloque 6).
+Cualquiera de las dos opciones funciona. Necesitas 2 archivos del repo: `listings.csv` (~59 MB) y `neighbourhoods.csv` (275 B).
 
 ### Opción A — Navegador
 
@@ -45,7 +45,6 @@ Cualquiera de las dos opciones funciona. Necesitas 3 archivos del repo: `listing
 2. Entra a cada archivo y usa el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor):
    - `listings.csv`
    - `neighbourhoods.csv`
-   - `neighbourhoods.geojson` (opcional)
 3. Guárdalos juntos en una carpeta que recuerdes (e.g., `~/diplomado-bi/datasets/airbnb/`).
 
 ### Opción B — Terminal
@@ -61,11 +60,6 @@ curl -L -O "$BASE/listings.csv"
 
 # Lista de las 16 alcaldías
 curl -L -O "$BASE/neighbourhoods.csv"
-
-# (Opcional, para Bloque 6) Polígonos GeoJSON de las alcaldías
-curl -L -O "$BASE/neighbourhoods.geojson"
-
-ls -lh
 ```
 
 ---
