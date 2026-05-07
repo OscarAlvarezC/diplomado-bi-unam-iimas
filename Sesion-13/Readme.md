@@ -29,4 +29,6 @@ Usar CTEs (Common Table Expressions) para escribir queries complejas legibles, y
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 14 →](../Sesion-14/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-14/Readme.md">Siguiente: Sesión 14 →</a>
+</p>

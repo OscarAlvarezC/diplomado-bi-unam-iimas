@@ -222,30 +222,48 @@ El crédito de Learner Lab es de $50 USD, así que olvidar pausar **una noche o 
 
 ---
 
-## Errores comunes
+<details>
+<summary><strong>Errores comunes</strong></summary>
 
-### "Cannot create db.serverless"
+<details>
+<summary>"Cannot create db.serverless"</summary>
 
 Estás eligiendo Aurora Serverless v2. **Pivota a Aprovisionado** (Tipo de escalabilidad de clúster → Aprovisionado).
 
-### "User is not authorized to perform: rds:CreateDBInstance"
+</details>
+
+<details>
+<summary>"User is not authorized to perform: rds:CreateDBInstance"</summary>
 
 Probablemente elegiste una clase de instancia más grande que `medium`. El Learner Lab solo permite hasta `db.t3.medium`. Vuelve y selecciona esa clase.
 
-### "Database creation failed"
+</details>
+
+<details>
+<summary>"Database creation failed"</summary>
 
 Causas comunes:
 - La contraseña maestra no cumple los requisitos (mínimo 8 caracteres, sin caracteres prohibidos como `/`, `"`, `@`, espacio).
 - Identifier del cluster ya existe en tu cuenta — usa otro nombre.
 - DB inicial name con caracteres no permitidos — usa solo letras, números, underscore.
 
-### El cluster nunca pasa de `Creando`
+</details>
+
+<details>
+<summary>El cluster nunca pasa de <code>Creando</code></summary>
 
 Después de 15 minutos sin progreso, lo más práctico es **eliminarlo y crearlo de nuevo**. Click → Acciones → Eliminar → desmarca "crear instantánea final" → confirma. Después vuelves al Paso 2.
 
-### No veo la opción de "Acceso público"
+</details>
+
+<details>
+<summary>No veo la opción de "Acceso público"</summary>
 
 Estás en la sección equivocada del formulario. Está dentro de **Conectividad** → expande la sección si está colapsada.
+
+</details>
+
+</details>
 
 ---
 
@@ -255,4 +273,6 @@ Continúa con **`02_dbeaver_conexion.md`** — vas a instalar DBeaver Community 
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 02 — DBeaver →](02_dbeaver_conexion.md)
+<p align="center">
+<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="02_dbeaver_conexion.md">Siguiente: 02 — DBeaver →</a>
+</p>

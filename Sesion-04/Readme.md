@@ -34,4 +34,6 @@ Scripts de referencia en [`../scripts/`](../scripts/).
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 05 →](../Sesion-05/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-05/Readme.md">Siguiente: Sesión 05 →</a>
+</p>

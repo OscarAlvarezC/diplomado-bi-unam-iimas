@@ -27,4 +27,6 @@ Integrar lo aprendido en las 15 sesiones previas en un caso práctico de intelig
 
 ---
 
-[← Volver al inicio](../README.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a>
+</p>

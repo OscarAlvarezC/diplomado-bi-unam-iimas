@@ -19,4 +19,6 @@ Transformar DataFrames limpios aplicando reglas de negocio: cálculos derivados,
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 08 →](../Sesion-08/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-08/Readme.md">Siguiente: Sesión 08 →</a>
+</p>

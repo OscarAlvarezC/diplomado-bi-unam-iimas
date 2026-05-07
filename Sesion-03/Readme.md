@@ -18,4 +18,6 @@ Diferenciar los tres patrones de modelado dimensional, entender los trade-offs e
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 04 →](../Sesion-04/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-04/Readme.md">Siguiente: Sesión 04 →</a>
+</p>

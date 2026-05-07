@@ -29,4 +29,6 @@ Práctica intensiva sobre `fact_sales` × `dim_date`: top-N productos por mes, c
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 13 →](../Sesion-13/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-13/Readme.md">Siguiente: Sesión 13 →</a>
+</p>

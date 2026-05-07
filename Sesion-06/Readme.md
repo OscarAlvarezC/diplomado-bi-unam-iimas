@@ -28,4 +28,6 @@ Aplicar técnicas de perfilado y limpieza a un dataset extraído, identificar pr
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 07 →](../Sesion-07/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-07/Readme.md">Siguiente: Sesión 07 →</a>
+</p>

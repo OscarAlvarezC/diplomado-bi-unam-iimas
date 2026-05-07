@@ -44,9 +44,9 @@ Por default, el cluster que creaste **no acepta conexiones de internet**, aunque
 3. Sección **Seguridad** → click en el security group (suele aparecer como `default (sg-XXXXXXXX)`).
 4. Esto te lleva a la consola de **EC2**, pero a una **vista filtrada de solo lectura** donde solo puedes ver las reglas existentes — todavía no las puedes editar desde aquí.
 
-### 2.2 — Abrir la vista de detalle del SG (donde sí se edita)
+### 2.2 — Abrir la vista de detalle del grupo de seguridad (donde sí se edita)
 
-1. En la tabla de **Grupos de seguridad** que aparece, click en el **ID del security group** (`sg-xxxxxxxxxxxxxxxxx`) en la columna izquierda. Eso abre la vista de detalle del SG.
+1. En la tabla de **Grupos de seguridad** que aparece, click en el **ID del grupo de seguridad** (`sg-xxxxxxxxxxxxxxxxx`) en la columna izquierda. Eso abre la vista de detalle del grupo de seguridad.
 2. Pestaña **Reglas de entrada** (Inbound rules) → botón **Editar reglas de entrada** (Edit inbound rules).
 
 ### 2.3 — Agregar (o actualizar) la regla del puerto 5432
@@ -145,28 +145,36 @@ Si los tres responden, **la conexión está completa**.
 
 ---
 
-## Errores comunes
+<details>
+<summary><strong>Errores comunes</strong></summary>
 
-### `Connection timed out` / `Connection refused`
+<details>
+<summary><code>Connection timed out</code> / <code>Connection refused</code></summary>
 
-Lo más probable: el security group no permite tu IP en 5432.
+Lo más probable: el grupo de seguridad no permite tu IP en 5432.
 
 **Diagnóstico:**
-- Verifica que `curl ifconfig.me` te devuelve la misma IP que la regla "My IP" del SG.
+- Verifica que `curl ifconfig.me` te devuelve la misma IP que la regla "My IP" del grupo de seguridad.
 - Si no coinciden, edita la regla y vuelve a hacer click en "My IP" → Save.
 
 Otras causas menos comunes:
-- Tu cluster está `Stopped` — RDS → Start.
-- Public access del cluster está en No — RDS → Modify → Public access: Yes → Apply.
+- Tu cluster está `Detenido` — RDS → Iniciar.
+- Acceso público del cluster está en No — RDS → Modify → Public access: Yes → Apply.
 
-### `FATAL: password authentication failed for user "postgres"`
+</details>
+
+<details>
+<summary><code>FATAL: password authentication failed for user "postgres"</code></summary>
 
 Password incorrecto. Tres opciones:
 1. Re-verifica el password en tu password manager.
 2. Si lo perdiste: RDS → tu cluster → **Modify** → **New master password** → escribe uno nuevo → **Apply immediately** → espera ~3 min.
 3. Pega el password directamente desde el password manager (sin retypear) — los caracteres especiales se escapan a veces mal al teclear.
 
-### `FATAL: database "northwind" does not exist`
+</details>
+
+<details>
+<summary><code>FATAL: database "northwind" does not exist</code></summary>
 
 Verifica el nombre exacto. La base se llama `northwind` (todo en minúsculas, sin espacios). Si no la creaste con ese nombre en la guía 01, conéctate a la base default (`postgres`) y créala:
 
@@ -176,17 +184,27 @@ CREATE DATABASE northwind;
 
 Después reconecta la conexión de DBeaver apuntando a `northwind`.
 
-### `Unknown host` / `nslookup failed`
+</details>
+
+<details>
+<summary><code>Unknown host</code> / <code>nslookup failed</code></summary>
 
 Hostname mal copiado. Causas típicas:
 - Espacio o salto de línea oculto al copiar.
 - Te perdiste algún caracter.
 
-Solución: vuelve a RDS → cluster → **Connectivity & security** → endpoints → usa el botón de copiar (ícono al lado del endpoint).
+Solución: vuelve a RDS → cluster → **Conectividad y seguridad** → endpoints → usa el botón de copiar (ícono al lado del endpoint).
 
-### DBeaver pide instalar drivers cada vez
+</details>
+
+<details>
+<summary>DBeaver pide instalar drivers cada vez</summary>
 
 Si DBeaver no recuerda los drivers descargados, abre **Database** → **Driver Manager** → busca PostgreSQL → verifica que dice "Default driver" en verde. Si no, click → **Edit Driver** → **Download / Update** → confirma.
+
+</details>
+
+</details>
 
 ---
 
@@ -217,4 +235,6 @@ Continúa con **`03_northwind_oltp.md`** — vas a cargar el dataset Northwind (
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 03 — Northwind OLTP →](03_northwind_oltp.md)
+<p align="center">
+<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="03_northwind_oltp.md">Siguiente: 03 — Northwind OLTP →</a>
+</p>

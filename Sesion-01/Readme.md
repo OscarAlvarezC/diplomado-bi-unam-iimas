@@ -29,7 +29,7 @@ Para enviar consultas SQL al cluster necesitamos un cliente. Vamos a usar **DBea
 
 <ins>Cargar Northwind OLTP</ins>
 
-**Northwind** es el dataset transaccional de ejemplo más conocido en la industria: una empresa ficticia de importación/exportación de alimentos con clientes, pedidos, productos, empleados y proveedores. Lo cargamos en el schema `northwind_oltp` desde un dump SQL — **14 tablas** y unas **3 200 filas**, chico pero realista. Va a hacer las veces de "sistema operacional fuente" para todo lo que sigue: el data warehouse, el ETL en Python y los ejercicios de SQL avanzado.
+**Northwind** es el dataset transaccional de ejemplo más conocido en la industria: una empresa ficticia de importación/exportación de alimentos con clientes, pedidos, productos, empleados y proveedores. Lo cargamos en el schema `northwind_oltp` desde un dump SQL — **14 tablas** y unas **3 200 filas**, chico pero realista. Actuará como **fuente operacional** para todo lo que sigue: el data warehouse, el ETL en Python y los ejercicios de SQL avanzado.
 
 [**`Guía 03`**](../setup/03_northwind_oltp.md)
 
@@ -61,4 +61,6 @@ Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 02 →](../Sesion-02/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-02/Readme.md">Siguiente: Sesión 02 →</a>
+</p>

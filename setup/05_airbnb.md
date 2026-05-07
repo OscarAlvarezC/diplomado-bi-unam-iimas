@@ -7,7 +7,7 @@
 ## Prerequisitos
 
 - ✅ DBeaver conectado a `aurora-mod4`.
-- ✅ Cluster `Available` y SG My IP actualizado.
+- ✅ Cluster `Disponible` y regla My IP del grupo de seguridad actualizada.
 - ✅ ~80 MB libres en disco para los archivos descomprimidos.
 
 ---
@@ -216,9 +216,11 @@ Verás algo como `["Wifi", "Kitchen", "Free parking", ...]` — un JSON array se
 
 ---
 
-## Errores comunes
+<details>
+<summary><strong>Errores comunes</strong></summary>
 
-### `count(*) = 48 965` en lugar de 27 051
+<details>
+<summary><code>count(*) = 48 965</code> en lugar de 27 051</summary>
 
 El parser CSV trató los `\n` dentro de descripciones como saltos de fila. Causa: encoding incorrecto, quote char mal configurado, o archivo corrupto.
 
@@ -228,21 +230,37 @@ TRUNCATE airbnb.listings;
 
 Re-carga revisando: encoding=UTF-8, quote char=`"`, escape char=`\`.
 
-### "The separator, quote, and escape characters must be different!"
+</details>
+
+<details>
+<summary>"The separator, quote, and escape characters must be different!"</summary>
 
 Cambiaste el escape char a `"` pensando en RFC 4180. **Devuélvelo a `\`**. PostgreSQL maneja automáticamente el `""` doblado de RFC 4180 cuando quote char es `"` — el escape char es para una convención distinta (backslash). Con `\` el wizard funciona.
 
-### El wizard propone "Create new table"
+</details>
+
+<details>
+<summary>El wizard propone "Create new table"</summary>
 
 Te perdiste el paso de seleccionar la tabla destino. Cancela. En el árbol del Database Navigator, **expande hasta `listings`** y haz click derecho directamente sobre la tabla. Vuelve a empezar.
 
-### Carga muy lenta
+</details>
+
+<details>
+<summary>Carga muy lenta</summary>
 
 27 051 × 79 = ~2.1 millones de celdas. En máquinas modestas tarda 1-3 minutos. Si pasa de 5 min sin progreso, cancela e intenta con batch size mayor (5000).
 
-### "Empty string is null" — me equivoqué
+</details>
+
+<details>
+<summary>"Empty string is null" — me equivoqué</summary>
 
 Si la marcaste y querías no marcarla (o viceversa), `TRUNCATE TABLE airbnb.listings` y re-carga con la configuración correcta. `TRUNCATE` solo borra filas — la estructura, los índices, etc. quedan intactos.
+
+</details>
+
+</details>
 
 ---
 
@@ -269,9 +287,11 @@ Si tu cluster Aurora llega a fallar en algún momento durante el semestre, hay u
 
 Recuerda:
 - 🔴 **Pausa el cluster** (Stop temporarily) al terminar cada sesión de trabajo.
-- 🟢 **Reanuda y refresca SG My IP** al empezar la siguiente.
+- 🟢 **Reanuda y refresca la regla My IP del grupo de seguridad** al empezar la siguiente.
 - 💰 Tu crédito Learner Lab es ~$50 USD. El cluster cuesta ~$2/día encendido.
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
+<p align="center">
+<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a>
+</p>

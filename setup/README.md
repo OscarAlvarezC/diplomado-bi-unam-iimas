@@ -19,9 +19,11 @@ Si te perdiste una sesión o se te trabó algo durante la clase, las guías son 
 ## Recordatorios operativos
 
 - 🔴 **Pausa el cluster** cuando termines de trabajar — RDS → Stop temporarily. Cuesta ~$0.08 USD/h encendido.
-- 🟢 **Reanuda + refresca SG My IP** al empezar la siguiente sesión.
+- 🟢 **Reanuda + refresca la regla My IP del grupo de seguridad** al empezar la siguiente sesión.
 - 💰 Tu crédito Learner Lab es ~$50 USD. Olvidar pausar una semana cuesta ~$13 USD.
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md)
+<p align="center">
+<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a>
+</p>

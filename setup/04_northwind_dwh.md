@@ -42,6 +42,20 @@ No hace falta entender todo esto a fondo ahora — los scripts están comentados
 
 ## Paso 1 — Descargar los 4 scripts SQL
 
+Cualquiera de las dos opciones funciona. Los 4 archivos suman ~30 KB.
+
+### Opción A — Navegador
+
+1. Abre la carpeta del repo: <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/tree/main/scripts>.
+2. Entra a cada uno de los 4 archivos y usa el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor):
+   - `01_northwind_dwh_ddl.sql`
+   - `02_dim_date_populate.sql`
+   - `03_dims_populate.sql`
+   - `04_fact_populate.sql`
+3. Guárdalos juntos en una carpeta que recuerdes (e.g., `~/diplomado-bi/scripts/`).
+
+### Opción B — Terminal
+
 ```bash
 mkdir -p ~/diplomado-bi/scripts
 cd ~/diplomado-bi/scripts
@@ -56,8 +70,6 @@ curl -L -O "$BASE/04_fact_populate.sql"
 ls -la
 ```
 
-Esperado: 4 archivos `.sql`, total ~30 KB.
-
 ---
 
 ## Paso 2 — Crear el DDL del star (script 01)
@@ -68,20 +80,18 @@ En DBeaver, en una pestaña SQL Editor de la conexión `aurora-mod4`:
 2. Lee los comentarios al inicio del archivo (te explican qué crea y por qué).
 3. Ejecuta todo el script con **Alt+X**.
 
-El script crea **6 tablas** dentro del schema `northwind_dwh`:
+El script crea **6 tablas vacías** dentro del schema `northwind_dwh` — solo la estructura, todavía sin datos:
 
-```
-dim_customer    91 filas (después de poblarla)
-dim_product     77 filas
-dim_employee    9 filas
-dim_shipper     6 filas
-dim_date        1 096 filas
-fact_sales      2 155 filas
-```
+- `dim_customer`
+- `dim_product`
+- `dim_employee`
+- `dim_shipper`
+- `dim_date`
+- `fact_sales`
 
-Por ahora todas están **vacías** — solo creamos la estructura.
+Las poblamos en los pasos siguientes.
 
-### Verificar
+### Verificar (en [`01_northwind_dwh_ddl.sql`](../scripts/01_northwind_dwh_ddl.sql))
 
 ```sql
 SELECT table_name FROM information_schema.tables
@@ -101,7 +111,7 @@ ORDER BY table_name;
 
 Tarda menos de 1 segundo.
 
-### Verificar
+### Verificar (en [`02_dim_date_populate.sql`](../scripts/02_dim_date_populate.sql))
 
 ```sql
 SELECT count(*) FROM northwind_dwh.dim_date;
@@ -125,7 +135,7 @@ Carga `dim_customer`, `dim_product`, `dim_employee`, `dim_shipper` desde `northw
 
 Tarda <1 segundo.
 
-### Verificar
+### Verificar (en [`03_dims_populate.sql`](../scripts/03_dims_populate.sql))
 
 ```sql
 SELECT 'dim_customer' AS dim, count(*) FROM northwind_dwh.dim_customer
@@ -154,7 +164,7 @@ Es el paso central: para cada línea de pedido en `order_details`, crea una fila
 
 Tarda 1-2 segundos.
 
-### Verificar
+### Verificar (en [`04_fact_populate.sql`](../scripts/04_fact_populate.sql))
 
 ```sql
 SELECT count(*) FROM northwind_dwh.fact_sales;
@@ -183,17 +193,25 @@ Si la última query te devuelve 8 categorías con números coherentes, **toda la
 
 ---
 
-## Errores comunes
+<details>
+<summary><strong>Errores comunes</strong></summary>
 
-### `ERROR: relation "northwind_dwh.dim_xxx" does not exist`
+<details>
+<summary><code>ERROR: relation "northwind_dwh.dim_xxx" does not exist</code></summary>
 
 Te saltaste el script 01. Corre `01_northwind_dwh_ddl.sql` primero.
 
-### `ERROR: insert or update on table "fact_sales" violates foreign key constraint`
+</details>
 
-Las dims no están pobladas. La fact tiene FKs a las 5 dims — necesita que dim_date, dim_customer, dim_product, dim_employee, dim_shipper tengan datos antes. Vuelve a correr scripts 02 y 03.
+<details>
+<summary><code>ERROR: insert or update on table "fact_sales" violates foreign key constraint</code></summary>
 
-### `ERROR: duplicate key value violates unique constraint`
+Las dims no están pobladas. La fact tiene FKs a las 5 dims — necesita que `dim_date`, `dim_customer`, `dim_product`, `dim_employee`, `dim_shipper` tengan datos antes. Vuelve a correr los scripts 02 y 03.
+
+</details>
+
+<details>
+<summary><code>ERROR: duplicate key value violates unique constraint</code></summary>
 
 Re-ejecutaste un script que ya había corrido. Las natural keys (`customer_id`, `product_id`, etc.) tienen UNIQUE constraint. Para reiniciar limpio:
 
@@ -209,7 +227,10 @@ RESTART IDENTITY CASCADE;
 
 Después corre los scripts 02, 03, 04 de nuevo en orden.
 
-### Conteo de `fact_sales` no es 2155
+</details>
+
+<details>
+<summary>Conteo de <code>fact_sales</code> no es 2155</summary>
 
 Pierdes filas si las dims tienen huecos. Diagnóstico:
 
@@ -221,11 +242,18 @@ WHERE dp.product_key IS NULL;
 -- Esperado: 0
 ```
 
-Si te da > 0, falta poblar `dim_product`. Re-corre script 03.
+Si te da > 0, falta poblar `dim_product`. Re-corre el script 03.
 
-### `SUM(line_total)` difiere ligeramente del cálculo OLTP
+</details>
+
+<details>
+<summary><code>SUM(line_total)</code> difiere ligeramente del cálculo OLTP</summary>
 
 **Esto es esperado y correcto.** El OLTP usa `REAL` (float) para precios — guarda 19.99 como 19.989999771... aproximadamente. El DWH usa `NUMERIC` exacto y el script 04 redondea a 2 decimales (`ROUND(unit_price::NUMERIC, 2)`). La diferencia entre los dos `SUM` es de centavos y refleja que el DW **corrigió la imprecisión del origen**. No es bug, es feature.
+
+</details>
+
+</details>
 
 ---
 
@@ -273,4 +301,6 @@ Continúa con **`05_airbnb.md`** — vas a cargar el dataset **Airbnb CDMX** (sn
 
 ---
 
-[← Volver al índice de la sesión 1](../Sesion-01/Readme.md) | [Siguiente: 05 — Airbnb →](05_airbnb.md)
+<p align="center">
+<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="05_airbnb.md">Siguiente: 05 — Airbnb →</a>
+</p>

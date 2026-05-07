@@ -36,4 +36,6 @@ Datos en [`../datasets/airbnb/`](../datasets/airbnb/), schema bronze creado en [
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 16 →](../Sesion-16/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-16/Readme.md">Siguiente: Sesión 16 →</a>
+</p>

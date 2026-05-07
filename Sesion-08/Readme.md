@@ -29,4 +29,6 @@ Cargar los DataFrames transformados al data warehouse, estructurar el pipeline E
 
 ---
 
-[← Volver al inicio](../README.md) | [Siguiente: Sesión 09 →](../Sesion-09/Readme.md)
+<p align="center">
+<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-09/Readme.md">Siguiente: Sesión 09 →</a>
+</p>
