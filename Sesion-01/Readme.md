@@ -62,7 +62,20 @@ Sobre `northwind_oltp` construimos un **data warehouse** en el schema `northwind
 
 <ins>Smoke test</ins>
 
-Para cerrar la sesión, una query analítica corta que toque los tres schemas a la vez (`northwind_oltp`, `northwind_dwh`, `airbnb`). Si devuelve resultados sin errores, el entorno está listo y a partir de la siguiente sesión todo el tiempo de clase queda libre para contenido analítico — sin volver a tocar `search_path`, security groups ni cargas de CSV.
+Para cerrar la sesión hacemos un **smoke test**. El término viene de la electrónica: la primera vez que enciendes un circuito nuevo, "le buscas el humo" — si sale, algo está mal y hay que apagar; si no sale, al menos lo básico funciona. En software se adopta la misma idea: una prueba mínima que no valida todo, solo confirma que las piezas esenciales arrancan.
+
+Aquí basta con una query corta que toque los tres schemas a la vez:
+
+```sql
+SELECT 'OLTP'    AS origen, count(*) AS filas FROM northwind_oltp.customers
+UNION ALL
+SELECT 'DWH',              count(*)         FROM northwind_dwh.fact_sales
+UNION ALL
+SELECT 'AIRBNB',           count(*)         FROM airbnb.listings;
+-- Esperado: 91 / 2155 / 27051
+```
+
+Si devuelve los tres conteos sin errores, el entorno está listo y a partir de la siguiente sesión todo el tiempo de clase queda libre para contenido analítico — sin volver a tocar `search_path`, security groups ni cargas de CSV.
 
 ## :books: Material
 
