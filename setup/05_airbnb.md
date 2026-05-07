@@ -35,59 +35,22 @@ Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constr
 
 ---
 
-## Paso 1 — Descargar archivos
+## Paso 1 — Ubicar los archivos
 
-Cualquiera de las dos opciones funciona. Necesitas 2 archivos del repo: `listings.csv` (~59 MB) y `neighbourhoods.csv` (275 B).
+Los archivos del dataset están en `datasets/airbnb/` del repo descomprimido:
 
-### Opción A — Navegador
+- `listings.csv` (~59 MB) — 27 051 listings × 79 columnas.
+- `neighbourhoods.csv` (275 B) — 16 alcaldías de CDMX.
 
-1. Abre la carpeta del repo: <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/tree/main/datasets/airbnb>.
-2. Entra a cada archivo y usa el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor):
-   - `listings.csv`
-   - `neighbourhoods.csv`
-3. Guárdalos juntos en una carpeta que recuerdes (e.g., `~/diplomado-bi/datasets/airbnb/`).
-
-### Opción B — Terminal
-
-```bash
-mkdir -p ~/diplomado-bi/datasets/airbnb
-cd ~/diplomado-bi/datasets/airbnb
-
-BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/datasets/airbnb"
-
-# Listings (59 MB, snapshot CDMX 2025-09-27)
-curl -L -O "$BASE/listings.csv"
-
-# Lista de las 16 alcaldías
-curl -L -O "$BASE/neighbourhoods.csv"
-```
+El script DDL que crea schema y tablas está en `scripts/05_airbnb_ddl.sql`.
 
 ---
 
 ## Paso 2 — Crear schema y tablas (script DDL)
 
-Descarga el script `05_airbnb_ddl.sql`. Cualquiera de las dos opciones funciona.
+En DBeaver, conexión `aurora-mod4`:
 
-### Opción A — Navegador
-
-1. Abre <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/scripts/05_airbnb_ddl.sql>.
-2. Click en **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor).
-3. Guárdalo en una carpeta que recuerdes (e.g., `~/diplomado-bi/scripts/`).
-
-### Opción B — Terminal
-
-```bash
-mkdir -p ~/diplomado-bi/scripts
-cd ~/diplomado-bi/scripts
-
-curl -L -O "https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/scripts/05_airbnb_ddl.sql"
-```
-
-### Ejecutar en DBeaver
-
-En la conexión `aurora-mod4`:
-
-1. **File → Open File** → `05_airbnb_ddl.sql`.
+1. **File → Open File** → `scripts/05_airbnb_ddl.sql`.
 2. Lee los comentarios al inicio del archivo.
 3. Ejecuta todo con **Alt+X**.
 

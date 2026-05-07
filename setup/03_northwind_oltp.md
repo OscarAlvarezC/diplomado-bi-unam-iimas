@@ -26,36 +26,18 @@ El módulo organiza sus datasets como **schemas** dentro de **una sola base** `n
 
 ---
 
-## Paso 1 — Descargar el dump
+## Paso 1 — Ejecutar el script en DBeaver
 
-Cualquiera de las dos opciones funciona. El archivo es ~340 KB y crea el schema `northwind_oltp` y carga las 14 tablas en una sola pasada — no hay que hacer nada más.
+El dump está en `datasets/northwind/northwind.sql` del repo descomprimido. Crea el schema `northwind_oltp` y carga las 14 tablas en una sola pasada — no hay que hacer nada más.
 
-### Opción A — Navegador
-
-1. Abre <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/datasets/northwind/northwind.sql> en tu navegador.
-2. Click en el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor de código).
-3. Guarda el archivo como `northwind.sql` en una carpeta que recuerdes (e.g., `~/diplomado-bi/datasets/`).
-
-### Opción B — Terminal
-
-```bash
-mkdir -p ~/diplomado-bi/datasets
-curl -L -o ~/diplomado-bi/datasets/northwind.sql \
-  https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/datasets/northwind/northwind.sql
-```
-
----
-
-## Paso 2 — Ejecutar el script en DBeaver
-
-1. **File → Open File** → selecciona `~/diplomado-bi/datasets/northwind.sql`.
+1. **File → Open File** → selecciona `datasets/northwind/northwind.sql`.
 2. Ejecuta todo el script con **Alt+X** ("Execute SQL Script").
 
 Vas a ver muchos `CREATE TABLE`, `ALTER TABLE` e `INSERT` en la consola — es normal. El dump tiene ~3 400 inserciones que se ejecutan una a una, así que **suele tardar entre 5 y 6 minutos** dependiendo de tu latencia a la región `us-east-1`. No canceles aunque parezca lento.
 
 ---
 
-## Paso 3 — Verificar la carga
+## Paso 2 — Verificar la carga
 
 ```sql
 SELECT count(*) AS total_tablas

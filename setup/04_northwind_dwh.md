@@ -40,33 +40,16 @@ No hace falta entender todo esto a fondo ahora — los scripts están comentados
 
 ---
 
-## Paso 1 — Descargar los 4 scripts SQL
+## Paso 1 — Ubicar los 4 scripts SQL
 
-Cualquiera de las dos opciones funciona. Los 4 archivos suman ~30 KB.
+Los 4 scripts están en `scripts/` del repo descomprimido:
 
-### Opción A — Navegador
+- `01_northwind_dwh_ddl.sql`
+- `02_dim_date_populate.sql`
+- `03_dims_populate.sql`
+- `04_fact_populate.sql`
 
-1. Abre la carpeta del repo: <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/tree/main/scripts>.
-2. Entra a cada uno de los 4 archivos y usa el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor):
-   - `01_northwind_dwh_ddl.sql`
-   - `02_dim_date_populate.sql`
-   - `03_dims_populate.sql`
-   - `04_fact_populate.sql`
-3. Guárdalos juntos en una carpeta que recuerdes (e.g., `~/diplomado-bi/scripts/`).
-
-### Opción B — Terminal
-
-```bash
-mkdir -p ~/diplomado-bi/scripts
-cd ~/diplomado-bi/scripts
-
-BASE="https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/scripts"
-
-curl -L -O "$BASE/01_northwind_dwh_ddl.sql"
-curl -L -O "$BASE/02_dim_date_populate.sql"
-curl -L -O "$BASE/03_dims_populate.sql"
-curl -L -O "$BASE/04_fact_populate.sql"
-```
+Se ejecutan en ese orden estricto en los pasos siguientes.
 
 ---
 

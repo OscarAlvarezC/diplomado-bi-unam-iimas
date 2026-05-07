@@ -11,6 +11,15 @@
 
 ## :file_folder: Contenido
 
+<ins>Antes de empezar: descargar el repo</ins>
+
+Se recomienda descargar el **ZIP del repo completo** y descomprimirlo en una carpeta de trabajo. Las guías siguientes asumen que tienes los archivos localmente, con rutas como `datasets/...` y `scripts/...`.
+
+- **Navegador:** <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas> → botón verde **Code** → **Download ZIP** → descomprime en `~/diplomado-bi/` (o donde prefieras).
+- **Terminal:** `git clone https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas.git ~/diplomado-bi`
+
+---
+
 <ins>Cluster Aurora PostgreSQL</ins>
 
 Antes de escribir queries necesitamos un servidor de base de datos. Vamos a aprovisionar un cluster **Aurora PostgreSQL** dentro del AWS Academy Learner Lab — Aurora es la versión gestionada de PostgreSQL que ofrece AWS, con replicación, backups y monitoreo integrados. La configuración es mínima (`Provisioned`, `db.t3.medium`, una sola instancia, acceso público) por las restricciones del Learner Lab. Este cluster será el backend que ejecute las queries durante todo el módulo.
