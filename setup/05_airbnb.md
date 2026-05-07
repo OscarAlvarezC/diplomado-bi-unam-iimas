@@ -14,7 +14,7 @@
 
 ## Concepto previo: el dataset y su contexto
 
-[Inside Airbnb](http://insideairbnb.com/) **NO es Airbnb la empresa** — es un proyecto independiente de transparencia que rasca datos públicos del sitio de Airbnb y los publica como CSVs descargables, organizados por ciudad.
+[Inside Airbnb](http://insideairbnb.com/) — es un proyecto independiente de transparencia que rasca datos públicos del sitio de Airbnb y los publica como CSVs descargables, organizados por ciudad.
 
 **Características del dataset:**
 
@@ -37,6 +37,19 @@ Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constr
 
 ## Paso 1 — Descargar archivos
 
+Cualquiera de las dos opciones funciona. Necesitas 3 archivos del repo: `listings.csv.gz` (~14 MB), `neighbourhoods.csv` (275 B) y `neighbourhoods.geojson` (~335 KB, opcional, para Bloque 6).
+
+### Opción A — Navegador
+
+1. Abre la carpeta del repo: <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/tree/main/datasets/airbnb>.
+2. Entra a cada archivo y usa el botón **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor):
+   - `listings.csv.gz`
+   - `neighbourhoods.csv`
+   - `neighbourhoods.geojson` (opcional)
+3. Guárdalos juntos en una carpeta que recuerdes (e.g., `~/diplomado-bi/datasets/airbnb/`).
+
+### Opción B — Terminal
+
 ```bash
 mkdir -p ~/diplomado-bi/datasets/airbnb
 cd ~/diplomado-bi/datasets/airbnb
@@ -54,11 +67,6 @@ curl -L -O "$BASE/neighbourhoods.geojson"
 
 ls -lh
 ```
-
-Esperado:
-- `listings.csv.gz` ~14 MB
-- `neighbourhoods.csv` 275 B
-- `neighbourhoods.geojson` ~335 KB
 
 ### Descomprimir el listings
 
@@ -79,13 +87,26 @@ Esperado: `listings.csv` ~59 MB sin comprimir.
 
 ## Paso 2 — Crear schema y tablas (script DDL)
 
+Descarga el script `05_airbnb_ddl.sql`. Cualquiera de las dos opciones funciona.
+
+### Opción A — Navegador
+
+1. Abre <https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/scripts/05_airbnb_ddl.sql>.
+2. Click en **Download raw file** (ícono de flecha hacia abajo, arriba a la derecha del visor).
+3. Guárdalo en una carpeta que recuerdes (e.g., `~/diplomado-bi/scripts/`).
+
+### Opción B — Terminal
+
 ```bash
+mkdir -p ~/diplomado-bi/scripts
 cd ~/diplomado-bi/scripts
 
 curl -L -O "https://raw.githubusercontent.com/OscarAlvarezC/diplomado-bi-unam-iimas/main/scripts/05_airbnb_ddl.sql"
 ```
 
-En DBeaver, conexión `aurora-mod4`:
+### Ejecutar en DBeaver
+
+En la conexión `aurora-mod4`:
 
 1. **File → Open File** → `05_airbnb_ddl.sql`.
 2. Lee los comentarios al inicio del archivo.
