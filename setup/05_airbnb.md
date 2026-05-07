@@ -59,7 +59,7 @@ Crea:
 - Tabla `airbnb.listings` (79 columnas TEXT, sin PK ni constraints).
 - Tabla `airbnb.neighbourhoods` (2 columnas, PK sobre `neighbourhood`).
 
-### Verificar
+### Verificar (en [`05_airbnb_ddl.sql`](../scripts/05_airbnb_ddl.sql))
 
 ```sql
 SELECT table_name FROM information_schema.tables
@@ -92,9 +92,6 @@ WHERE table_schema = 'airbnb' AND table_name = 'listings';
 | **Delimiter** | `,` (coma) |
 | **Quote char** | `"` (comilla doble) |
 | **Escape char** | `\` (default, no cambiar) |
-| **Empty string is null** | **NO marcar** ⚠️ |
-
-> ⚠️ **No marques "Empty string is null"** — quieres preservar las celdas vacías como string vacío, no convertirlas a NULL. Mantenemos el origen 1:1.
 
 ### 3.3 — Mapping
 
@@ -122,13 +119,13 @@ Mismo flujo, pero más rápido:
 
 1. Click derecho en `airbnb.neighbourhoods` → **Import Data** → CSV.
 2. Archivo: `~/diplomado-bi/datasets/airbnb/neighbourhoods.csv`.
-3. Mismas settings que el paso 3.2 — pero esta vez **SÍ marca "Empty string is null"** (la columna `neighbourhood_group` viene vacía en CDMX y queremos que sea NULL).
+3. Mismas settings que el paso 3.2.
 4. Mapeo: 2 columnas a 2 columnas, trivial.
 5. Proceed. Termina en segundos.
 
 ---
 
-## Paso 5 — Verificación
+## Paso 5 — Verificación (en [`05_airbnb_ddl.sql`](../scripts/05_airbnb_ddl.sql))
 
 ### 5.1 — Conteos
 
@@ -213,13 +210,6 @@ Te perdiste el paso de seleccionar la tabla destino. Cancela. En el árbol del D
 <summary>Carga muy lenta</summary>
 
 27 051 × 79 = ~2.1 millones de celdas. En máquinas modestas tarda 1-3 minutos. Si pasa de 5 min sin progreso, cancela e intenta con batch size mayor (5000).
-
-</details>
-
-<details>
-<summary>"Empty string is null" — me equivoqué</summary>
-
-Si la marcaste y querías no marcarla (o viceversa), `TRUNCATE TABLE airbnb.listings` y re-carga con la configuración correcta. `TRUNCATE` solo borra filas — la estructura, los índices, etc. quedan intactos.
 
 </details>
 
