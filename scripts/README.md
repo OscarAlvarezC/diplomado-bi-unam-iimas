@@ -1,6 +1,6 @@
 # Scripts SQL
 
-Scripts ejecutables que construyen el data warehouse de Northwind y el schema bronze de Airbnb. Diseñados para correrse en **PostgreSQL 17** sobre la base `northwind` (creada en `setup/01_cluster_aurora.md`).
+Scripts ejecutables que construyen el data warehouse de Northwind y el schema de Airbnb. Diseñados para correrse en **PostgreSQL 17** sobre la base `northwind` (creada en `setup/01_cluster_aurora.md`).
 
 ## Orden de ejecución
 
@@ -12,7 +12,7 @@ Los nombres tienen prefijo numérico (`01_`, `02_`, ...) que indica el orden est
 | 02 | `02_dim_date_populate.sql` | Genera `dim_date` con `generate_series` para 1996-01-01 a 1998-12-31. Smart key YYYYMMDD, ISO weekday, nombres en español. | 1 096 |
 | 03 | `03_dims_populate.sql` | Pobla `dim_customer`, `dim_product`, `dim_employee`, `dim_shipper` desde `northwind_oltp` con `INSERT … SELECT … JOIN`. Aplana jerarquías (categories+suppliers en dim_product) y resuelve self-FK (reports_to). | 91 / 77 / 9 / 6 |
 | 04 | `04_fact_populate.sql` | Pobla `fact_sales` desde `order_details JOIN orders`, **resolviendo cada natural key a su surrogate key** vía joins con cada dim. Aplica `ROUND(...::NUMERIC, 2)` para corregir imprecisión de REAL del origen. | 2 155 |
-| 05 | `05_airbnb_ddl.sql` | Crea schema `airbnb` + tabla `listings` (79 cols TEXT, bronze) + tabla `neighbourhoods`. **No carga datos** — los CSVs se cargan vía DBeaver Import Wizard. | 2 tablas vacías |
+| 05 | `05_airbnb_ddl.sql` | Crea schema `airbnb` + tabla `listings` (79 cols TEXT) + tabla `neighbourhoods`. **No carga datos** — los CSVs se cargan vía DBeaver Import Wizard. | 2 tablas vacías |
 
 ## Cómo ejecutar
 

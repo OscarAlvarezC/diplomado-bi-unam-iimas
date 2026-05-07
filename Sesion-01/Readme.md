@@ -6,7 +6,7 @@
 - Abrir una conexión validada al cluster en DBeaver.
 - Cargar el dataset Northwind como sistema **OLTP** (`northwind_oltp`).
 - Construir el **data warehouse** Northwind (`northwind_dwh`) ejecutando los scripts DDL y de población.
-- Cargar el snapshot de Inside Airbnb CDMX en bronze (`airbnb`).
+- Cargar el snapshot de Inside Airbnb CDMX en el schema `airbnb`.
 - Verificar con una query corta que los tres schemas están operativos.
 
 ## :file_folder: Contenido
@@ -45,7 +45,7 @@ Sobre `northwind_oltp` construimos un **data warehouse** en el schema `northwind
 
 <ins>Cargar Airbnb CDMX</ins>
 
-**Inside Airbnb** es un proyecto independiente de transparencia urbana (no afiliado a Airbnb la empresa) que publica snapshots mensuales de los listings de Airbnb por ciudad bajo licencia CC0. Cargamos el snapshot de Ciudad de México (**27 051 listings × 79 columnas**) en el schema `airbnb` como capa **bronze**: todas las columnas TEXT, sin tipos ni constraints, fiel a la fuente. En las **Sesiones 14 y 15** vamos a usar estos datos para explotar columnas semi-estructuradas con `hstore` y `JSONB`.
+**Inside Airbnb** es un proyecto independiente de transparencia urbana (no afiliado a Airbnb la empresa) que publica snapshots mensuales de los listings de Airbnb por ciudad bajo licencia CC0. Cargamos el snapshot de Ciudad de México (**27 051 listings × 79 columnas**) en el schema `airbnb` con todas las columnas TEXT, sin tipos ni constraints, fiel a la fuente. En las **Sesiones 14 y 15** vamos a usar estos datos para explotar columnas semi-estructuradas con `hstore` y `JSONB`.
 
 [**`Guía 05`**](../setup/05_airbnb.md)
 

@@ -31,7 +31,7 @@ schema airbnb
 └── neighbourhoods  (16 alcaldías de CDMX)
 ```
 
-Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constraints. Esa es la "capa bronze" o "landing" del ETL: preservar el origen tal cual antes de transformarlo. En el Bloque 6 verás cómo extraer datos tipados (numéricos, booleanos, JSONB) desde estas columnas.
+Las 79 columnas de `listings` se cargan **todas como TEXT**, sin tipos ni constraints — preservamos el origen tal cual antes de transformarlo. En el Bloque 6 verás cómo extraer datos tipados (numéricos, booleanos, JSONB) desde estas columnas.
 
 ---
 
@@ -131,7 +131,7 @@ WHERE table_schema = 'airbnb' AND table_name = 'listings';
 | **Escape char** | `\` (default, no cambiar) |
 | **Empty string is null** | **NO marcar** ⚠️ |
 
-> ⚠️ **No marques "Empty string is null"** — quieres preservar las celdas vacías como string vacío, no convertirlas a NULL. Es purismo de "bronze layer": el origen 1:1.
+> ⚠️ **No marques "Empty string is null"** — quieres preservar las celdas vacías como string vacío, no convertirlas a NULL. Mantenemos el origen 1:1.
 
 ### 3.3 — Mapping
 
