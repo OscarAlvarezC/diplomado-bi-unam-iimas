@@ -26,7 +26,7 @@ Se recomienda descargar el **ZIP del repo completo** y descomprimirlo en una car
 
 <ins>Cluster Aurora PostgreSQL</ins>
 
-Antes de escribir queries necesitamos un servidor de base de datos. Vamos a aprovisionar un cluster **Aurora PostgreSQL** dentro del AWS Academy Learner Lab — Aurora es la versión gestionada de PostgreSQL que ofrece AWS, con replicación, backups y monitoreo integrados. La configuración es mínima (`Provisioned`, `db.t3.medium`, una sola instancia, acceso público) por las restricciones del Learner Lab. Este cluster será el backend que ejecute las queries durante todo el módulo.
+Antes de escribir queries necesitamos un servidor de base de datos. Vamos a aprovisionar un cluster **Aurora PostgreSQL** dentro del AWS Academy Learner Lab. Aurora es uno de los motores que ofrece **RDS** (Relational Database Service, el servicio gestionado de bases relacionales de AWS) — es API-compatible con PostgreSQL estándar, pero con un storage distribuido propio que mejora el rendimiento y la resiliencia. La configuración es mínima (`Provisioned`, `db.t3.medium`, una sola instancia, acceso público) por las restricciones del Learner Lab. Este cluster será el backend que ejecute las queries durante todo el módulo.
 
 [**`Guía 01`**](../setup/01_cluster_aurora.md)
 
