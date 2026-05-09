@@ -61,6 +61,15 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 
 - **Aprovisionado**.
 
+<details>
+<summary><strong>¿Aprovisionado vs Serverless?</strong></summary>
+
+Aurora ofrece dos modelos de escalabilidad. **Aprovisionado** significa que tú decides el tamaño de la instancia (CPU y RAM) por adelantado — la instancia queda corriendo con esa capacidad fija y pagas por hora encendida, uses o no la base. **Serverless v2** delega esa decisión a AWS: el cluster auto-escala CPU y memoria según la carga real, midiendo el consumo en ACUs (Aurora Capacity Units) y cobrándote por consumo, no por hora encendida. Serverless es más conveniente para cargas impredecibles y se apaga solo en periodos de inactividad; Aprovisionado da más control y resulta más predecible en costo cuando la carga es estable.
+
+En este módulo elegimos **Aprovisionado** porque el AWS Academy Learner Lab **bloquea Serverless v2** y porque para uso educativo controlado (sabemos que vamos a tener el cluster encendido durante las clases y apagado el resto del tiempo) Aprovisionado funciona perfectamente.
+
+</details>
+
 #### Configuración
 
 | Campo | Valor |
@@ -80,6 +89,32 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 | Campo | Valor |
 |---|---|
 | Clase de instancia | **db.t3.medium** |
+
+<details>
+<summary><strong>¿Qué significa <code>db.t3.medium</code>?</strong></summary>
+
+Es la **clase de instancia** — una configuración pre-definida de hardware virtual (CPU, memoria) que AWS empaqueta como un "modelo" elegible para tu base. El nombre tiene tres partes:
+
+```
+db . t3 . medium
+│   │    │
+│   │    └── tamaño (vCPUs y RAM): medium = 2 vCPU, 4 GB RAM
+│   └─────── familia + generación: t3 = burstable Intel, 3ra gen
+└─────────── prefijo "database" (instancia para bases gestionadas)
+```
+
+**Familias principales:**
+
+| Familia | Perfil | Para qué |
+|---|---|---|
+| **t** (burstable) | CPU compartida con créditos: rápida en ráfagas, lenta si se agotan | Cargas esporádicas, dev, demos. **Es lo que usaremos.** |
+| **m** (general) | CPU dedicada, balance CPU/RAM | Default razonable para producción mediana |
+| **r** (memory-optimized) | Más RAM por vCPU (~8 GB / vCPU) | OLTP de producción seria, working set grande |
+| **c** (compute-optimized) | Más CPU, menos RAM | Cálculo intensivo |
+
+**Consecuencia:** la restricción a burstable también bloquea Aurora Serverless v2 y la RDS Data API (que requieren CPU dedicada). Por eso usamos DBeaver para conectarnos por TCP/5432 en lugar del Query Editor de la consola web.
+
+</details>
 
 #### Disponibilidad
 
@@ -107,6 +142,19 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 
 > ⚠️ **Acceso público** debe estar marcado. Si lo dejas en No, tu cluster queda solo accesible desde dentro de la VPC de AWS — y desde tu laptop no podrás llegar. Lo arreglas después editando el cluster, pero es más fácil ponerlo bien ahora.
 
+<details>
+<summary><strong>¿Para qué sirven las VPC?</strong></summary>
+
+Una **VPC (Virtual Private Cloud)** es tu red privada dentro de AWS — todo recurso con conectividad vive dentro de alguna. Aquí estamos usando la **VPC predeterminada** porque es lo más rápido para un entorno educativo, pero en producción real elegirías una VPC propia por dos razones principales:
+
+**1. Aislar proyectos o entornos.** En una empresa cada entorno (producción, staging, desarrollo) suele vivir en su propia VPC. Si lanzas una base "para experimentar" en la VPC `dev`, **garantizas** que ningún cambio accidental va a tocar `prod`, aunque ambas estén en la misma cuenta AWS. Las VPCs son la unidad básica de aislamiento de red.
+
+**2. Conectar VPCs entre sí cuando sí necesitas comunicación.** Si una aplicación vive en VPC A pero requiere acceder a una base en VPC B, las conectas explícitamente con **VPC peering** o **Transit Gateway** — solo el tráfico que tú apruebes pasa entre ellas. Esto te da control fino: aíslas por defecto, conectas selectivamente.
+
+En este módulo no necesitas nada de eso (un solo cluster, sin servicios privados, sin múltiples entornos), por eso usamos la VPC default sin problema.
+
+</details>
+
 #### Autenticación de base de datos
 
 - **Autenticación por contraseña** marcado (predeterminado). NO marques IAM ni Kerberos.
@@ -133,6 +181,13 @@ Llena el formulario con estos valores. Los que **no menciono explícitamente** d
 | Actualización automática de versiones secundarias | habilitada |
 | Ventana de mantenimiento | Sin preferencia |
 | Habilitar la protección contra la eliminación | **desactivado** (importante para poder eliminar el cluster sin trámite) |
+
+<details>
+<summary><strong>¿Qué se configura en un grupo de parámetros?</strong></summary>
+
+Un **grupo de parámetros** es el equivalente al archivo de configuración del motor PostgreSQL (`postgresql.conf`) y define cómo se comporta tu base: memoria para cache, configuración de logs, zona horaria y formato de fechas, timeouts (para matar queries colgadas o sesiones inactivas), extensiones precargadas (ej. `pg_stat_statements`), límite de conexiones simultáneas y otras políticas. AWS ofrece dos niveles — del **clúster** (uniforme para todas las instancias: zona horaria, encoding, extensiones precargadas, replicación) y de **base de datos** (por instancia: memoria, logs, conexiones, timeouts).
+
+</details>
 
 ![Nombre de base de datos inicial (`northwind`) y grupos de parámetros](img/paso2_2_6.png)
 
