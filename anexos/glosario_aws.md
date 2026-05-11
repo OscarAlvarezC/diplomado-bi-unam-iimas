@@ -139,5 +139,5 @@ Administrativamente Aurora vive en la consola de RDS (la creas, monitoreas y res
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="README.md">Volver al temario</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="README.md">Volver a anexos</a>
 </p>

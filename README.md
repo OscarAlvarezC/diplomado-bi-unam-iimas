@@ -20,6 +20,7 @@ Material de referencia que se usa en clase (no se requiere leerlo antes):
 - [`Guías de setup técnico`](./setup/README.md) — 5 guías paso a paso que el instructor sigue contigo durante las sesiones 01, 02, 05 y 14.
 - [`Datasets congelados`](./datasets/README.md) — Northwind y snapshot 2025-09-27 de Inside Airbnb CDMX.
 - [`Scripts SQL`](./scripts/README.md) — DDL del star schema y poblado de dimensiones/hechos.
+- [`Anexos`](./anexos/README.md) — material de referencia transversal: glosario de servicios AWS, etc.
 
 **Lo único que necesitas antes del primer día:**
 - Cuenta de **AWS Academy Learner Lab** activa (la asigna IIMAS / coordinación del diplomado).

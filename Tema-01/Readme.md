@@ -87,7 +87,7 @@ Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase
 
 ## :grey_question: Preguntas de clase
 
-Preguntas reales que han hecho alumnos durante este tema, con la respuesta que se discutió o se investigó después: [**`preguntas_de_clase.md`**](preguntas_de_clase.md).
+Preguntas reales que han hecho alumnos durante este tema, con las respuestas que demandaron investigación en profundidad después de clase: [**`preguntas_de_clase.md`**](preguntas_de_clase.md).
 
 [^1]: La [documentación oficial de PostgreSQL](https://www.postgresql.org/docs/current/populate.html) reconoce ambos como métodos primarios de carga (`COPY` para CSV y `pg_restore` para dumps SQL).
 

@@ -31,15 +31,15 @@ Una base **OLTP** es la que sostiene la operación diaria. Es lo que toca cuando
 ### Patrones de uso
 
 - **Muchas escrituras pequeñas y concurrentes.** Decenas, cientos o miles de transacciones por segundo, cada una afectando pocas filas.
-- **Lecturas puntuales por clave primaria.** "Dame el pedido `10248`", "dame el cliente `ALFKI`". Se sirven en milisegundos con el índice de la PK.
+- **Lecturas puntuales por clave primaria.** "Dame el pedido `10248`", "dame el cliente `ALFKI`". Se sirven en milisegundos con el índice de la llave primaria (PK).
 - **Tiempo de respuesta crítico.** Un usuario está esperando del otro lado. Si la query tarda 2 segundos, el pedido se cae.
 - **Datos siempre vivos.** Lo que veas tiene que ser lo último que escribió alguien hace medio segundo. Sin caché que retrase, sin réplica que se rezague.
 
 ### Consideraciones de diseño
 
-Para sostener este patrón el diseño hace tres cosas que ya viste en módulos previos del diplomado:
+Para sostener este patrón, el diseño hace tres cosas que ya viste en módulos previos del diplomado:
 
-1. **Normaliza fuerte.** Cada hecho del negocio vive en una sola tabla, sin duplicación. La consecuencia: una venta no se registra en una sola fila — se registra en `orders` (cabecera), `order_details` (líneas), referencia a `customers`, `products`, `employees`, `shippers`. Modificar el nombre de un cliente actualiza un solo lugar; lo demás sigue siendo correcto por los `JOIN`.
+1. **Normaliza fuerte.** Cada hecho del negocio vive en una sola tabla, sin duplicación. La consecuencia: una venta no se registra en una sola fila — se registra en `orders`, `order_details` , referencia a `customers`, `products`, `employees`, `shippers`. Modificar el nombre de un cliente actualiza un solo lugar; lo demás sigue siendo correcto por los `JOIN`.
 2. **Garantiza propiedades ACID.** Atomicidad, consistencia, aislamiento, durabilidad. Si el pedido se confirma, las cinco tablas que toca quedan coherentes; si algo falla a medio camino, la base revierte todo y ninguna tabla queda modificada. Las cuatro propiedades atacan problemas distintos:
 
     | Letra | Qué problema resuelve | Tipo de problema |
@@ -55,7 +55,7 @@ Para sostener este patrón el diseño hace tres cosas que ya viste en módulos p
 
 ### Cómo se ve en `northwind_oltp`
 
-Catorce tablas. La PK de `orders` es `order_id`, la PK de `order_details` es la pareja `(order_id, product_id)`. La fecha del pedido vive una sola vez en `orders.order_date`. La categoría de un producto está dos saltos de FK abajo: `order_details → products → categories`. Para registrar una venta, perfecto: tres `INSERT` y todo el contexto queda referenciado. Para preguntar "*¿cuánto vendí por categoría en 1997?*"... ya no es perfecto. Esa es la siguiente parte.
+Catorce tablas. La PK de `orders` es `order_id`, la PK de `order_details` es la pareja `(order_id, product_id)`. La fecha del pedido vive una sola vez en `orders.order_date`. La categoría de un producto está a dos `JOIN`s de distancia: `order_details → products → categories`. Para registrar una venta, perfecto: tres `INSERT` y todo el contexto queda referenciado. Para preguntar "*¿cuánto vendí por categoría en 1997?*"... ya no es perfecto. Esa es la siguiente parte.
 
 ---
 
@@ -93,7 +93,7 @@ Veamos las dos versiones de la pregunta *"ventas netas por categoría y mes en 1
 
 | Query sobre... | Tablas tocadas | Operaciones |
 |---|---|---|
-| `northwind_oltp` | `order_details`, `orders`, `products`, `categories` | 4 tablas, 3 joins, calcular `qty * price * (1-discount)` a mano, `EXTRACT(YEAR …)` y `EXTRACT(MONTH …)`, corregir tipo `REAL → NUMERIC` |
+| `northwind_oltp` | `order_details`, `orders`, `products`, `categories` | 4 tablas, 3 joins, `SUM(qty * price * (1-discount))` con la métrica calculada a mano, `EXTRACT(YEAR …)` y `EXTRACT(MONTH …)`, corregir tipo `REAL → NUMERIC`, agrupar por categoría y mes |
 | `northwind_dwh` | `fact_sales`, `dim_product`, `dim_date` | 3 tablas, 2 joins, `SUM(line_total)`, filtro `year = 1997`, agrupar por `month_number` |
 
 No es una diferencia abismal con un dataset de 2 000 filas. Multiplica por mil — fact con 2 millones de filas, OLTP con 100 millones — y la diferencia deja de ser estética y se vuelve **operativa**: la query del OLTP se vuelve impráctica, la del DWH sigue siendo razonable.
@@ -127,18 +127,6 @@ Aún si una sola base soportara las dos cargas técnicamente, la separación se 
 4. **Independencia de cambios.** El equipo de operaciones puede evolucionar el OLTP (agregar columnas, refactorizar, particionar) sin romper a los analistas, porque los analistas no consultan el OLTP — consultan el DWH, que el ETL alimenta y aísla del cambio aguas arriba.
 
 A esa separación se le llama **arquitectura de dos capas**: capa transaccional y capa analítica, conectadas por un **proceso ETL** que extrae del OLTP, transforma a la forma dimensional y carga al DWH. El bloque ETL del módulo (Tema 05) construye exactamente ese proceso en Python.
-
----
-
-## Donde encajan las herramientas que vas a usar en el módulo
-
-| Herramienta | Rol |
-|---|---|
-| **Aurora PostgreSQL** | Motor único que aloja **ambos** schemas — `northwind_oltp` (carga transaccional) y `northwind_dwh` (carga analítica). En empresas grandes serían motores distintos (PostgreSQL para OLTP, Redshift / Snowflake / BigQuery para OLAP). Aquí caben en el mismo cluster porque el dataset es chico, lo cual es ideal para enseñar — ves los dos mundos lado a lado en una sola conexión. |
-| **DBeaver** | Cliente SQL para escribir queries contra cualquiera de los dos schemas. |
-| **Python + pandas + SQLAlchemy** (Tema 05+) | Herramienta para construir el **ETL** que mueve datos desde `northwind_oltp` hacia `northwind_dwh`. |
-
-Cuando en clase se hable de "un data warehouse en producción", piensa en uno de los motores OLAP especializados (Redshift, Snowflake, BigQuery, ClickHouse). El módulo no los toca — pero los conceptos de modelado y ETL son **transferibles a cualquiera de ellos** porque el SQL estándar y los patrones Kimball son comunes a toda la familia.
 
 ---
 
