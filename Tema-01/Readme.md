@@ -83,7 +83,11 @@ Si devuelve los tres conteos sin errores, el entorno está listo y a partir de l
 
 ## :books: Material
 
-Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase. Quedan ahí como referencia para repetir el ejecrcicio o consultar los pasos posteriormente.
+Las guías de [`../setup/`](../setup/) son el step-by-step que se sigue en clase. Quedan ahí como referencia para repetir el ejercicio o consultar los pasos posteriormente.
+
+## :grey_question: Preguntas de clase
+
+Preguntas reales que han hecho alumnos durante este tema, con la respuesta que se discutió o se investigó después: [**`preguntas_de_clase.md`**](preguntas_de_clase.md).
 
 [^1]: La [documentación oficial de PostgreSQL](https://www.postgresql.org/docs/current/populate.html) reconoce ambos como métodos primarios de carga (`COPY` para CSV y `pg_restore` para dumps SQL).
 
