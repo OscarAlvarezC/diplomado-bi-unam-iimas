@@ -1,4 +1,4 @@
-# Sesión 04: Implementación del DW — análisis del DDL y la transformación SQL
+# Tema 04: Implementación del DW — análisis del DDL y la transformación SQL
 
 ## :dart: Objetivo
 
@@ -35,5 +35,5 @@ Scripts de referencia en [`../scripts/`](../scripts/).
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-05/Readme.md">Siguiente: Sesión 05 →</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="../Tema-05/Readme.md">Siguiente: Tema 05 →</a>
 </p>

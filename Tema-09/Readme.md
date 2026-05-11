@@ -1,4 +1,4 @@
-# Sesión 13: Common Table Expressions y análisis jerárquico
+# Tema 09: Common Table Expressions y análisis jerárquico
 
 ## :dart: Objetivo
 
@@ -30,5 +30,5 @@ Usar CTEs (Common Table Expressions) para escribir queries complejas legibles, y
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-14/Readme.md">Siguiente: Sesión 14 →</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="../Tema-10/Readme.md">Siguiente: Tema 10 →</a>
 </p>

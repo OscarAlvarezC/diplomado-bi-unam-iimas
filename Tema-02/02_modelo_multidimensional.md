@@ -210,7 +210,7 @@ El grano determina:
 
 ### Regla de oro
 
-**El grano es uniforme dentro de una fact.** No mezclas filas de granos distintos. Si necesitas analizar a dos granos diferentes (por línea y por pedido), tendrás dos facts separadas — `fact_sales` (por línea) y `fact_orders` (por pedido) — compartiendo dimensiones. Esa configuración se llama **fact constellation** y la verás en la **Sesión 03**.
+**El grano es uniforme dentro de una fact.** No mezclas filas de granos distintos. Si necesitas analizar a dos granos diferentes (por línea y por pedido), tendrás dos facts separadas — `fact_sales` (por línea) y `fact_orders` (por pedido) — compartiendo dimensiones. Esa configuración se llama **fact constellation** y la verás en el **Tema 03**.
 
 ---
 
@@ -259,9 +259,9 @@ Esa duplicación aparente — el precio aparece en la fact y aparece en la dim, 
 
 Lo que **no** has visto todavía y se trata en sesiones siguientes:
 
-- **Esquema estrella, copo de nieve, constellation** → Sesión 03.
-- **DDL completo, decisiones de tipo (`REAL → NUMERIC`), generated columns** → Sesión 04.
-- **El proceso ETL que pobló estas tablas** → Sesiones 05 a 08.
+- **Esquema estrella, copo de nieve, constellation** → Tema 03.
+- **DDL completo, decisiones de tipo (`REAL → NUMERIC`), generated columns** → Tema 04.
+- **El proceso ETL que pobló estas tablas** → Tema 05.
 
 ---
 

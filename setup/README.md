@@ -2,7 +2,7 @@
 
 5 guías paso a paso que **se siguen durante las sesiones del módulo**, no como pre-trabajo. El instructor te lleva por cada una en su sesión correspondiente. Quedan acá como referencia para que las consultes durante o después de la clase.
 
-**Las 5 guías se siguen consecutivamente durante la Sesión 01** (única sesión 100% operacional del módulo).
+**Las 5 guías se siguen consecutivamente durante el Tema 01** (única sesión 100% operacional del módulo).
 
 | # | Guía | Resultado |
 |---|---|---|
@@ -25,5 +25,5 @@ Si te perdiste una sesión o se te trabó algo durante la clase, las guías son 
 ---
 
 <p align="center">
-<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a>
+<a href="../Tema-01/Readme.md">← Volver al índice del Tema 01</a>
 </p>

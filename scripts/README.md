@@ -28,11 +28,11 @@ Cada script se ejecuta como bloque completo en DBeaver (no fila por fila):
 - Schema `northwind_dwh` creado (`CREATE SCHEMA IF NOT EXISTS northwind_dwh;`).
 - Schema `airbnb` se crea desde el script 05.
 
-## Scripts por sesión
+## Scripts por tema
 
-A partir de la Sesión 02, las queries que se ejecutan en clase viven en subdirectorios numerados:
+A partir del Tema 02, las queries que se ejecutan en clase viven en subdirectorios numerados:
 
-- [`sesion02/`](./sesion02/) — comparación OLTP vs DWH para la misma pregunta analítica.
+- [`tema02/`](./tema02/) — comparación OLTP vs DWH para la misma pregunta analítica.
 
 ## Reset / Re-ejecución
 

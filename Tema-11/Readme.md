@@ -1,4 +1,4 @@
-# Sesión 16: Caso integrador
+# Tema 11: Caso integrador
 
 ## :dart: Objetivo
 
@@ -8,9 +8,9 @@ Integrar lo aprendido en las 15 sesiones previas en un caso práctico de intelig
 
 - **Pipeline ETL en Python** (script `etl_pipeline.py` ejecutable de extremo a extremo, refinado a partir del trabajo del Bloque ETL).
 - **Consultas analíticas avanzadas** sobre el data warehouse, integrando obligatoriamente:
-  - Al menos una **función de ventana** (Sesión 12).
-  - Al menos una **CTE recursiva** (Sesión 13).
-  - Al menos una **consulta sobre datos semiestructurados con JSONB** (Sesión 15).
+  - Al menos una **función de ventana** (Tema 08).
+  - Al menos una **CTE recursiva** (Tema 09).
+  - Al menos una **consulta sobre datos semiestructurados con JSONB** (Tema 10).
 - **Reporte descriptivo** que comunique los hallazgos a una audiencia no técnica.
 - **Presentación corta** de los resultados ante el grupo.
 

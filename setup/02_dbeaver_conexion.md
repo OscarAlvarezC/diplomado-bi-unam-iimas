@@ -236,5 +236,5 @@ Continúa con **`03_northwind_oltp.md`** — vas a cargar el dataset Northwind (
 ---
 
 <p align="center">
-<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="03_northwind_oltp.md">Siguiente: 03 — Northwind OLTP →</a>
+<a href="../Tema-01/Readme.md">← Volver al índice del Tema 01</a> | <a href="03_northwind_oltp.md">Siguiente: 03 — Northwind OLTP →</a>
 </p>

@@ -1,4 +1,4 @@
-# Scripts — Sesión 02
+# Scripts — Tema 02
 
 Dos queries que responden la **misma pregunta de negocio** sobre dos modelos distintos: el OLTP normalizado en 3NF y el DWH en esquema estrella. Sirven para la práctica que cierra la sesión.
 
@@ -11,4 +11,4 @@ Dos queries que responden la **misma pregunta de negocio** sobre dos modelos dis
 
 Las dos producen 96 filas (8 categorías × 12 meses). Los totales coinciden hasta diferencias de centavos por la corrección REAL → NUMERIC aplicada en la carga del DWH.
 
-Se ejecutan en DBeaver con la conexión `aurora-mod4` ya configurada en la Sesión 01.
+Se ejecutan en DBeaver con la conexión `aurora-mod4` ya configurada en el Tema 01.

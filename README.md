@@ -25,28 +25,23 @@ Material de referencia que se usa en clase (no se requiere leerlo antes):
 - Cuenta de **AWS Academy Learner Lab** activa (la asigna IIMAS / coordinación del diplomado).
 - Laptop con **conexión a internet** y permisos para instalar software.
 
-## :bookmark_tabs: Sesiones
+## :bookmark_tabs: Temas
 
-16 sesiones, 40 horas en total.
+11 temas que cubren las 40 horas del módulo. **El ritmo es adaptativo** — cada tema se cubre en el tiempo que el grupo necesite, sin atadura 1:1 a una sesión de clase.
 
-- [`Sesion-01:` Setup técnico — montar el entorno de trabajo](./Sesion-01/Readme.md)
-- [`Sesion-02:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Sesion-02/Readme.md)
-- [`Sesion-03:` Esquemas dimensionales — estrella, copo de nieve, galaxy](./Sesion-03/Readme.md)
-- [`Sesion-04:` Implementación del DW — análisis del DDL y la transformación SQL](./Sesion-04/Readme.md)
-- [`Sesion-05:` ETL con Python I — Fundamentos y extracción](./Sesion-05/Readme.md)
-- [`Sesion-06:` ETL con Python II — Limpieza y perfilado](./Sesion-06/Readme.md)
-- [`Sesion-07:` ETL con Python III — Transformación según reglas de negocio](./Sesion-07/Readme.md)
-- [`Sesion-08:` ETL con Python IV — Carga, orquestación y buenas prácticas](./Sesion-08/Readme.md)
-- [`Sesion-09:` SQL avanzado I — Funciones predefinidas](./Sesion-09/Readme.md)
-- [`Sesion-10:` SQL avanzado II — Estructuras de control y cursores](./Sesion-10/Readme.md)
-- [`Sesion-11:` PL/pgSQL — Procedimientos almacenados y funciones definidas](./Sesion-11/Readme.md)
-- [`Sesion-12:` Funciones de ventana](./Sesion-12/Readme.md)
-- [`Sesion-13:` Common Table Expressions y análisis jerárquico](./Sesion-13/Readme.md)
-- [`Sesion-14:` Datos semiestructurados I — hstore](./Sesion-14/Readme.md)
-- [`Sesion-15:` Datos semiestructurados II — JSONB](./Sesion-15/Readme.md)
-- [`Sesion-16:` Caso integrador](./Sesion-16/Readme.md)
+- [`Tema-01:` Setup técnico — montar el entorno de trabajo](./Tema-01/Readme.md)
+- [`Tema-02:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Tema-02/Readme.md)
+- [`Tema-03:` Esquemas dimensionales — estrella, copo de nieve, galaxy](./Tema-03/Readme.md)
+- [`Tema-04:` Implementación del DW — análisis del DDL y la transformación SQL](./Tema-04/Readme.md)
+- [`Tema-05:` ETL con Python — extracción, perfilado, limpieza, transformación, carga](./Tema-05/Readme.md)
+- [`Tema-06:` SQL avanzado — funciones predefinidas](./Tema-06/Readme.md)
+- [`Tema-07:` PL/pgSQL — control de flujo, cursores, procedimientos y funciones](./Tema-07/Readme.md)
+- [`Tema-08:` Funciones de ventana](./Tema-08/Readme.md)
+- [`Tema-09:` Common Table Expressions y análisis jerárquico](./Tema-09/Readme.md)
+- [`Tema-10:` Datos semiestructurados — hstore y JSONB](./Tema-10/Readme.md)
+- [`Tema-11:` Caso integrador](./Tema-11/Readme.md)
 
-> **Sesión 01 es 100% operacional**: cluster Aurora + DBeaver + carga de los 3 schemas (Northwind OLTP, DWH, Airbnb). A partir de Sesión 02 todo es contenido analítico sobre datos ya disponibles.
+> **Tema 01 es 100% operacional**: cluster Aurora + DBeaver + carga de los 3 schemas (Northwind OLTP, DWH, Airbnb). A partir del Tema 02 todo es contenido analítico sobre datos ya disponibles.
 
 ## :bar_chart: Datos: orígenes y atribución
 

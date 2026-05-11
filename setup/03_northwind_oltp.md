@@ -57,5 +57,5 @@ Continúa con **`04_northwind_dwh.md`** — vas a construir un **data warehouse*
 ---
 
 <p align="center">
-<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="04_northwind_dwh.md">Siguiente: 04 — Data warehouse →</a>
+<a href="../Tema-01/Readme.md">← Volver al índice del Tema 01</a> | <a href="04_northwind_dwh.md">Siguiente: 04 — Data warehouse →</a>
 </p>

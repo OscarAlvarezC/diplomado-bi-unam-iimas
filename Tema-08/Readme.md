@@ -1,4 +1,4 @@
-# Sesión 12: Funciones de ventana
+# Tema 08: Funciones de ventana
 
 ## :dart: Objetivo
 
@@ -30,5 +30,5 @@ Práctica intensiva sobre `fact_sales` × `dim_date`: top-N productos por mes, c
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-13/Readme.md">Siguiente: Sesión 13 →</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="../Tema-09/Readme.md">Siguiente: Tema 09 →</a>
 </p>

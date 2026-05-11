@@ -1,4 +1,4 @@
-# Sesión 03: Esquemas dimensionales — estrella, copo de nieve, galaxy
+# Tema 03: Esquemas dimensionales — estrella, copo de nieve, galaxy
 
 ## :dart: Objetivo
 
@@ -19,5 +19,5 @@ Diferenciar los tres patrones de modelado dimensional, entender los trade-offs e
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-04/Readme.md">Siguiente: Sesión 04 →</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="../Tema-04/Readme.md">Siguiente: Tema 04 →</a>
 </p>

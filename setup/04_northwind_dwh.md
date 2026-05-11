@@ -283,5 +283,5 @@ Continúa con **`05_airbnb.md`** — vas a cargar el dataset **Airbnb CDMX** (sn
 ---
 
 <p align="center">
-<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="05_airbnb.md">Siguiente: 05 — Airbnb →</a>
+<a href="../Tema-01/Readme.md">← Volver al índice del Tema 01</a> | <a href="05_airbnb.md">Siguiente: 05 — Airbnb →</a>
 </p>

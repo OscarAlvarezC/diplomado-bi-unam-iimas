@@ -329,5 +329,5 @@ Continúa con **`02_dbeaver_conexion.md`** — vas a instalar DBeaver Community 
 ---
 
 <p align="center">
-<a href="../Sesion-01/Readme.md">← Volver al índice de la sesión 1</a> | <a href="02_dbeaver_conexion.md">Siguiente: 02 — DBeaver →</a>
+<a href="../Tema-01/Readme.md">← Volver al índice del Tema 01</a> | <a href="02_dbeaver_conexion.md">Siguiente: 02 — DBeaver →</a>
 </p>

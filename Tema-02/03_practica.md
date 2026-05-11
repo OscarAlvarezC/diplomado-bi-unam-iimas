@@ -10,15 +10,15 @@ Esta práctica cierra la sesión con la **prueba empírica** de las dos lecturas
 
 ## Prerequisitos
 
-- ✅ DBeaver conectado al cluster `aurora-mod4` (Sesión 01).
-- ✅ Schemas `northwind_oltp` y `northwind_dwh` cargados (Sesión 01).
+- ✅ DBeaver conectado al cluster `aurora-mod4` (Tema 01).
+- ✅ Schemas `northwind_oltp` y `northwind_dwh` cargados (Tema 01).
 - ✅ Repo descargado localmente para abrir los `.sql` desde DBeaver.
 
 ---
 
 ## Paso 1 — Query sobre el OLTP
 
-Abre el archivo [`scripts/sesion02/01_oltp_ventas_categoria_mes.sql`](../scripts/sesion02/01_oltp_ventas_categoria_mes.sql) en DBeaver y ejecútalo (**Alt+X**).
+Abre el archivo [`scripts/tema02/01_oltp_ventas_categoria_mes.sql`](../scripts/tema02/01_oltp_ventas_categoria_mes.sql) en DBeaver y ejecútalo (**Alt+X**).
 
 ```sql
 SELECT
@@ -49,7 +49,7 @@ Y la pregunta importante: **si alguien nuevo lee esta query, ¿qué tan rápido 
 
 ## Paso 2 — Query sobre el DWH
 
-Abre [`scripts/sesion02/02_dwh_ventas_categoria_mes.sql`](../scripts/sesion02/02_dwh_ventas_categoria_mes.sql) y ejecútalo.
+Abre [`scripts/tema02/02_dwh_ventas_categoria_mes.sql`](../scripts/tema02/02_dwh_ventas_categoria_mes.sql) y ejecútalo.
 
 ```sql
 SELECT
@@ -140,12 +140,12 @@ Sobre el DWH (porque son más cómodas), intenta responder estas preguntas escri
 
 Lo que acabas de comprobar es que **el modelo dimensional cambia el costo de las preguntas analíticas** — no porque el motor sea distinto (es el mismo Aurora PostgreSQL ejecutando las dos queries), sino porque la **organización de los datos** está pensada para ese tipo de consultas. Esa es la justificación del trabajo que viene en las siguientes sesiones:
 
-- **Sesión 03** explora **qué patrones** de organización dimensional existen (estrella, copo de nieve, constellation) y cuándo elegir uno sobre otro.
-- **Sesión 04** te lleva por el **DDL completo y la transformación** SQL paso a paso del DWH que ya tienes cargado.
-- **Sesiones 05–08** construyen el **proceso ETL en Python** que automatiza esa transformación.
+- **Tema 03** explora **qué patrones** de organización dimensional existen (estrella, copo de nieve, constellation) y cuándo elegir uno sobre otro.
+- **Tema 04** te lleva por el **DDL completo y la transformación** SQL paso a paso del DWH que ya tienes cargado.
+- El **Tema 05** construye el **proceso ETL en Python** que automatiza esa transformación.
 
 ---
 
 <p align="center">
-<a href="02_modelo_multidimensional.md">← Anterior: Lectura 02</a> | <a href="Readme.md">Volver al índice de la Sesión 02</a> | <a href="../Sesion-03/Readme.md">Siguiente: Sesión 03 →</a>
+<a href="02_modelo_multidimensional.md">← Anterior: Lectura 02</a> | <a href="Readme.md">Volver al índice del Tema 02</a> | <a href="../Tema-03/Readme.md">Siguiente: Tema 03 →</a>
 </p>

@@ -1,6 +1,6 @@
-# Sesión 02: Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional
+# Tema 02: Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional
 
-En la Sesión 01 cargamos dos representaciones de Northwind: una transaccional en `northwind_oltp` y una analítica en `northwind_dwh`. Hoy explicamos **por qué** existen las dos. La razón corta: una base optimizada para registrar miles de pedidos por segundo no es la misma base optimizada para responder _"¿cuánto vendimos por categoría y mes durante 1997?"_ sin que la pregunta tarde minutos. Esta sesión es la justificación intelectual del modelado dimensional — el _qué_ (esquemas estrella, copo de nieve, constelación) lo vemos en la **Sesión 03**, y el _cómo_ (DDL + carga end-to-end) en la **Sesión 04**.
+En el Tema 01 cargamos dos representaciones de Northwind: una transaccional en `northwind_oltp` y una analítica en `northwind_dwh`. Hoy explicamos **por qué** existen las dos. La razón corta: una base optimizada para registrar miles de pedidos por segundo no es la misma base optimizada para responder _"¿cuánto vendimos por categoría y mes durante 1997?"_ sin que la pregunta tarde minutos. Esta sesión es la justificación intelectual del modelado dimensional — el _qué_ (esquemas estrella, copo de nieve, constelación) lo vemos en el **Tema 03**, y el _cómo_ (DDL + carga end-to-end) en el **Tema 04**.
 
 ## :dart: Objetivos
 
@@ -36,10 +36,10 @@ Cerramos con la prueba empírica de lo discutido. Tomamos una pregunta de negoci
 
 ## :books: Material
 
-Las lecturas y la práctica viven en este mismo directorio. Las queries comparativas están en [`scripts/sesion02/`](../scripts/sesion02/) y se pueden ejecutar tal cual desde DBeaver con la conexión `aurora-mod4` ya configurada en la Sesión 01.
+Las lecturas y la práctica viven en este mismo directorio. Las queries comparativas están en [`scripts/tema02/`](../scripts/tema02/) y se pueden ejecutar tal cual desde DBeaver con la conexión `aurora-mod4` ya configurada en el Tema 01.
 
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-03/Readme.md">Siguiente: Sesión 03 →</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="../Tema-03/Readme.md">Siguiente: Tema 03 →</a>
 </p>

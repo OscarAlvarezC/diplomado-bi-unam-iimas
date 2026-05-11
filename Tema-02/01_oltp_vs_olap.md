@@ -61,7 +61,7 @@ Catorce tablas. La PK de `orders` es `order_id`, la PK de `order_details` es la 
 
 ## OLAP — el sistema que se pregunta qué pasó
 
-Una base **OLAP** existe para que la empresa **observe agregados** y **detecte patrones**. Es lo que toca un analista, un dashboard, un reporte ejecutivo. En Northwind, el schema `northwind_dwh` cumple este rol — y a diferencia del OLTP, **no estaba en el dump original**: lo construimos nosotros con los scripts de la Sesión 01, reorganizando los datos del OLTP en una estructura distinta diseñada para análisis.
+Una base **OLAP** existe para que la empresa **observe agregados** y **detecte patrones**. Es lo que toca un analista, un dashboard, un reporte ejecutivo. En Northwind, el schema `northwind_dwh` cumple este rol — y a diferencia del OLTP, **no estaba en el dump original**: lo construimos nosotros con los scripts del Tema 01, reorganizando los datos del OLTP en una estructura distinta diseñada para análisis.
 
 ### Patrones de uso
 
@@ -126,7 +126,7 @@ Aún si una sola base soportara las dos cargas técnicamente, la separación se 
 3. **Modelos optimizados para cada caso.** El OLTP en 3NF y el DWH en estrella son **dos formas de organizar la misma información** para servir a dos preguntas distintas.
 4. **Independencia de cambios.** El equipo de operaciones puede evolucionar el OLTP (agregar columnas, refactorizar, particionar) sin romper a los analistas, porque los analistas no consultan el OLTP — consultan el DWH, que el ETL alimenta y aísla del cambio aguas arriba.
 
-A esa separación se le llama **arquitectura de dos capas**: capa transaccional y capa analítica, conectadas por un **proceso ETL** que extrae del OLTP, transforma a la forma dimensional y carga al DWH. El bloque ETL del módulo (Sesiones 05–08) construye exactamente ese proceso en Python.
+A esa separación se le llama **arquitectura de dos capas**: capa transaccional y capa analítica, conectadas por un **proceso ETL** que extrae del OLTP, transforma a la forma dimensional y carga al DWH. El bloque ETL del módulo (Tema 05) construye exactamente ese proceso en Python.
 
 ---
 
@@ -136,7 +136,7 @@ A esa separación se le llama **arquitectura de dos capas**: capa transaccional 
 |---|---|
 | **Aurora PostgreSQL** | Motor único que aloja **ambos** schemas — `northwind_oltp` (carga transaccional) y `northwind_dwh` (carga analítica). En empresas grandes serían motores distintos (PostgreSQL para OLTP, Redshift / Snowflake / BigQuery para OLAP). Aquí caben en el mismo cluster porque el dataset es chico, lo cual es ideal para enseñar — ves los dos mundos lado a lado en una sola conexión. |
 | **DBeaver** | Cliente SQL para escribir queries contra cualquiera de los dos schemas. |
-| **Python + pandas + SQLAlchemy** (Sesión 05+) | Herramienta para construir el **ETL** que mueve datos desde `northwind_oltp` hacia `northwind_dwh`. |
+| **Python + pandas + SQLAlchemy** (Tema 05+) | Herramienta para construir el **ETL** que mueve datos desde `northwind_oltp` hacia `northwind_dwh`. |
 
 Cuando en clase se hable de "un data warehouse en producción", piensa en uno de los motores OLAP especializados (Redshift, Snowflake, BigQuery, ClickHouse). El módulo no los toca — pero los conceptos de modelado y ETL son **transferibles a cualquiera de ellos** porque el SQL estándar y los patrones Kimball son comunes a toda la familia.
 
@@ -149,5 +149,5 @@ OLTP y OLAP son **dos cargas de trabajo que jalan el diseño en direcciones opue
 ---
 
 <p align="center">
-<a href="Readme.md">← Volver al índice de la Sesión 02</a> | <a href="02_modelo_multidimensional.md">Siguiente: Lectura 02 — Modelo multidimensional →</a>
+<a href="Readme.md">← Volver al índice del Tema 02</a> | <a href="02_modelo_multidimensional.md">Siguiente: Lectura 02 — Modelo multidimensional →</a>
 </p>

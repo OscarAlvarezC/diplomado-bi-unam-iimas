@@ -1,4 +1,4 @@
-# Sesión 09: SQL avanzado I — Funciones predefinidas
+# Tema 06: SQL avanzado — funciones predefinidas
 
 ## :dart: Objetivo
 
@@ -31,5 +31,5 @@ Práctica sobre el data warehouse de Northwind y el dataset Airbnb.
 ---
 
 <p align="center">
-<a href="../README.md">← Volver al inicio</a> | <a href="../Sesion-10/Readme.md">Siguiente: Sesión 10 →</a>
+<a href="../README.md">← Volver al inicio</a> | <a href="../Tema-07/Readme.md">Siguiente: Tema 07 →</a>
 </p>
