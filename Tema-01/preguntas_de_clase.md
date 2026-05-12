@@ -149,9 +149,130 @@ Es un trade-off explícito: **más restricción → menos riesgo pero menos flex
 
 ---
 
+## En RDS PostgreSQL estándar solo se creaba una instancia, pero al crear una Aurora PostgreSQL aparecen **un cluster y una instancia**. ¿Qué cambió?
 
+En el formulario de creación de RDS, lo único que cambió fue una sola opción:
 
+| Campo | Antes (RDS estándar) | Ahora (Aurora) |
+|---|---|---|
+| Tipo de motor | "PostgreSQL" | "**Aurora (compatible con PostgreSQL)**" |
+| Resultado en la consola | 1 entidad (instance) | **2 entidades** (cluster + instance) |
 
+### ¿Qué es un cluster y una instancia?
+
+**Instancia (instance)** = un **servidor de base de datos corriendo**. Es una máquina virtual gestionada por AWS con CPU, RAM, red y el motor PostgreSQL ejecutándose. Cuando elegiste `db.t3.medium`, decidiste el tamaño de esa máquina (2 vCPU + 4 GB RAM). Una instancia atiende conexiones SQL, ejecuta queries, mantiene caché en memoria. Si la apagas, las queries dejan de responder.
+
+**Cluster** = un **grupo de componentes que cooperan y se presentan como un solo sistema lógico**. En el contexto de bases de datos, un cluster típicamente agrupa: una capa de almacenamiento compartida + una o más instancias de cómputo + endpoints DNS + configuración común (backups, parámetros, seguridad). El cluster es la **unidad administrativa**; las instancias son sus componentes activos.
+
+En RDS estándar **estos dos conceptos colapsan en uno**: la instancia ES la base, con su propio disco adjunto, sin nada más alrededor. En Aurora **se separan**: el cluster contiene el almacenamiento y las instancias son piezas de cómputo intercambiables dentro de él.
+
+### La diferencia arquitectónica de fondo
+
+Aurora introduce una **separación arquitectónica fundamental** que el PostgreSQL estándar de RDS no tiene: **el almacenamiento vive separado del cómputo**. Por eso ves dos entidades en la consola — el cluster es el almacenamiento, la instancia es el cómputo.
+
+### RDS PostgreSQL estándar — almacenamiento y cómputo acoplados
+
+```
+┌──────────────────────────────────────┐
+│  RDS PostgreSQL instance             │
+│  ┌────────────────────────────────┐  │
+│  │  PostgreSQL engine (CPU + RAM) │  │
+│  └────────────────────────────────┘  │
+│  ┌────────────────────────────────┐  │
+│  │  EBS volume (disco)            │  │
+│  └────────────────────────────────┘  │
+└──────────────────────────────────────┘
+     ↑
+     una sola entidad: "la instancia"
+     (cómputo y almacenamiento juntos)
+```
+
+La instancia es una máquina virtual con PostgreSQL corriendo y un disco EBS adjunto. Inseparables — exactamente como un servidor físico tradicional. Si quieres una réplica, AWS levanta **otra instancia idéntica con su propio disco** y configura streaming replication entre ambas.
+
+### Aurora PostgreSQL — almacenamiento y cómputo separados
+
+```
+┌─── Aurora Cluster ─────────────────────────────────┐
+│                                                    │
+│  ┌───────────────┐  ┌───────────────┐              │
+│  │   Instance 1  │  │   Instance 2  │  (opcional)  │
+│  │  (CPU + RAM)  │  │  (CPU + RAM)  │              │
+│  └───────┬───────┘  └───────┬───────┘              │
+│          │                  │                      │
+│          └──────────┬───────┘                      │
+│                     ▼                              │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  Storage compartido (distribuido en 3 AZs,   │  │
+│  │  replicado 6 veces, gestionado por AWS)      │  │
+│  └──────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────┘
+```
+
+Aurora tiene **dos entidades separadas**:
+
+- **Cluster** — posee el almacenamiento. Sistema de discos distribuidos propietario de AWS, replicado automáticamente 6 veces en 3 zonas de disponibilidad. **Es persistente; los datos viven aquí aunque no haya ninguna instancia encendida.**
+- **Instances** — solo aportan cómputo (CPU + RAM). **No tienen disco propio**; se conectan al storage compartido del cluster. Puedes tener 1, 15 o 0 instancias — el cluster y los datos siguen ahí.
+
+### Por qué tener cluster con UNA sola instancia sigue valiendo la pena
+
+Aunque en este módulo solo tenemos 1 instancia en el cluster `aurora-mod4`, las **garantías estructurales** del cluster ya te benefician:
+
+- Si tu única instancia falla, el cluster levanta otra y la conecta al storage existente automáticamente.
+- Si el día de mañana necesitas agregar una réplica para Power BI sin afectar la operativa, lo haces en segundos.
+- Tu cómputo es elástico: cambiar el tamaño de instancia (más CPU/RAM) o agregar réplicas con tamaños distintos toma minutos, no horas — porque los datos no se mueven, solo se reconfigura qué máquina está adelante.
+
+> *En RDS PostgreSQL estándar, la instancia incluye el almacenamiento — son la misma cosa. En Aurora, AWS separó el almacenamiento (que vive en el cluster) del cómputo (que vive en las instancias). Por eso ves un cluster aunque solo crees una instancia: el cluster es donde realmente viven los datos.*
+
+---
+
+## Cuando te conectas al cluster, ¿trabajan las dos instancias para el procesamiento? ¿Se pueden tener dos instancias con motores diferentes en el mismo cluster?
+
+Dos respuestas cortas: **no, las instancias no colaboran en una sola query**, y **no, todas las instancias del cluster comparten el mismo motor y versión**.
+
+### ¿Las instancias trabajan juntas para procesar mi query?
+
+**Aurora no es un motor MPP** (Massively Parallel Processing). Cada query individual la ejecuta **una sola instancia**, de principio a fin. Las otras instancias del cluster pueden estar atendiendo otras queries en paralelo, pero **no colaboran** en la tuya.
+
+Lo que sí hacen varias instancias es **repartirse la carga de trabajo** (no la query):
+
+```
+Carga del día:
+  ├── 1,000 escrituras       → writer (instance-1)
+  ├── 5,000 reads de la app  → reader endpoint balancea entre instance-2 e instance-3
+  └── 100 queries Power BI   → reader endpoint balancea entre instance-2 e instance-3
+```
+
+Si una query analítica pesada llega a `instance-2`, **`instance-2` la resuelve sola** con su CPU y RAM. Las otras instancias hacen otras cosas para otros clientes en paralelo, pero no aportan al cómputo de esa query.
+
+Comparativa con motores que sí son MPP:
+
+| Sistema | ¿Una query individual se divide entre múltiples nodos? |
+|---|---|
+| **Aurora PostgreSQL** | ❌ No. Una query = una instancia |
+| **RDS PostgreSQL** | ❌ No |
+| **Redshift** | ✅ Sí — distribuida entre todos los compute nodes |
+| **Snowflake** | ✅ Sí — distribuida en el warehouse activo |
+| **BigQuery** | ✅ Sí — dispatch dinámico de slots |
+
+Aurora con múltiples instancias **escala la concurrencia** (muchas queries chicas en paralelo, típico de BI), no **la velocidad de una query individual**. Si necesitas velocidad masiva en una sola query gigante, el camino es Redshift / Snowflake / BigQuery, no Aurora con muchas instancias.
+
+### ¿Puedo mezclar motores diferentes en el mismo cluster?
+
+**No.** El motor (engine) y la versión major son **propiedades del cluster, no de las instancias**. Todas las instancias del cluster corren el mismo motor y la misma versión.
+
+```
+aurora-mod4 (cluster)
+  ├── Engine:          Aurora PostgreSQL     ← UN motor para todo el cluster
+  ├── Engine version:  16.4                  ← UNA versión major para todo
+  │
+  ├── instance-1 (writer)  → mismo motor, misma versión, db.r5.xlarge
+  ├── instance-2 (reader)  → mismo motor, misma versión, db.r5.large
+  └── instance-3 (reader)  → mismo motor, misma versión, db.t3.medium
+```
+
+**¿Por qué?** Porque el formato físico de los datos en el storage es específico del motor. Aurora PostgreSQL escribe páginas con el formato binario de PostgreSQL; Aurora MySQL escribe con el formato de InnoDB. Como el storage es compartido entre todas las instancias del cluster, **todas tienen que hablar el mismo "idioma binario"** — lo cual fuerza un motor único por cluster.
+
+---
 
 <p align="center">
 <a href="Readme.md">← Volver al índice del Tema 01</a>
