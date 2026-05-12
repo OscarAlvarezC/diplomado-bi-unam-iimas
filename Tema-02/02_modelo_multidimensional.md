@@ -18,6 +18,8 @@ El modelo multidimensional es **la representación tabular de ese cubo** dentro 
 
 Northwind tiene cinco ejes — producto, cliente, empleado, transportista, fecha — así que el cubo es de cinco dimensiones (no se puede dibujar, pero la idea es la misma).
 
+> *Nota: el nombre "cubo" viene de extender visualmente las tablas pivote 2D (un rectángulo de filas × columnas) a un tercer eje. Edgar Codd acuñó **"OLAP cube"** en 1993 y la convención se mantuvo aunque el modelo se generalice a N dimensiones — técnicamente sería "hipercubo", pero todos siguen diciendo "cubo". Geométricamente otras formas también podrían representar los datos; el cubo se eligió por su intuición visual a partir de las pivot tables, no por elegancia matemática.*
+
 ---
 
 ## Tabla de hechos
@@ -158,7 +160,7 @@ is_weekend          BOOLEAN
 
 1. **Smart key.** El PK es `YYYYMMDD` como entero (`19970315` para el 15 de marzo de 1997). No es un surrogate auto-generado — es un valor con significado, **filtrable sin join**: `WHERE order_date_key BETWEEN 19970101 AND 19971231`.
 2. **Atributos pre-calculados.** Año, trimestre, mes, semana, día, día de la semana, nombre en español, bandera de fin de semana. Todo lo que normalmente extraerías de una fecha con `EXTRACT()` está ya como columna lista para `WHERE` y `GROUP BY`.
-3. **Tabla densa.** Una fila por día existió o no haya pasado nada ese día. La densidad permite hacer joins externos cuando quieres ver "ventas por día incluyendo días sin venta", lo cual no podrías con una fact donde solo aparecen días con actividad.
+3. **Tabla densa (recomendación fuerte de Kimball).** Una fila por día existió o no haya pasado nada ese día. La densidad permite hacer joins externos cuando quieres ver "ventas por día incluyendo días sin venta", lo cual no podrías con una fact donde solo aparecen días con actividad. Otras razones son: time series, detección de gaps y filtros calendarios.
 
 ### Role-playing — una dimensión usada con varios roles
 
@@ -195,12 +197,14 @@ Para Northwind hay tres granos posibles para una fact de ventas:
 | Grano | Una fila representa | Cuántas filas tendría | Qué se puede medir |
 |---|---|---|---|
 | **Por pedido** | Un pedido completo | 830 | Total del pedido, freight |
-| **Por línea de pedido** | Una línea (`order_details`) | 2 155 | Cantidad por producto, descuento por producto, ticket promedio por línea |
+| **Por orden y producto** | Una línea (`order_details`) | 2 155 | Cantidad por producto, descuento por producto, ticket promedio por línea |
 | **Por unidad vendida** | Una unidad individual del producto | ~51 000 | Cualquier cosa, pero el dataset crece e inventas filas que el OLTP no separa |
 
-El grano **por línea de pedido** es la elección estándar para Northwind. Es el **dato atómico disponible** en el OLTP — `order_details` ya está ahí, no hay que inventar. Y es el más expresivo de los tres: te permite preguntar *"¿qué descuento promedio aplicó cada empleado?"* (no se puede a nivel pedido porque el descuento es por línea), pero también te permite re-agregar a nivel pedido si lo necesitas (`SUM(line_total) GROUP BY order_id`).
+El grano **por línea de pedido (orden y producto)** es la elección estándar para Northwind. Es el **dato atómico disponible** en el OLTP — `order_details` ya está ahí, no hay que inventar. Y es el más expresivo de los tres: te permite preguntar *"¿qué descuento promedio aplicó cada empleado?"* (no se puede a nivel pedido porque el descuento es por línea), pero también te permite re-agregar a nivel pedido si lo necesitas (`SUM(line_total) GROUP BY order_id`).
 
-### Por qué importa tanto
+El grano "por unidad" se descarta porque (1) el OLTP no separa las unidades individuales — fragmentar es inventar datos, (2) no responde ninguna pregunta que el grano "por línea" no responda con SUM(quantity), y (3) multiplica el dataset por 24× sin aportar valor. Kimball: elige el grano más atómico que el dato realmente soporta, no más fino.
+
+### ¿Por qué importa tanto?
 
 El grano determina:
 
@@ -219,7 +223,7 @@ El grano determina:
 Una de las decisiones recurrentes al diseñar es: *"este número, ¿va en la fact o en una dimensión?"* La regla rápida:
 
 > Va en la **fact** si **cambia con cada evento** medido y **se va a sumar/promediar**.
-> Va en la **dimensión** si **es estable para el miembro** y **describe**, no se agrega.
+> Va en la **dimensión** si **es estable para el miembro (fila de una tabla de dimensión)** y **describe**, no se agrega.
 
 Aplicado a Northwind:
 
@@ -227,17 +231,11 @@ Aplicado a Northwind:
 |---|---|---|
 | `quantity` (cantidad vendida) | **Fact** | Cambia en cada línea, se suma. |
 | `unit_price` aplicado a la venta | **Fact** | Cambia con el momento de venta — si el producto subió de precio, queda registrado el precio del momento. |
-| `unit_price` "vigente" del producto en el catálogo | **Dimensión** | Atributo descriptivo del producto en el momento de cargar. Si el producto sube de precio mañana, se actualizará la dim — pero la fact ya guardó el precio histórico. |
+| `unit_price` "de catálogo" del producto en el catálogo | **Dimensión** | Atributo descriptivo del producto en el momento de cargar. Si el producto sube de precio mañana, se actualizará la dim — pero la fact ya guardó el precio histórico. |
 | `discount` aplicado a la línea | **Fact** | Decisión por línea, varía. |
 | `category_name` del producto | **Dimensión** | Descriptivo del producto, no varía con cada venta. |
 | `country` del cliente | **Dimensión** | Descriptivo del cliente. |
 | `is_weekend` para una fecha | **Dimensión** (`dim_date`) | Descriptivo del miembro "fecha". |
-
-### Caso límite: el precio "histórico" vs el precio "actual"
-
-Northwind expone esto con limpieza. `order_details.unit_price` en el OLTP guarda **el precio al momento de la venta** — porque cuando el catálogo cambie, el OLTP necesita saber cuánto cobró exactamente cada pedido viejo. La fact preserva esa misma lógica: `fact_sales.unit_price` es el precio histórico, **no** el precio actual del producto. Si quieres el precio actual del catálogo, lo lees de `dim_product` (que se va a actualizar con cada carga del ETL).
-
-Esa duplicación aparente — el precio aparece en la fact y aparece en la dim, con valores potencialmente distintos — es **exactamente lo que el modelo dimensional tolera y aprovecha**: la fact es un registro histórico inmutable; la dim refleja el estado más reciente del catálogo.
 
 ---
 
