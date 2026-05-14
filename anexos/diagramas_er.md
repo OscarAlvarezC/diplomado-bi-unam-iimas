@@ -81,7 +81,7 @@ erDiagram
 
 - **`order_details` tiene PK compuesta** `(order_id, product_id)` — una fila por cada producto en cada pedido (grano "por línea de pedido").
 - **`employees.reports_to`** es self-FK que apunta al jefe del empleado — jerarquía de empleados en una sola tabla. El CEO (Andrew Fuller, `employee_id = 2`) tiene `reports_to = NULL`.
-- **3NF estricta**: categorías y proveedores viven en tablas aparte, no como atributos de `products`. Para reportes "ventas por categoría" hay que cruzar 4 tablas.
+- **3NF estricta** (tercera forma normal — cada atributo descriptivo depende **solo de la PK de su tabla**, no de otros atributos; ej. `category_name` vive en `categories`, no copiado en cada fila de `products`): categorías y proveedores viven en tablas aparte, no como atributos de `products`. Para reportes "ventas por categoría" hay que cruzar 4 tablas.
 
 ---
 
