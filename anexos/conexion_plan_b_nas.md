@@ -187,6 +187,17 @@ psql -h dsservice.ddns.net -p 25432 -U alumno -d northwind --csv \
   -c "SELECT * FROM northwind_dwh.dim_product LIMIT 5;" > productos.csv
 ```
 
+### Salir de `psql`
+
+Cualquiera de estas cuatro opciones cierra la sesión y te regresa al shell:
+
+| Comando | Notas |
+|---|---|
+| `\q` | El más usado, sintaxis estilo `psql` |
+| `\quit` | Equivalente, más explícito |
+| `exit` | Funciona desde PostgreSQL 11+ |
+| `Ctrl+D` | Atajo estándar de Unix para "fin de input" — funciona también en bash, python REPL, etc. |
+
 ---
 
 ## :snake: Conectar desde Python

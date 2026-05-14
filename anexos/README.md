@@ -9,6 +9,7 @@ Material de referencia transversal al módulo — no pertenece a un tema especí
 - [**`rubrica_proyecto_final.md`**](rubrica_proyecto_final.md) — Rúbrica del proyecto final: criterios de evaluación, niveles de desempeño (1-4), pesos ponderados, entregables esperados, sugerencias de datasets y calendario de hitos.
 - [**`conexion_plan_b_nas.md`**](conexion_plan_b_nas.md) — Cómo conectarse al **servidor PostgreSQL de respaldo** (Plan B) cuando tu Aurora del Learner Lab no está disponible. Acceso read-only a los mismos 3 schemas (`northwind_oltp`, `northwind_dwh`, `airbnb`). Instrucciones para DBeaver, terminal (`psql`), Python y Power BI.
 - [**`explorar_schemas_y_tablas.md`**](explorar_schemas_y_tablas.md) — Cómo navegar la estructura de una base PostgreSQL: listar schemas, listar tablas, ver columnas y tipos, sondear datos. Tres formas: comandos `\` de `psql`, queries SQL contra `information_schema`/`pg_catalog`, y navegador visual de DBeaver. Aplica a Aurora, Plan B o cualquier otra base PostgreSQL.
+- [**`diagramas_er.md`**](diagramas_er.md) — Diagramas entidad-relación de los 3 schemas (`northwind_oltp`, `northwind_dwh`, `airbnb`) en Mermaid (GitHub los renderiza nativamente). Cubre tablas, columnas clave, FKs, y notas sobre patrones aplicados (3NF en OLTP, Kimball en DWH, bronze sin constraints en Airbnb).
 
 ---
 

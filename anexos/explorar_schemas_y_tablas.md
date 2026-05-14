@@ -51,6 +51,17 @@ Ejemplo de output de `\dt northwind_dwh.*`:
 
 Y `\d northwind_dwh.fact_sales` muestra todas las columnas con sus tipos, las foreign keys y los índices definidos.
 
+### Salir de `psql`
+
+Cualquiera de estas cuatro opciones cierra la sesión y te regresa al shell:
+
+| Comando | Notas |
+|---|---|
+| `\q` | El más usado, sintaxis estilo `psql` |
+| `\quit` | Equivalente, más explícito |
+| `exit` | Funciona desde PostgreSQL 11+ |
+| `Ctrl+D` | Atajo estándar de Unix para "fin de input" — funciona también en bash, python REPL, etc. |
+
 ---
 
 ## :scroll: Con queries SQL (funciona en cualquier cliente)
