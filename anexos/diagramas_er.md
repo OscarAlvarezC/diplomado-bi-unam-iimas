@@ -27,8 +27,8 @@ erDiagram
         numeric freight
     }
     order_details {
-        int order_id PK-FK
-        int product_id PK-FK
+        int order_id PK, FK
+        int product_id PK, FK
         real unit_price
         smallint quantity
         real discount
