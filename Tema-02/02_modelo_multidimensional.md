@@ -1,6 +1,6 @@
 # Lectura 02 — Modelo multidimensional: hechos, dimensiones, grano
 
-En la lectura anterior cerraste con la idea de que **OLAP necesita un diseño distinto al de OLTP**. Esta lectura le pone nombre a ese diseño. El modelo dominante en la industria desde los años 90 — formalizado por Ralph Kimball y aplicado en prácticamente todo data warehouse moderno — se llama **modelo multidimensional**. Tiene tres conceptos centrales: **hechos**, **dimensiones** y **grano**. Si dominas esos tres, puedes leer y diseñar cualquier warehouse.
+En la lectura anterior cerraste con la idea de que **OLAP necesita un diseño distinto al de OLTP**. Esta lectura le pone nombre a ese diseño. El modelo dominante en la industria desde los años 90 — formalizado por Ralph Kimball[^kimball] y aplicado en prácticamente todo data warehouse moderno — se llama **modelo multidimensional**. Tiene tres conceptos centrales: **grano**, **hechos** y **dimensiones**. Si dominas esos tres, puedes leer y diseñar cualquier warehouse.
 
 ---
 
@@ -22,9 +22,42 @@ Northwind tiene cinco ejes — producto, cliente, empleado, transportista, fecha
 
 ---
 
+## Grano: la decisión más importante del warehouse
+
+> **"Declare the grain before anything else."**
+> — Ralph Kimball
+
+Antes de entrar al detalle de hechos y dimensiones, hay una decisión que precede a ambos: el **grano**. El grano de una tabla de hechos es **qué representa una fila** dentro de ella. Es **la primera decisión** que se toma al diseñar un warehouse — antes de las dimensiones, antes de las medidas, antes de cualquier DDL. Todo lo demás se deriva del grano elegido; por eso esta lectura lo trata primero.
+
+Para Northwind hay tres granos posibles para una fact de ventas:
+
+| Grano | Una fila representa | ¿Cuántas filas tendría? | ¿Qué se puede medir? |
+|---|---|---|---|
+| **Por pedido** | Un pedido completo | 830 | Total del pedido, freight |
+| **Por orden y producto** | Una línea (`order_details`) | 2 155 | Cantidad por producto, descuento por producto, ticket promedio por línea |
+| **Por unidad vendida** | Una unidad individual del producto | ~51 000 | Cualquier cosa, pero el dataset crece e inventas filas que el OLTP no separa |
+
+El grano **por línea de pedido (orden y producto)** es la elección estándar para Northwind. Es el **dato atómico disponible** en el OLTP — `order_details` ya está ahí, no hay que inventar. Y es el más expresivo de los tres: te permite preguntar *"¿qué descuento promedio aplicó cada empleado?"* (no se puede a nivel pedido porque el descuento es por línea), pero también te permite re-agregar a nivel pedido si lo necesitas (`SUM(line_total) GROUP BY order_id`).
+
+El grano "por unidad" se descarta porque (1) el OLTP no separa las unidades individuales — fragmentar es inventar datos, (2) no responde ninguna pregunta que el grano "por línea" no responda con SUM(quantity), y (3) multiplica el dataset por 24× sin aportar valor. Kimball: elige el grano más atómico que el dato realmente soporta, no más fino.
+
+### ¿Por qué importa tanto?
+
+El grano determina:
+
+1. **Qué dimensiones aplican.** A nivel línea de pedido aplica `dim_product` (cada línea es de un producto). A nivel pedido completo NO aplica `dim_product` directamente — un pedido tiene varios productos, no uno.
+2. **Qué medidas son aditivas.** `quantity` y `line_total` son sumables sin restricciones. `unit_price` es **promediable**, no sumable (sumar precios unitarios no significa nada). El grano fija qué operación tiene sentido sobre cada medida.
+3. **Qué preguntas de negocio se pueden contestar.** Decisiones que ocurren a nivel pedido (la decisión de elegir transportista) pueden vivir en una fact de grano "pedido" pero quedan duplicadas en una de grano "línea". Decisiones que ocurren a nivel línea (el descuento por producto) no se pueden expresar en una fact de grano "pedido".
+
+### Regla de oro
+
+**El grano es uniforme dentro de una fact.** No mezclas filas de granos distintos. Si necesitas analizar a dos granos diferentes (por línea y por pedido), tendrás dos facts separadas — `fact_sales` (por línea) y `fact_orders` (por pedido) — compartiendo dimensiones. Esa configuración se llama **fact constellation** y la verás en el **Tema 03**.
+
+---
+
 ## Tabla de hechos
 
-Una **tabla de hechos** registra **eventos medibles del negocio**. En Northwind, el evento es **una línea de pedido** — alguien compró tantas unidades de tal producto, en tal pedido, con tal descuento. La tabla `fact_sales` tiene una fila por cada línea de pedido (2 155 filas en total).
+Con el grano ya decidido — una fila por línea de pedido — toca ver **qué columnas** lleva esa fila. Una **tabla de hechos** registra **eventos que ocurren en el negocio** — cada fila es una vez que el evento sucedió, acompañada de las **cifras numéricas que lo cuantifican**. En Northwind, el evento es **una línea de pedido**: alguien compró tantas unidades de tal producto, en tal pedido, con tal descuento — y esas cantidades (unidades, precio, descuento) son justamente las cifras que la fact guarda. La tabla `fact_sales` tiene una fila por cada línea de pedido (2 155 filas en total).
 
 Las columnas de una fact pertenecen a tres familias:
 
@@ -185,40 +218,7 @@ Eso es **role-playing**: una sola dimensión, varios usos contextuales.
 
 ---
 
-## Grano: la decisión más importante del warehouse
-
-> **"Declare the grain before anything else."**
-> — Ralph Kimball
-
-El **grano** de una tabla de hechos es **qué representa una fila** dentro de ella. Y es **la primera decisión** que se toma al diseñar un warehouse — antes de las dimensiones, antes de las medidas, antes de cualquier DDL. Todo lo demás se deriva del grano elegido.
-
-Para Northwind hay tres granos posibles para una fact de ventas:
-
-| Grano | Una fila representa | Cuántas filas tendría | Qué se puede medir |
-|---|---|---|---|
-| **Por pedido** | Un pedido completo | 830 | Total del pedido, freight |
-| **Por orden y producto** | Una línea (`order_details`) | 2 155 | Cantidad por producto, descuento por producto, ticket promedio por línea |
-| **Por unidad vendida** | Una unidad individual del producto | ~51 000 | Cualquier cosa, pero el dataset crece e inventas filas que el OLTP no separa |
-
-El grano **por línea de pedido (orden y producto)** es la elección estándar para Northwind. Es el **dato atómico disponible** en el OLTP — `order_details` ya está ahí, no hay que inventar. Y es el más expresivo de los tres: te permite preguntar *"¿qué descuento promedio aplicó cada empleado?"* (no se puede a nivel pedido porque el descuento es por línea), pero también te permite re-agregar a nivel pedido si lo necesitas (`SUM(line_total) GROUP BY order_id`).
-
-El grano "por unidad" se descarta porque (1) el OLTP no separa las unidades individuales — fragmentar es inventar datos, (2) no responde ninguna pregunta que el grano "por línea" no responda con SUM(quantity), y (3) multiplica el dataset por 24× sin aportar valor. Kimball: elige el grano más atómico que el dato realmente soporta, no más fino.
-
-### ¿Por qué importa tanto?
-
-El grano determina:
-
-1. **Qué dimensiones aplican.** A nivel línea de pedido aplica `dim_product` (cada línea es de un producto). A nivel pedido completo NO aplica `dim_product` directamente — un pedido tiene varios productos, no uno.
-2. **Qué medidas son aditivas.** `quantity` y `line_total` son sumables sin restricciones. `unit_price` es **promediable**, no sumable (sumar precios unitarios no significa nada). El grano fija qué operación tiene sentido sobre cada medida.
-3. **Qué preguntas de negocio se pueden contestar.** Decisiones que ocurren a nivel pedido (la decisión de elegir transportista) pueden vivir en una fact de grano "pedido" pero quedan duplicadas en una de grano "línea". Decisiones que ocurren a nivel línea (el descuento por producto) no se pueden expresar en una fact de grano "pedido".
-
-### Regla de oro
-
-**El grano es uniforme dentro de una fact.** No mezclas filas de granos distintos. Si necesitas analizar a dos granos diferentes (por línea y por pedido), tendrás dos facts separadas — `fact_sales` (por línea) y `fact_orders` (por pedido) — compartiendo dimensiones. Esa configuración se llama **fact constellation** y la verás en el **Tema 03**.
-
----
-
-## Cuándo una métrica entra en hecho vs atributo de dimensión
+## ¿Cuándo una métrica entra en hecho vs atributo de dimensión?
 
 Una de las decisiones recurrentes al diseñar es: *"este número, ¿va en la fact o en una dimensión?"* La regla rápida:
 
@@ -268,6 +268,8 @@ Lo que **no** has visto todavía y se trata en sesiones siguientes:
 Ya tienes la **estructura** — el modelo dimensional. Lo siguiente es aprender a **navegarla**: la **Lectura 03** cubre las operaciones OLAP (drill-down, roll-up, slice, dice, pivot), los movimientos estándar para explorar el cubo en cualquier herramienta de BI.
 
 ---
+
+[^kimball]: **Ralph Kimball** (n. 1944) — consultor y autor estadounidense, una de las figuras fundadoras del *data warehousing*. Es el creador del **enfoque dimensional** (también llamado "metodología Kimball"). Su libro **_The Data Warehouse Toolkit_** (1996, con ediciones posteriores) es la referencia estándar de la disciplina y la fuente de prácticamente todo el vocabulario de esta lectura. Su nombre aparece varias veces aquí porque son ideas suyas: la cita *"declara el grano antes que nada"* (sección **Grano**), el principio de elegir el grano más atómico disponible, la **dimensión degenerada** (sección Tabla de hechos), y la recomendación de mantener `dim_date` **densamente poblada** (sección Dimensiones) — todas forman parte de su metodología.
 
 <p align="center">
 <a href="01_oltp_vs_olap.md">← Anterior: Lectura 01</a> | <a href="Readme.md">Volver al índice</a> | <a href="03_operaciones_olap.md">Siguiente: Lectura 03 — Operaciones OLAP →</a>
