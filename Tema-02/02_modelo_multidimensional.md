@@ -263,12 +263,12 @@ Lo que **no** has visto todavía y se trata en sesiones siguientes:
 
 ---
 
-## Y ahora, la prueba empírica
+## Lo que sigue
 
-La promesa de este modelo es que las queries analíticas son **más simples** y **más legibles** sobre el DWH que sobre el OLTP. La **Práctica 01** lo demuestra escribiendo la misma pregunta de negocio en ambos esquemas y contando las diferencias.
+Ya tienes la **estructura** — el modelo dimensional. Lo siguiente es aprender a **navegarla**: la **Lectura 03** cubre las operaciones OLAP (drill-down, roll-up, slice, dice, pivot), los movimientos estándar para explorar el cubo en cualquier herramienta de BI.
 
 ---
 
 <p align="center">
-<a href="01_oltp_vs_olap.md">← Anterior: Lectura 01</a> | <a href="Readme.md">Volver al índice</a> | <a href="03_practica.md">Siguiente: Práctica 01 →</a>
+<a href="01_oltp_vs_olap.md">← Anterior: Lectura 01</a> | <a href="Readme.md">Volver al índice</a> | <a href="03_operaciones_olap.md">Siguiente: Lectura 03 — Operaciones OLAP →</a>
 </p>

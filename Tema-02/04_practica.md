@@ -1,6 +1,6 @@
 # Práctica 01 — La misma pregunta sobre OLTP y sobre DWH
 
-Esta práctica cierra la sesión con la **prueba empírica** de las dos lecturas anteriores. Vas a contestar **una sola pregunta de negocio** primero contra `northwind_oltp` (3NF, normalizado) y luego contra `northwind_dwh` (esquema estrella, dimensional). El objetivo no es la respuesta — la respuesta es la misma — sino **leer la diferencia entre las dos queries**: cuántas tablas tocan, qué cálculos requieren, qué tan rápido se entiende qué intentan responder.
+Esta práctica cierra el tema con la **prueba empírica** de lo discutido en las lecturas. Vas a contestar **una sola pregunta de negocio** primero contra `northwind_oltp` (3NF, normalizado) y luego contra `northwind_dwh` (esquema estrella, dimensional). El objetivo no es la respuesta — la respuesta es la misma — sino **leer la diferencia entre las dos queries**: cuántas tablas tocan, qué cálculos requieren, qué tan rápido se entiende qué intentan responder.
 
 ## Pregunta de negocio
 
@@ -147,5 +147,5 @@ Lo que acabas de comprobar es que **el modelo dimensional cambia el costo de las
 ---
 
 <p align="center">
-<a href="02_modelo_multidimensional.md">← Anterior: Lectura 02</a> | <a href="Readme.md">Volver al índice del Tema 02</a> | <a href="../Tema-03/Readme.md">Siguiente: Tema 03 →</a>
+<a href="03_operaciones_olap.md">← Anterior: Lectura 03</a> | <a href="Readme.md">Volver al índice del Tema 02</a> | <a href="../Tema-03/Readme.md">Siguiente: Tema 03 →</a>
 </p>

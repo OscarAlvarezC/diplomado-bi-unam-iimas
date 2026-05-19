@@ -8,6 +8,7 @@ En el Tema 01 cargamos dos representaciones de Northwind: una transaccional en `
 - Argumentar por qué una base normalizada en 3NF es ideal para escrituras y limitante para análisis.
 - Manejar el vocabulario fundamental del modelo multidimensional: **hechos**, **dimensiones**, **grano**.
 - Reconocer cuándo una métrica entra en una tabla de hechos y cuándo es atributo de una dimensión.
+- Conocer las operaciones OLAP (drill-down, roll-up, slice, dice, pivot) para navegar un cubo de datos.
 - Comparar la misma pregunta de negocio respondida sobre `northwind_oltp` vs `northwind_dwh` y leer la diferencia.
 
 ## :file_folder: Contenido
@@ -28,11 +29,19 @@ El modelado multidimensional es la geometría de los datos analíticos. Una **ta
 
 ---
 
+<ins>Operaciones OLAP — cómo se explora el cubo</ins>
+
+El modelo dimensional es la **estructura**; las operaciones OLAP son lo que **haces** con ella. Drill-down, roll-up, slice, dice y pivot son los movimientos estándar para navegar un cubo de datos — los mismos en Power BI, Tableau, Excel o cualquier herramienta de BI. Una lectura corta para nombrar formalmente lo que un analista hace todo el día frente a un dashboard.
+
+[**`Lectura 03`**](03_operaciones_olap.md)
+
+---
+
 <ins>Práctica — la misma pregunta sobre OLTP y sobre DWH</ins>
 
 Cerramos con la prueba empírica de lo discutido. Tomamos una pregunta de negocio simple — _"ventas netas por categoría de producto y por mes en 1997"_ — y la respondemos primero contra `northwind_oltp` (que requiere joins de tres o cuatro tablas, agregaciones manuales y `EXTRACT` sobre fechas) y luego contra `northwind_dwh` (un join sencillo a `dim_product` y `dim_date`, `SUM` directo sobre `fact_sales`). La diferencia en complejidad de la query, claridad de la intención y volumen de filas tocadas **es** la justificación del modelado dimensional en una imagen.
 
-[**`Práctica 01`**](03_practica.md)
+[**`Práctica 01`**](04_practica.md)
 
 ## :books: Material
 
