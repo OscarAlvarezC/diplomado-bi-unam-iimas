@@ -138,11 +138,10 @@ Sobre el DWH (porque son más cómodas), intenta responder estas preguntas escri
 
 ## Cierre
 
-Lo que acabas de comprobar es que **el modelo dimensional cambia el costo de las preguntas analíticas** — no porque el motor sea distinto (es el mismo Aurora PostgreSQL ejecutando las dos queries), sino porque la **organización de los datos** está pensada para ese tipo de consultas. Esa es la justificación del trabajo que viene en las siguientes sesiones:
+Lo que acabas de comprobar es que **el modelo dimensional cambia el costo de las preguntas analíticas** — no porque el motor sea distinto (es el mismo Aurora PostgreSQL ejecutando las dos queries), sino porque la **organización de los datos** está pensada para ese tipo de consultas. Esa es la justificación del trabajo que viene en los temas siguientes:
 
 - **Tema 03** explora **qué patrones** de organización dimensional existen (estrella, copo de nieve, constellation) y cuándo elegir uno sobre otro.
-- **Tema 04** te lleva por el **DDL completo y la transformación** SQL paso a paso del DWH que ya tienes cargado.
-- El **Tema 05** construye el **proceso ETL en Python** que automatiza esa transformación.
+- **Tema 04** construye el **proceso ETL en Python** que pobla el DWH desde el OLTP.
 
 ---
 

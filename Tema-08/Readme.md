@@ -1,27 +1,27 @@
-# Tema 08: Funciones de ventana
+# Tema 08: Common Table Expressions y análisis jerárquico
 
 ## :dart: Objetivo
 
-Resolver problemas analíticos clásicos (rankings, comparativas con valores adyacentes, agregados móviles) usando funciones de ventana, sin recurrir a self-joins ni subconsultas correlacionadas.
+Usar CTEs (Common Table Expressions) para escribir queries complejas legibles, y resolver problemas de jerarquías y datos recursivos con `WITH RECURSIVE`.
 
 ## :pushpin: Temas
 
-- **La cláusula `OVER`:** introducción al concepto de "ventana" sobre el resultado.
-- **`PARTITION BY`** y **`ORDER BY`** dentro de la ventana — qué hacen y cuándo se usan.
-- **Funciones de ranking:**
-  - `ROW_NUMBER` — fila secuencial.
-  - `RANK` — con huecos.
-  - `DENSE_RANK` — sin huecos.
-- **Funciones de desplazamiento:**
-  - `LEAD` — valor de la fila siguiente.
-  - `LAG` — valor de la fila anterior.
-- **Frames de ventana:** `ROWS BETWEEN`, `RANGE BETWEEN`.
-- **Agregados móviles:**
-  - Promedios móviles (rolling averages).
-  - Sumas acumulativas (running totals).
-  - Análisis lead (predicción de tendencias simples).
-
-Práctica intensiva sobre `fact_sales` × `dim_date`: top-N productos por mes, comparativas año-contra-año, rolling 30 días.
+- **CTEs simples (`WITH`):**
+  - Sintaxis y semántica.
+  - Diferencias frente a subqueries y vistas.
+  - Cuándo aportan: legibilidad, reutilización dentro de la query, debugging.
+- **CTEs recursivas (`WITH RECURSIVE`):**
+  - Estructura: caso base + caso recursivo + UNION ALL.
+  - Cómo PostgreSQL las evalúa.
+- **Análisis jerárquico:**
+  - Caso clásico: la jerarquía empleado → manager en Northwind.
+  - Recorrido descendente (todos los subordinados de un manager).
+  - Recorrido ascendente (cadena de mando completa).
+  - Cálculo del nivel jerárquico.
+- **Otros casos de uso recursivo:**
+  - Generación de secuencias (alternativa a `generate_series`).
+  - Bill-of-materials, redes, grafos.
+- **`UNION ALL`** como herramienta para combinar facts de distintos granos.
 
 ## :books: Material
 

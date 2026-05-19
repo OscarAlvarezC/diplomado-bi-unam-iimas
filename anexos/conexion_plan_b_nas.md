@@ -18,7 +18,7 @@ Si tu cluster Aurora del Learner Lab no está disponible (crédito agotado, prob
 | Ejecutar el ETL en Python que escribe al DWH | ❌ |
 | Crear procedimientos almacenados | ❌ |
 
-Para los temas **02, 06, 08, 09, 10** (Fundamentos OLAP, SQL avanzado, Funciones de ventana, CTE, Datos semi-estructurados) el Plan B es perfectamente útil. Para los temas **01, 03, 04, 05, 07, 11** (Setup, Esquemas dimensionales, Implementación DW, ETL Python, PL/pgSQL, Caso integrador) necesitas tu Aurora propio.
+Para los temas **02, 06, 08, 09, 10** (Fundamentos OLAP, SQL avanzado, Funciones de ventana, CTE, Datos semi-estructurados) el Plan B es perfectamente útil. Para los temas **01, 03, 04, 05, 07** (Setup, Esquemas dimensionales, Implementación DW, ETL Python, PL/pgSQL) y para el **proyecto final** necesitas tu Aurora propio.
 
 ## :inbox_tray: Datos de conexión
 

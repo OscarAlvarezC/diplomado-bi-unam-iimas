@@ -126,7 +126,7 @@ Aún si una sola base soportara las dos cargas técnicamente, la separación se 
 3. **Modelos optimizados para cada caso.** El OLTP en 3NF y el DWH en estrella son **dos formas de organizar la misma información** para servir a dos preguntas distintas.
 4. **Independencia de cambios.** El equipo de operaciones puede evolucionar el OLTP (agregar columnas, refactorizar, particionar) sin romper a los analistas, porque los analistas no consultan el OLTP — consultan el DWH, que el ETL alimenta y aísla del cambio aguas arriba.
 
-A esa separación se le llama **arquitectura de dos capas**: capa transaccional y capa analítica, conectadas por un **proceso ETL** que extrae del OLTP, transforma a la forma dimensional y carga al DWH. El bloque ETL del módulo (Tema 05) construye exactamente ese proceso en Python.
+A esa separación se le llama **arquitectura de dos capas**: capa transaccional y capa analítica, conectadas por un **proceso ETL** que extrae del OLTP, transforma a la forma dimensional y carga al DWH. El bloque ETL del módulo (Tema 04) construye exactamente ese proceso en Python.
 
 ---
 

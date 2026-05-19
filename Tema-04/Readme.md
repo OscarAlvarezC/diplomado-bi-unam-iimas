@@ -1,36 +1,49 @@
-# Tema 04: Implementación del DW — análisis del DDL y la transformación SQL
+# Tema 04: ETL con Python
 
-## :dart: Objetivo
+Este tema cubre el **proceso ETL completo** (Extract, Transform, Load) construido en Python con `pandas`, `SQLAlchemy` y `psycopg2`. Tomamos los datos de `northwind_oltp`, los profilamos, los limpiamos, los transformamos al modelo dimensional y los cargamos en `northwind_dwh` — el equivalente programático de la transformación SQL que estudiaste en el Tema 02, pero ahora en código.
 
-Analizar a profundidad el data warehouse que ya está cargado en `northwind_dwh`: entender por qué cada decisión de diseño está donde está, qué hace cada script de population, y cómo se resolvieron las natural keys del OLTP a las surrogate keys del DW.
+## :wrench: Setup técnico inicial
 
-## :pushpin: Temas
+- Instalación / verificación de **Anaconda** (incluye Jupyter Lab).
+- Librerías del módulo: `pandas`, `sqlalchemy`, `psycopg2-binary`.
+- Configuración del **engine SQLAlchemy** con la URL de conexión a Aurora.
+- Validación: notebook que abre conexión y corre `SELECT 1` en Aurora desde Jupyter.
 
-### Análisis del DDL
+## :dart: Objetivos
 
-Lectura guiada de [`../scripts/01_northwind_dwh_ddl.sql`](../scripts/01_northwind_dwh_ddl.sql), explicando cada patrón Kimball aplicado:
+- Comprender el rol del ETL como integrador de fuentes heterogéneas y por qué es la pieza central de cualquier arquitectura de BI.
+- Extraer datos desde Aurora hacia DataFrames de pandas con `pd.read_sql`.
+- Perfilar datasets para detectar problemas de calidad (nulos, duplicados, tipos incorrectos, valores anómalos).
+- Limpiar y normalizar datos con las herramientas de pandas.
+- Aplicar reglas de negocio mediante transformaciones tipadas y joins entre DataFrames.
+- Cargar el resultado al data warehouse con `to_sql`, eligiendo la estrategia correcta (replace, append, upsert).
+- Estructurar todo el pipeline como un script Python productivo con logging, manejo de errores y validaciones post-carga.
 
-- **Surrogate keys + natural keys** en cada dim — desacoplamiento del DW del sistema fuente.
-- **Smart key** en `dim_date` (YYYYMMDD como entero, sin surrogate) — filtrable sin join.
-- **Degenerate dimension** (`order_id` en `fact_sales` sin tabla propia) — sirve para `COUNT(DISTINCT)` pero no tiene atributos descriptivos.
-- **Role-playing** — una sola `dim_date` con tres FKs en `fact_sales` (order, required, shipped).
-- **Generated columns** (`extended_price`, `line_total`) — PG las calcula automáticamente.
+## :file_folder: Contenido
 
-### Análisis de la transformación SQL
+El tema se cubre en cuatro sub-bloques, en orden:
 
-Lectura guiada de los scripts `02_..` a `04_..`:
+<ins>1. Fundamentos y extracción</ins>
 
-- **`generate_series` para `dim_date`** — la única dimensión "manufacturada" desde cero (no viene del OLTP).
-- **`INSERT … SELECT … JOIN`** para poblar las dims OLTP-derivadas. Aplanamiento de jerarquías (`categories` y `suppliers` aplastados en `dim_product`). Self-join sobre `employees.reports_to` para `dim_employee`.
-- **Resolución natural→surrogate keys** en `fact_sales`: el patrón central del star schema en código.
-- **Tipo fixes durante el ETL**: `REAL` → `NUMERIC(10,2)` con `ROUND` para corregir la imprecisión binaria del origen.
-- **Verificación cross-OLTP/DWH**: `SUM(quantity)` y `SUM(line_total)` consistentes entre las dos representaciones.
+Conceptos: por qué existe el ETL, los tres pasos (E/T/L), **ETL vs ELT** y cuándo usar cada uno, **idempotencia** y por qué importa. Setup del entorno Python. **Extracción desde Aurora con `pd.read_sql`**: lectura completa, lectura por chunks. Mención de archivos CSV/JSON locales y de cómo lucen las fuentes en la realidad (object storage, APIs, message queues).
+
+<ins>2. Limpieza y perfilado</ins>
+
+**Perfilado del DataFrame** con `df.info()`, `df.describe()`, `df.isna().sum()`, `df.value_counts()`. **Limpieza:** manejo de nulos (drop, fillna, indicadores), deduplicación con `drop_duplicates`, normalización de strings (`str.strip`, `str.lower`, regex). **Conversión de tipos:** `astype` para tipos numéricos y categóricos, parseo de fechas con `pd.to_datetime`. **Estandarización:** catálogos de valores controlados, unificación de formatos.
+
+<ins>3. Transformación según reglas de negocio</ins>
+
+**Cálculo de valores derivados** (márgenes, totales, ratios) con operaciones vectorizadas. **Joins entre DataFrames** con `merge`: `how='inner'/'left'/'outer'`, múltiples keys. **Generación de `dim_date`** en pandas con `pd.date_range` + atributos calendáricos derivados. **Construcción de las dimensiones desnormalizadas** — el equivalente a los `INSERT…SELECT…JOIN` de los scripts de población del DWH, ahora en código Python. **Construcción de la tabla de hechos** con resolución de surrogate keys vía merge sucesivo. Estrategias para garantizar **integridad referencial** antes de la carga.
+
+<ins>4. Carga, orquestación y buenas prácticas</ins>
+
+**Carga al data warehouse con `to_sql()`:** estrategias `replace`, `append`, upsert manual; `chunksize` y performance; especificación de tipos con `dtype` para evitar inferencias sub-óptimas. **Estructura de un pipeline modular** en un script `etl_pipeline.py`: funciones separadas para `extract()`, `transform()`, `load()` orquestadas por un `main()`. **Logging básico** con el módulo `logging` de la stdlib. **Manejo de excepciones:** rollback, retry policies básicas. **Validaciones post-carga:** conteos vs origen, sumas y agregados.
+
+**Cierre — ETL en producción real:** patrones de object storage (S3), pipelines orquestados (Airflow, Prefect), formatos columnares (Parquet), compute serverless (Glue, Lambda). Discusión, sin hands-on. Da contexto sobre dónde encaja lo aprendido en el ecosistema mayor.
 
 ## :books: Material
 
 > Por publicar.
-
-Scripts de referencia en [`../scripts/`](../scripts/).
 
 ---
 

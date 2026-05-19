@@ -28,21 +28,23 @@ Material de referencia que se usa en clase (no se requiere leerlo antes):
 
 ## :bookmark_tabs: Temas
 
-11 temas que cubren las 40 horas del módulo. **El ritmo es adaptativo** — cada tema se cubre en el tiempo que el grupo necesite, sin atadura 1:1 a una sesión de clase.
+9 temas que cubren las 40 horas del módulo. **El ritmo es adaptativo** — cada tema se cubre en el tiempo que el grupo necesite, sin atadura 1:1 a una sesión de clase.
 
 - [`Tema-01:` Setup técnico — montar el entorno de trabajo](./Tema-01/Readme.md)
 - [`Tema-02:` Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional](./Tema-02/Readme.md)
 - [`Tema-03:` Esquemas dimensionales — estrella, copo de nieve, galaxy](./Tema-03/Readme.md)
-- [`Tema-04:` Implementación del DW — análisis del DDL y la transformación SQL](./Tema-04/Readme.md)
-- [`Tema-05:` ETL con Python — extracción, perfilado, limpieza, transformación, carga](./Tema-05/Readme.md)
-- [`Tema-06:` SQL avanzado — funciones predefinidas](./Tema-06/Readme.md)
-- [`Tema-07:` PL/pgSQL — control de flujo, cursores, procedimientos y funciones](./Tema-07/Readme.md)
-- [`Tema-08:` Funciones de ventana](./Tema-08/Readme.md)
-- [`Tema-09:` Common Table Expressions y análisis jerárquico](./Tema-09/Readme.md)
-- [`Tema-10:` Datos semiestructurados — hstore y JSONB](./Tema-10/Readme.md)
-- [`Tema-11:` Caso integrador](./Tema-11/Readme.md)
+- [`Tema-04:` ETL con Python — extracción, perfilado, limpieza, transformación, carga](./Tema-04/Readme.md)
+- [`Tema-05:` SQL avanzado — funciones predefinidas](./Tema-05/Readme.md)
+- [`Tema-06:` PL/pgSQL — control de flujo, cursores, procedimientos y funciones](./Tema-06/Readme.md)
+- [`Tema-07:` Funciones de ventana](./Tema-07/Readme.md)
+- [`Tema-08:` Common Table Expressions y análisis jerárquico](./Tema-08/Readme.md)
+- [`Tema-09:` Datos semiestructurados — hstore y JSONB](./Tema-09/Readme.md)
 
 > **Tema 01 es 100% operacional**: cluster Aurora + DBeaver + carga de los 3 schemas (Northwind OLTP, DWH, Airbnb). A partir del Tema 02 todo es contenido analítico sobre datos ya disponibles.
+
+## :trophy: Proyecto final
+
+El módulo cierra con un **proyecto integrador**: una solución analítica completa sobre un problema de tu elección, que aplica todo lo visto — modelado dimensional, infraestructura en AWS, ETL en Python, SQL avanzado y un dashboard. Los criterios de evaluación, entregables y calendario de hitos están en la [**rúbrica del proyecto final**](./anexos/rubrica_proyecto_final.md).
 
 ## :bar_chart: Datos: orígenes y atribución
 

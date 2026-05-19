@@ -1,6 +1,6 @@
 # Tema 02: Fundamentos OLAP — OLTP vs OLAP y modelo multidimensional
 
-En el Tema 01 cargamos dos representaciones de Northwind: una transaccional en `northwind_oltp` y una analítica en `northwind_dwh`. Hoy explicamos **por qué** existen las dos. La razón corta: una base optimizada para registrar miles de pedidos por segundo no es la misma base optimizada para responder _"¿cuánto vendimos por categoría y mes durante 1997?"_ sin que la pregunta tarde minutos. Esta sesión es la justificación intelectual del modelado dimensional — el _qué_ (esquemas estrella, copo de nieve, constelación) lo vemos en el **Tema 03**, y el _cómo_ (DDL + carga end-to-end) en el **Tema 04**.
+En el Tema 01 cargamos dos representaciones de Northwind: una transaccional en `northwind_oltp` y una analítica en `northwind_dwh`. Hoy explicamos **por qué** existen las dos. La razón corta: una base optimizada para registrar miles de pedidos por segundo no es la misma base optimizada para responder _"¿cuánto vendimos por categoría y mes durante 1997?"_ sin que la pregunta tarde minutos. Esta sesión es la justificación intelectual del modelado dimensional — el _qué_ (esquemas estrella, copo de nieve, constelación) lo vemos en el **Tema 03**, y el _cómo_ (el DDL y la transformación SQL que pobló el DWH) se analiza en la Lectura 02 de este mismo tema.
 
 ## :dart: Objetivos
 

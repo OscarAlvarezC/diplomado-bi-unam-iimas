@@ -2,7 +2,7 @@
 
 En la práctica del análisis de datos, lo más común es recibir la información en alguno de dos formatos: un **dump SQL** (`.sql`, generalmente exportado desde otra base de datos con `CREATE TABLE` + `INSERT` ya listos) o un **archivo CSV** (`.csv`, planilla cruda sin tipos ni schema)[^1]. En esta sesión cargamos los dos: **Northwind** como dump SQL y el snapshot de **Inside Airbnb CDMX** como CSV. Son los dos métodos que vas a usar para incorporar cualquier dataset durante el resto del módulo.
 
-Lo que hacemos hoy es un **ETL básico**. ETL son las tres fases típicas para mover datos de una fuente a un destino: **Extract** (leer del origen — archivo, otra base, API), **Transform** (limpiar, convertir tipos, aplicar reglas de negocio) y **Load** (escribir al destino). Hoy aplicamos *Extract* y *Load* en su forma más simple. Las tres fases se profundizan más adelante: en el **Tema 04** con un ETL hecho en SQL puro hacia el data warehouse, y en el bloque ETL (**Tema 05**) con un ETL completo en Python (`pandas` + `SQLAlchemy`) — extracción desde la base, perfilado, limpieza, transformaciones según reglas de negocio y estrategias de carga.
+Lo que hacemos hoy es un **ETL básico**. ETL son las tres fases típicas para mover datos de una fuente a un destino: **Extract** (leer del origen — archivo, otra base, API), **Transform** (limpiar, convertir tipos, aplicar reglas de negocio) y **Load** (escribir al destino). Hoy aplicamos *Extract* y *Load* en su forma más simple. Las tres fases se profundizan más adelante: en el **Tema 02** se analiza la transformación SQL hacia el data warehouse, y en el **Tema 04** se construye un ETL completo en Python (`pandas` + `SQLAlchemy`) — extracción desde la base, perfilado, limpieza, transformaciones según reglas de negocio y estrategias de carga.
 
 ## :dart: Objetivos
 
@@ -50,7 +50,7 @@ Para enviar consultas SQL al cluster necesitamos un cliente. Vamos a usar **DBea
 
 <ins>Construir el data warehouse</ins>
 
-Sobre `northwind_oltp` construimos un **data warehouse** en el schema `northwind_dwh`: un esquema estrella con **5 dimensiones + 1 tabla de hechos** (`fact_sales`, 2 155 filas) siguiendo los patrones clásicos de Kimball. En esta sesión solamente ejecutamos los scripts (DDL + tres `INSERT…SELECT` de población). El análisis profundo de cada decisión de diseño — surrogate keys, role-playing dimensions, smart keys, generated columns, corrección REAL→NUMERIC — se hace en el **Tema 04**.
+Sobre `northwind_oltp` construimos un **data warehouse** en el schema `northwind_dwh`: un esquema estrella con **5 dimensiones + 1 tabla de hechos** (`fact_sales`, 2 155 filas) siguiendo los patrones clásicos de Kimball. En esta sesión solamente ejecutamos los scripts (DDL + tres `INSERT…SELECT` de población). El análisis profundo de cada decisión de diseño — surrogate keys, role-playing dimensions, smart keys, generated columns, corrección REAL→NUMERIC — se hace en el **Tema 02**.
 
 [**`Guía 04`**](../setup/04_northwind_dwh.md)
 
@@ -58,7 +58,7 @@ Sobre `northwind_oltp` construimos un **data warehouse** en el schema `northwind
 
 <ins>Cargar Airbnb CDMX</ins>
 
-**Inside Airbnb** es un proyecto independiente de transparencia urbana (no afiliado a Airbnb la empresa) que publica snapshots mensuales de los listings de Airbnb por ciudad bajo licencia CC0. Cargamos el snapshot de Ciudad de México (**27 051 listings × 79 columnas**) en el schema `airbnb` con todas las columnas TEXT, sin tipos ni constraints, fiel a la fuente. En el **Tema 10** (datos semiestructurados) vamos a usar estos datos para explotar columnas semi-estructuradas con `hstore` y `JSONB`.
+**Inside Airbnb** es un proyecto independiente de transparencia urbana (no afiliado a Airbnb la empresa) que publica snapshots mensuales de los listings de Airbnb por ciudad bajo licencia CC0. Cargamos el snapshot de Ciudad de México (**27 051 listings × 79 columnas**) en el schema `airbnb` con todas las columnas TEXT, sin tipos ni constraints, fiel a la fuente. En el **Tema 09** (datos semiestructurados) vamos a usar estos datos para explotar columnas semi-estructuradas con `hstore` y `JSONB`.
 
 [**`Guía 05`**](../setup/05_airbnb.md)
 

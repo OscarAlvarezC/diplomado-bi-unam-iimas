@@ -201,7 +201,7 @@ erDiagram
 - **Fidelidad al origen**: cargar los CSV de Inside Airbnb tal cual, sin pretender que la fuente sea limpia. Si un campo tiene `"N/A"` literal en lugar de `NULL`, lo guardamos así.
 - **Sin PK en `listings`** porque hay `id`s que podrían tener problemas de unicidad en el origen — la carga no debe fallar por eso.
 - **79 columnas TEXT**: el casting a tipos correctos (NUMERIC para precios, BOOLEAN, DATE) se hace en la capa "silver" del ETL, que está fuera del alcance del módulo.
-- **`amenities` es un JSON array válido** — usable directo con `JSONB` en el Tema 10 (datos semi-estructurados).
+- **`amenities` es un JSON array válido** — usable directo con `JSONB` en el Tema 09 (datos semi-estructurados).
 - **`host_verifications` es lista Python** (con comillas simples) — necesita transformación a JSON antes de cargar a `JSONB`. Es ejemplo típico de "dato sucio que parece JSON pero no lo es".
 
 ### Mostradas solo algunas columnas

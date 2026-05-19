@@ -174,7 +174,7 @@ Las columnas DAX (vista de datos) **nunca** tienen query folding — siempre las
 - **Power Query** — para columnas derivadas de datos de **la misma tabla** (`unit_price * quantity`, extraer el año de una fecha, limpiar texto). Es lo preferible: se calcula una vez en la carga y, si hay query folding, la base de datos hace el trabajo.
 - **Vista de datos (DAX)** — cuando la columna **necesita datos de otra tabla relacionada** y traerlos en Power Query sería complicado.
 
-Regla simple: **si puedes hacerla en Power Query, hazla ahí**; usa DAX solo cuando necesites las relaciones del modelo. Esto conecta con el bloque de **ETL** del módulo (Tema 05) — Power Query es un ETL visual: lo que en Python harías con pandas (`df['total'] = df['precio'] * df['cantidad']`), en Power BI lo haces en Power Query.
+Regla simple: **si puedes hacerla en Power Query, hazla ahí**; usa DAX solo cuando necesites las relaciones del modelo. Esto conecta con el bloque de **ETL** del módulo (Tema 04) — Power Query es un ETL visual: lo que en Python harías con pandas (`df['total'] = df['precio'] * df['cantidad']`), en Power BI lo haces en Power Query.
 
 ---
 

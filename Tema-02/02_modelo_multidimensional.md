@@ -255,11 +255,10 @@ Aplicado a Northwind:
 | **Grano** | Qué representa una fila de la fact | "Una línea de pedido" en Northwind |
 | **Desnormalización deliberada** | Aplanar relaciones para evitar joins en queries | `category_name` dentro de `dim_product` |
 
-Lo que **no** has visto todavía y se trata en sesiones siguientes:
+Lo que **no** has visto todavía y se trata en temas siguientes:
 
 - **Esquema estrella, copo de nieve, constellation** → Tema 03.
-- **DDL completo, decisiones de tipo (`REAL → NUMERIC`), generated columns** → Tema 04.
-- **El proceso ETL que pobló estas tablas** → Tema 05.
+- **El proceso ETL en Python que pobló estas tablas** → Tema 04.
 
 ---
 
