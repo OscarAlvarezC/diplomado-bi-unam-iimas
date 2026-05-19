@@ -2,6 +2,15 @@
 
 Preguntas reales que hicieron alumnos durante las sesiones del Tema 01, con la respuesta que se discutió o se investigó después. Pensadas como complemento al material — si tienes la misma duda al seguir las guías, busca aquí primero.
 
+## Índice
+
+1. [¿En "Configuración express" AWS dice "Cree y consulte una base de datos sin servidor de Aurora PostgreSQL" — a qué se refiere con "sin servidor"?](#en-configuración-express-aws-dice-cree-y-consulte-una-base-de-datos-sin-servidor-de-aurora-postgresql--a-qué-se-refiere-con-sin-servidor)
+2. [¿Después de crear el cluster salió un error sobre `ram:GetResourceShares` — qué significa? ¿Rompió algo?](#después-de-crear-el-cluster-salió-un-error-sobre-ramgetresourceshares--qué-significa-rompió-algo)
+3. [¿Qué son las subnets?](#qué-son-las-subnets)
+4. [¿El profesor de AWS Academy puede modificar los roles IAM para habilitar RAM (o cualquier otro servicio bloqueado)?](#el-profesor-de-aws-academy-puede-modificar-los-roles-iam-para-habilitar-ram-o-cualquier-otro-servicio-bloqueado)
+5. [En RDS PostgreSQL estándar solo se creaba una instancia, pero al crear una Aurora PostgreSQL aparecen un cluster y una instancia. ¿Qué cambió?](#en-rds-postgresql-estándar-solo-se-creaba-una-instancia-pero-al-crear-una-aurora-postgresql-aparecen-un-cluster-y-una-instancia-qué-cambió)
+6. [Cuando te conectas al cluster, ¿trabajan las dos instancias para el procesamiento? ¿Se pueden tener dos instancias con motores diferentes en el mismo cluster?](#cuando-te-conectas-al-cluster-trabajan-las-dos-instancias-para-el-procesamiento-se-pueden-tener-dos-instancias-con-motores-diferentes-en-el-mismo-cluster)
+
 ---
 
 ## ¿En "Configuración express" AWS dice "Cree y consulte una base de datos sin servidor de Aurora PostgreSQL" — a qué se refiere con "sin servidor"?
