@@ -1,6 +1,6 @@
 # Módulo 4: Inteligencia de Negocios y SQL Avanzado
 
-Diplomado **IIMAS – UNAM** en alianza con **AWS Academy**.
+Diplomado **IIMAS – UNAM**, institución miembro de **AWS Academy**.
 
 ## :wave: Bienvenid@s
 

@@ -1,6 +1,6 @@
 # Temario del Diplomado
 
-Diplomado en Bases de Datos y Sistemas de Información — IIMAS, UNAM, en alianza con AWS Academy. **8 módulos, 250 horas en total.** Este repo cubre el **Módulo 4** (40 h).
+Diplomado en Bases de Datos y Sistemas de Información — IIMAS, UNAM, institución miembro de AWS Academy. **8 módulos, 250 horas en total.** Este repo cubre el **Módulo 4** (40 h).
 
 > 📄 Documento oficial publicado por IIMAS: [TEMARIO.pdf](https://www.iimas.unam.mx/educacioncontinua/diplomado/TEMARIO.pdf). Lo de abajo es la transcripción a Markdown del Módulo 4 para lectura rápida desde GitHub; el detalle de los otros módulos está en el PDF.
 
