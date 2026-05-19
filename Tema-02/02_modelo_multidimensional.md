@@ -1,4 +1,4 @@
-# Lectura 02 — Modelo multidimensional: hechos, dimensiones, grano
+# Lectura 02 — Modelo multidimensional: grano, hechos, dimensiones
 
 En la lectura anterior cerraste con la idea de que **OLAP necesita un diseño distinto al de OLTP**. Esta lectura le pone nombre a ese diseño. El modelo dominante en la industria desde los años 90 — formalizado por Ralph Kimball[^kimball] y aplicado en prácticamente todo data warehouse moderno — se llama **modelo multidimensional**. Tiene tres conceptos centrales: **grano**, **hechos** y **dimensiones**. Si dominas esos tres, puedes leer y diseñar cualquier warehouse.
 

@@ -21,7 +21,7 @@ Las bases transaccionales (**OLTP**, _Online Transaction Processing_) se diseña
 
 ---
 
-<ins>Modelo multidimensional — hechos, dimensiones, grano</ins>
+<ins>Modelo multidimensional — grano, hechos, dimensiones</ins>
 
 El modelado multidimensional es la geometría de los datos analíticos. Una **tabla de hechos** registra eventos medibles del negocio (una venta, un click, una llamada) — sus columnas son métricas numéricas y referencias al contexto. Las **dimensiones** son ese contexto: el **quién** (cliente), el **qué** (producto), el **cuándo** (fecha), el **dónde** (geografía). La pregunta más importante a hacer antes de construir cualquier warehouse es la del **grano** de la tabla de hechos: ¿una fila por pedido completo, por línea de pedido, por unidad vendida? La respuesta determina todo lo demás — qué dimensiones aplican, qué métricas se pueden agregar, qué preguntas se pueden contestar.
 
