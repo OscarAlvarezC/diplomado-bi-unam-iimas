@@ -38,6 +38,10 @@ Cerramos con la prueba empírica de lo discutido. Tomamos una pregunta de negoci
 
 Las lecturas y la práctica viven en este mismo directorio. Las queries comparativas están en [`scripts/tema02/`](../scripts/tema02/) y se pueden ejecutar tal cual desde DBeaver con la conexión `aurora-mod4` ya configurada en el Tema 01.
 
+## :grey_question: Preguntas de clase
+
+Preguntas reales que han hecho alumnos durante este tema, con la respuesta que demandó investigación en profundidad después de clase: [**`preguntas_de_clase.md`**](preguntas_de_clase.md).
+
 ---
 
 <p align="center">
