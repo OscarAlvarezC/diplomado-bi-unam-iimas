@@ -46,14 +46,14 @@ dim_product
 
 `"Beverages"` aparece duplicado en cada producto que sea bebida. En un esquema estrella eso es **deliberado y correcto**.
 
-### Por qué la estrella es el patrón preferido
+### ¿Por qué la estrella es el patrón preferido?
 
 - **Queries simples.** Para "ventas por categoría" haces un solo `JOIN` (`fact_sales` → `dim_product`). La categoría ya está ahí.
 - **Pocos joins = más rápido.** El motor une la fact con cada dimensión una sola vez. Menos joins, menos trabajo, planes de ejecución más predecibles.
 - **Fácil de entender.** Un analista ve el esquema y de inmediato sabe qué dimensiones tiene disponibles.
-- **La duplicación no duele.** Las dimensiones son chicas (77 productos, 91 clientes) y solo se reescriben vía ETL — la redundancia no genera riesgo de inconsistencia.
+- **La duplicación no duele.** Lo que normalmente dolería de duplicar — el **espacio extra** en disco y el **riesgo de inconsistencia** al actualizar — aquí no aplica: las dimensiones son chicas (77 productos, 91 clientes), así que el espacio extra es ruido; y solo el ETL las reescribe, así que no hay updates manuales que puedan dejar filas desincronizadas.
 
-Es el patrón por defecto. Mientras no tengas una razón fuerte para hacer otra cosa, **diseña en estrella**.
+Es el patrón por defecto. Mientras no tengas una razón fuerte para hacer otra cosa, **diseña en estrella**. Las razones legítimas para apartarse las verás más abajo: hacia **copo de nieve** cuando una dimensión específica lo amerita, hacia **galaxy** cuando hay varios procesos de negocio.
 
 ---
 
@@ -93,23 +93,23 @@ Si lo dibujas, las dimensiones se ramifican en sub-dimensiones, y sub-sub-dimens
 
 El copo de nieve **ahorra espacio** y **elimina la redundancia** — gana en pureza de diseño. Pero **paga con más joins** en cada query analítica, que es exactamente lo que un DWH quiere evitar.
 
-### Por qué Kimball lo desaconseja
+### ¿Por qué Kimball lo desaconseja?
 
 Kimball es explícito: **para la mayoría de los casos, no uses copo de nieve.** Su razonamiento:
 
 1. **El ahorro de espacio es marginal.** Las dimensiones son chicas comparadas con la fact. Normalizar `dim_product` de 77 filas ahorra kilobytes — irrelevante cuando la fact tiene millones de filas.
 2. **El costo en queries es real.** Cada sub-tabla es un join extra que se paga en **cada** consulta analítica, para siempre.
-3. **Complica la herramienta de BI.** Power BI, Tableau y compañía están optimizados para esquemas estrella. Un copo de nieve confunde el modelo y la auto-detección de relaciones.
+3. **Complica el modelo para usuarios finales y herramientas.** Un snowflake con sub-tablas exige que quien consulta entienda dónde vive cada atributo, y obliga a las herramientas de BI a navegar relaciones extra para presentar la dimensión completa. Las herramientas modernas (Power BI, Tableau, etc.) están optimizadas para esquemas estrella — precisamente porque la convención que Kimball estableció en los 90 se volvió el estándar de la industria.
 
 Es el mismo argumento que viste en el Tema 02 sobre por qué el DWH desnormaliza: en analítica, **la velocidad de lectura vale más que la pureza del diseño**.
 
-### Cuándo el copo de nieve sí tiene sentido
+### ¿Cuándo el copo de nieve sí tiene sentido?
 
 No es un patrón "prohibido" — tiene casos legítimos:
 
 - **Dimensiones enormes con mucha repetición.** Si una dimensión tiene millones de filas y un atributo larguísimo (un texto de varios KB) que se repite, normalizarlo sí ahorra espacio significativo.
 - **Atributos compartidos por varias dimensiones.** Si "país" lo usan `dim_customer`, `dim_supplier` y `dim_employee`, una tabla `dim_country` central evita mantener la lista de países en tres lugares.
-- **Jerarquías que cambian de forma independiente.** Cuando una sub-dimensión se actualiza por su cuenta con frecuencia.
+- **Sub-dimensiones que cambian sin tocar la dimensión principal.** Cuando una parte de la dimensión (ej. el nombre de la categoría) se renombra o reorganiza con frecuencia mientras el resto (los productos) no, tenerla en una sub-tabla aparte permite actualizar un solo registro en vez de reescribir miles de filas de la dimensión principal.
 
 Pero son la excepción. El default sigue siendo estrella.
 
@@ -141,11 +141,11 @@ Las dos comparten `dim_date`, `dim_customer`, `dim_employee`, `dim_shipper`. Cad
 
 Para que un galaxy funcione, las dimensiones compartidas deben ser **conformed dimensions** (dimensiones conformadas): **exactamente la misma tabla**, usada por ambas facts, con el mismo significado y las mismas llaves.
 
-Esto importa porque permite **comparar métricas entre facts**. Si `fact_sales` y `fact_orders` usan la misma `dim_date`, puedes preguntar *"por mes, ¿cuánto vendí (de fact_sales) y cuánto pagué de flete (de fact_orders)?"* — alineando ambas por la dimensión común. Eso es el **drill-across** que viste en la Lectura 03 del Tema 02.
+Esto importa porque permite **comparar métricas entre facts**. Si `fact_sales` y `fact_orders` usan la misma `dim_date`, puedes preguntar *"por mes, ¿cuánto vendí (de fact_sales) y cuánto pagué de costo de envío (freight de fact_orders)?"* — alineando ambas por la dimensión común. Eso es el **drill-across** que viste en la Lectura 03 del Tema 02.
 
 Si cada fact tuviera su propia tabla de fechas, distinta, no podrías cruzarlas — los meses no se alinearían. Las conformed dimensions son el "pegamento" del galaxy.
 
-### Cuándo aparece un galaxy
+### ¿Cuándo aparece un galaxy?
 
 Naturalmente, cuando el negocio tiene **varios procesos medibles** que comparten contexto:
 
@@ -204,7 +204,7 @@ No hay que entregar nada; es un ejercicio mental para comprobar que puedes aplic
 
 ## Lo que sigue
 
-Con los tres esquemas claros, el **Tema 04** te lleva al ETL en Python: el proceso que **construye y puebla** un esquema estrella tomando datos de un sistema OLTP. Vas a implementar en código lo que hasta ahora solo has leído.
+Con los tres esquemas claros, el **Tema 04** te lleva al ETL en Python: el proceso que **construye y carga** un esquema estrella tomando datos de un sistema OLTP. 
 
 ---
 
