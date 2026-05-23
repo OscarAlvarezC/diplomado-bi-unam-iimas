@@ -22,7 +22,7 @@ Guía para instalar **Miniconda** — el gestor de ambientes y paquetes que vamo
 
 ## Paso 1 — Descargar el instalador
 
-Ve a la [página oficial de Miniconda](https://docs.anaconda.com/miniconda/) y descarga el instalador para tu sistema operativo.
+Ve a la [página oficial de Miniconda](https://www.anaconda.com/download/success) y descarga el instalador para tu sistema operativo.
 
 | Sistema | Instalador |
 |---|---|
