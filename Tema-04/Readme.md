@@ -4,10 +4,10 @@ Este tema cubre el **proceso ETL completo** (Extract, Transform, Load) construid
 
 ## :wrench: Setup técnico inicial
 
-- Instalación / verificación de **Anaconda** (incluye Jupyter Lab).
-- Librerías del módulo: `pandas`, `sqlalchemy`, `psycopg2-binary`.
-- Configuración del **engine SQLAlchemy** con la URL de conexión a Aurora.
-- Validación: notebook que abre conexión y corre `SELECT 1` en Aurora desde Jupyter.
+- Instalación de **Miniconda** y creación del ambiente `bi-unam` — guía paso a paso en [**`anexos/instalar_miniconda.md`**](../anexos/instalar_miniconda.md).
+- Librerías del módulo: `pandas`, `sqlalchemy`, `psycopg2-binary`, `jupyterlab` (las instala la guía del anexo).
+- Configuración del **engine SQLAlchemy** con la URL de conexión a Aurora (en el Notebook 01).
+- Validación: notebook que abre conexión y corre `SELECT version()` en Aurora desde Jupyter.
 
 ## :dart: Objetivos
 
@@ -51,7 +51,7 @@ Conceptos: por qué existe el ETL, los tres pasos (E/T/L), **ETL vs ELT** y cuá
 
 ## :books: Material
 
-Los cuatro notebooks viven en este mismo directorio. Cada notebook es **auto-contenido** — puedes abrir cualquiera y correrlo sin depender del estado de los anteriores; solo asegúrate de tener el cluster Aurora del Tema 01 accesible y las credenciales en una variable de entorno (`AURORA_PASSWORD`).
+Los cuatro notebooks viven en este mismo directorio. Cada notebook es **auto-contenido** — puedes abrir cualquiera y correrlo sin depender del estado de los anteriores; solo asegúrate de tener el cluster Aurora del Tema 01 accesible y de reemplazar `AURORA_HOST` y `AURORA_PASSWORD` en la primera celda de cada notebook con los tuyos.
 
 > **Estado:** estructura completa con esqueleto de secciones; el contenido detallado de cada notebook (celdas markdown + código) está en desarrollo. Cada sección de cada notebook lleva un marcador *"Por publicar"* hasta que se complete.
 
