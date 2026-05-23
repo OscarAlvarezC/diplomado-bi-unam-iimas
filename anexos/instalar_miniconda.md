@@ -1,6 +1,6 @@
 # Instalar Miniconda
 
-Guía para instalar **Miniconda** — el gestor de ambientes y paquetes que vamos a usar en el módulo para correr Python y Jupyter Lab. Aplica al **Tema 04 (ETL con Python)** en adelante.
+Guía para instalar **Miniconda** — el gestor de ambientes y paquetes que vamos a usar en el módulo para correr Python y Jupyter Notebook. Aplica al **Tema 04 (ETL con Python)** en adelante.
 
 ## ¿Qué es Miniconda y por qué Miniconda en vez de Anaconda?
 
@@ -110,7 +110,7 @@ Verás que el prompt de la terminal cambia para mostrar `(bi-unam)` al inicio �
 Con el ambiente activo:
 
 ```bash
-conda install -y pandas sqlalchemy psycopg2 jupyterlab
+conda install -y pandas sqlalchemy psycopg2 notebook
 ```
 
 Esto instala:
@@ -118,23 +118,23 @@ Esto instala:
 - **`pandas`** — manipulación de DataFrames.
 - **`sqlalchemy`** — capa de abstracción sobre el driver de PostgreSQL.
 - **`psycopg2`** — driver concreto de PostgreSQL.
-- **`jupyterlab`** — entorno para correr los notebooks del módulo.
+- **`notebook`** — Jupyter Notebook, entorno para correr los notebooks del módulo.
 
 > :information_source: Si conda no encuentra `psycopg2`, prueba con: `pip install psycopg2-binary`. La versión `-binary` evita compilar desde C y suele funcionar mejor cross-platform.
 
 ---
 
-## Paso 6 — Lanzar Jupyter Lab
+## Paso 6 — Lanzar Jupyter Notebook
 
 Con el ambiente `bi-unam` activo, ejecuta:
 
 ```bash
-jupyter lab
+jupyter notebook
 ```
 
-Se abrirá una pestaña en tu navegador con la interfaz de Jupyter Lab. Desde ahí puedes abrir los notebooks `.ipynb` del módulo (los del Tema 04, por ejemplo) y ejecutarlos celda por celda.
+Se abrirá una pestaña en tu navegador con la interfaz de Jupyter Notebook. Desde ahí puedes abrir los notebooks `.ipynb` del módulo (los del Tema 04, por ejemplo) y ejecutarlos celda por celda.
 
-Para cerrar Jupyter Lab: ve a la terminal donde lo lanzaste y presiona **Ctrl+C** dos veces.
+Para cerrar Jupyter Notebook: ve a la terminal donde lo lanzaste y presiona **Ctrl+C** dos veces.
 
 ---
 
@@ -185,13 +185,13 @@ pip install psycopg2-binary
 </details>
 
 <details>
-<summary><strong>Jupyter Lab abre pero no encuentra las librerías del ambiente</strong></summary>
+<summary><strong>Jupyter Notebook abre pero no encuentra las librerías del ambiente</strong></summary>
 
-Probablemente lanzaste `jupyter lab` desde **otra** instalación de Python (la del sistema, o el `base` de conda). Verifica:
+Probablemente lanzaste `jupyter notebook` desde **otra** instalación de Python (la del sistema, o el `base` de conda). Verifica:
 
 1. Que el ambiente `bi-unam` esté activo: `conda activate bi-unam`.
 2. Que estés usando el Jupyter del ambiente: `which jupyter` (macOS/Linux) o `where jupyter` (Windows) — debe apuntar a una ruta dentro de `~/miniconda3/envs/bi-unam/`.
-3. Si no, reinstala Jupyter en el ambiente: `conda install -n bi-unam jupyterlab`.
+3. Si no, reinstala Jupyter en el ambiente: `conda install -n bi-unam notebook`.
 </details>
 
 ---

@@ -5,7 +5,7 @@ Este tema cubre el **proceso ETL completo** (Extract, Transform, Load) construid
 ## :wrench: Setup técnico inicial
 
 - Instalación de **Miniconda** y creación del ambiente `bi-unam` — guía paso a paso en [**`anexos/instalar_miniconda.md`**](../anexos/instalar_miniconda.md).
-- Librerías del módulo: `pandas`, `sqlalchemy`, `psycopg2-binary`, `jupyterlab` (las instala la guía del anexo).
+- Librerías del módulo: `pandas`, `sqlalchemy`, `psycopg2-binary`, `notebook` (las instala el [anexo de Miniconda](../anexos/instalar_miniconda.md) como parte del setup).
 - Configuración del **engine SQLAlchemy** con la URL de conexión a Aurora (en el Notebook 01).
 - Validación: notebook que abre conexión y corre `SELECT version()` en Aurora desde Jupyter.
 
