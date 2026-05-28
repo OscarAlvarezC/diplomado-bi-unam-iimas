@@ -14,7 +14,7 @@ Guía para instalar **Miniconda** — el gestor de ambientes y paquetes que vamo
 | Tiempo de instalación | **~2 minutos** | ~15 minutos |
 | Filosofía | Tú instalas lo que necesitas | Todo incluido |
 
-**Para este módulo conviene Miniconda:** instalas solo las 4 librerías que vamos a usar (`pandas`, `sqlalchemy`, `psycopg2-binary`, `jupyterlab`) y mantienes tu sistema ligero. Si después quieres más, las agregas con `conda install`.
+**Para este módulo conviene Miniconda:** instalas solo las librerías que vamos a usar (`pandas`, `sqlalchemy`, `psycopg2`, `notebook`, `jupysql`) y mantienes tu sistema ligero. Si después quieres más, las agregas con `conda install`.
 
 > :information_source: **¿Por qué conda y no pip directamente?** Conda crea **ambientes aislados** — un ambiente por proyecto, con su propia versión de Python y sus propias librerías. Así no rompes tu Python del sistema, ni mezclas dependencias de proyectos distintos. Es el equivalente a `venv` + `pip`, pero más robusto para Windows y para librerías con dependencias en C (como `psycopg2`).
 
@@ -111,14 +111,16 @@ Con el ambiente activo:
 
 ```bash
 conda install -y pandas sqlalchemy psycopg2 notebook
+pip install jupysql
 ```
 
 Esto instala:
 
-- **`pandas`** — manipulación de DataFrames.
-- **`sqlalchemy`** — capa de abstracción sobre el driver de PostgreSQL.
-- **`psycopg2`** — driver concreto de PostgreSQL.
+- **`pandas`** — manipulación de DataFrames (Tema 04).
+- **`sqlalchemy`** — capa de abstracción sobre el driver de PostgreSQL (Tema 04+).
+- **`psycopg2`** — driver concreto de PostgreSQL (Tema 04+).
 - **`notebook`** — Jupyter Notebook, entorno para correr los notebooks del módulo.
+- **`jupysql`** — magic `%%sql` para escribir SQL en celdas de Jupyter sin envolverlo en `pd.read_sql` (Tema 05 en adelante). Se instala con `pip` porque no está disponible en los canales por default de conda.
 
 > :information_source: Si conda no encuentra `psycopg2`, prueba con: `pip install psycopg2-binary`. La versión `-binary` evita compilar desde C y suele funcionar mejor cross-platform.
 
