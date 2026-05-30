@@ -25,25 +25,25 @@ El tema se cubre en cuatro notebooks Jupyter, en orden:
 
 Las cinco agregadas básicas (`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`). La distinción crítica entre `COUNT(*)`, `COUNT(col)` y `COUNT(DISTINCT col)`. **La trampa de los NULL** — todas las agregadas (excepto `COUNT(*)`) los ignoran silenciosamente, fuente común de bugs en reportes. Repaso de `GROUP BY` y la diferencia operativa entre `WHERE` y `HAVING`. Concatenación agregada con `STRING_AGG` y `ARRAY_AGG`. Cierre con casting para agregar Airbnb sucio.
 
-[**`Notebook 01`**](01_funciones_agregadas.ipynb)
+[**`Notebook 01`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-05/01_funciones_agregadas.ipynb)
 
 <ins>2. Funciones de strings</ins>
 
 Capitalización (`UPPER`, `LOWER`, `INITCAP`), limpieza de bordes (`TRIM`, `LTRIM`, `RTRIM` con caracteres custom), búsqueda con `POSITION`, `LIKE` y `ILIKE` (case-sensitive vs insensitive), extracción con `SUBSTRING`, `LEFT`, `RIGHT`, `SPLIT_PART`, composición con `||` / `CONCAT` / `FORMAT` (con énfasis en cómo manejan NULL), primer encuentro con regex vía `REGEXP_REPLACE` y `REGEXP_MATCH`. Caso integrador: parsear `price`, `bathrooms_text` y `host_response_rate` de Airbnb.
 
-[**`Notebook 02`**](02_funciones_de_strings.ipynb)
+[**`Notebook 02`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-05/02_funciones_de_strings.ipynb)
 
 <ins>3. Funciones de fechas</ins>
 
 Los cinco tipos de fecha de PostgreSQL (`DATE`, `TIME`, `TIMESTAMP`, `TIMESTAMPTZ`, `INTERVAL`) y cuándo usar cada uno. Funciones del *ahora* (`NOW`, `CURRENT_DATE`, `CURRENT_TIMESTAMP`, `LOCALTIMESTAMP`). `DATE_TRUNC` como herramienta #1 para agregar por período. `EXTRACT` para sacar componentes individuales. Aritmética con `INTERVAL`, diferencias con `AGE`, formateo y parseo con `TO_CHAR` / `TO_DATE`. Cierre con un análisis temporal escrito **con** vs **sin** `dim_date` — el contraste que refuerza Kimball.
 
-[**`Notebook 03`**](03_funciones_de_fechas.ipynb)
+[**`Notebook 03`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-05/03_funciones_de_fechas.ipynb)
 
 <ins>4. Práctica</ins>
 
 **15 ejercicios graduales** que combinan las tres familias de funciones. Estructurados en tres niveles: 5 fáciles (una sola familia a la vez), 5 medios (agregadas con strings o fechas), 5 difíciles (tres familias combinadas, `HAVING`, CTEs, `COUNT(*) FILTER`). Cada ejercicio trae el enunciado, una celda vacía para tu solución, y la solución oficial colapsable (`<details>`) para abrir solo cuando hayas intentado.
 
-[**`Notebook 04`**](04_practica.ipynb)
+[**`Notebook 04`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-05/04_practica.ipynb)
 
 ## :books: Material
 

@@ -27,19 +27,19 @@ El tema se cubre en cuatro notebooks Jupyter, en orden:
 
 Conceptos: por qué existe el ETL, los tres pasos (E/T/L), **ETL vs ELT** y cuándo usar cada uno, **idempotencia** y por qué importa. Setup del entorno Python. **Extracción desde Aurora con `pd.read_sql`**: lectura completa, lectura por chunks. Mención de archivos CSV/JSON locales y de cómo lucen las fuentes en la realidad (object storage, APIs, message queues).
 
-[**`Notebook 01`**](01_fundamentos_y_extraccion.ipynb)
+[**`Notebook 01`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-04/01_fundamentos_y_extraccion.ipynb)
 
 <ins>2. Limpieza y perfilado</ins>
 
 **Perfilado del DataFrame** con `df.info()`, `df.describe()`, `df.isna().sum()`, `df.value_counts()`. **Limpieza:** manejo de nulos (drop, fillna, indicadores), deduplicación con `drop_duplicates`, normalización de strings (`str.strip`, `str.lower`, regex). **Conversión de tipos:** `astype` para tipos numéricos y categóricos, parseo de fechas con `pd.to_datetime`. **Estandarización:** catálogos de valores controlados, unificación de formatos.
 
-[**`Notebook 02`**](02_limpieza_y_perfilado.ipynb)
+[**`Notebook 02`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-04/02_limpieza_y_perfilado.ipynb)
 
 <ins>3. Transformación según reglas de negocio</ins>
 
 **Cálculo de valores derivados** (márgenes, totales, ratios) con operaciones vectorizadas. **Joins entre DataFrames** con `merge`: `how='inner'/'left'/'outer'`, múltiples keys. **Generación de `dim_date`** en pandas con `pd.date_range` + atributos calendáricos derivados. **Construcción de las dimensiones desnormalizadas** — el equivalente a los `INSERT…SELECT…JOIN` de los scripts de población del DWH, ahora en código Python. **Construcción de la tabla de hechos** con resolución de surrogate keys vía merge sucesivo. Estrategias para garantizar **integridad referencial** antes de la carga.
 
-[**`Notebook 03`**](03_transformacion.ipynb)
+[**`Notebook 03`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-04/03_transformacion.ipynb)
 
 <ins>4. Carga, orquestación y buenas prácticas</ins>
 
@@ -47,7 +47,7 @@ Conceptos: por qué existe el ETL, los tres pasos (E/T/L), **ETL vs ELT** y cuá
 
 **Cierre — ETL en producción real:** patrones de object storage (S3), pipelines orquestados (Airflow, Prefect), formatos columnares (Parquet), compute serverless (Glue, Lambda). Discusión, sin hands-on. Da contexto sobre dónde encaja lo aprendido en el ecosistema mayor.
 
-[**`Notebook 04`**](04_carga_y_orquestacion.ipynb)
+[**`Notebook 04`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-04/04_carga_y_orquestacion.ipynb)
 
 ## :books: Material
 
