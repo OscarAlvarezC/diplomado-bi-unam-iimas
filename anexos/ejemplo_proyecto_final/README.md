@@ -13,7 +13,7 @@
 | **Infraestructura** | Aurora PostgreSQL en AWS (mismo cluster `aurora-mod4` del módulo, schema `aire_dwh`) |
 | **ETL** | `etl_pipeline.py` end-to-end con pandas + SQLAlchemy + validaciones post-carga |
 | **SQL avanzado** | Window functions (rolling 24h average, ranking por estación), CTE con jerarquía de alcaldías, `PERCENTILE_CONT` y `COUNT FILTER` |
-| **Dashboard** | Streamlit con 4 vistas: mapa, serie temporal, top estaciones, % horas en violación |
+| **Dashboard** | 4 visualizaciones estáticas (matplotlib): mapa, serie mensual, top estaciones, heatmap hora × mes |
 
 ## :dart: Problema y motivación
 
@@ -29,6 +29,80 @@ Este proyecto responde tres preguntas concretas:
 2. **¿Hay patrones horarios consistentes (hora pico de contaminación)?**
 3. **¿Qué porcentaje de horas se rebasó el límite OMS, por estación y mes?**
 
+## :package: Origen de los datos
+
+Los datos crudos viven en el portal público del **SIMAT** (Sistema de Monitoreo Atmosférico del Gobierno de la CDMX), no en Aurora. El ETL los descarga, los transforma, y los carga al schema `aire_dwh` del cluster Aurora. Aurora es el **destino analítico**, no la fuente.
+
+### Flujo end-to-end
+
+```
+        ┌──────────────────────────────────────┐
+        │  SIMAT  (portal público CDMX)        │
+        │  http://www.aire.cdmx.gob.mx         │
+        │                                      │
+        │  • CSVs anchos: una columna por      │
+        │    estación, una fila por hora       │
+        │  • Un archivo por (contaminante,año) │
+        │  • Sentinela -99 para "sin dato"     │
+        └──────────────────┬───────────────────┘
+                           │  HTTP GET
+                           ▼
+        ┌──────────────────────────────────────┐
+        │  ETL Python — etl_pipeline.py        │
+        │                                      │
+        │  Extract:   requests.get(...)        │
+        │  Transform: pandas (melt wide→long,  │
+        │             marca is_valid)          │
+        │  Resolve:   merges con dim_station   │
+        │             y dim_pollutant para     │
+        │             obtener surrogate keys   │
+        │  Load:      to_sql(method='multi')   │
+        └──────────────────┬───────────────────┘
+                           │  INSERT
+                           ▼
+        ┌──────────────────────────────────────┐
+        │  Aurora PostgreSQL                   │
+        │  aurora-mod4.cluster-XXX.../northwind│
+        │  Schema: aire_dwh                    │
+        │                                      │
+        │  • 4 dims pobladas con SQL puro      │
+        │    (scripts/02-04_*.sql)             │
+        │  • fact_mediciones poblada por ETL   │
+        └──────────────────┬───────────────────┘
+                           │  SELECT
+                           ▼
+        ┌──────────────────────────────────────┐
+        │  Dashboard Streamlit (5 queries)     │
+        │  Queries analíticas SQL (5 queries)  │
+        └──────────────────────────────────────┘
+```
+
+### URLs del portal SIMAT
+
+El portal expone descargas HTTP por **(contaminante, año, mes)** a través del endpoint:
+
+```
+http://www.aire.cdmx.gob.mx/estadisticas-consultas/concentraciones/respuesta.php
+    ?qtipo=HORARIOS
+    &parametro=<código>     (pm2, pmco, o3, no2, so2, co)
+    &anio=<YYYY>            (2023)
+    &qmes=<MM o 00>         (00 = año completo)
+```
+
+Cada respuesta es un CSV ancho con metadatos en las primeras 10 líneas (encabezado del organismo), después la matriz de mediciones: columnas `FECHA`, `HORA` y una columna por cada estación RAMA. La función `extract()` del ETL hace `skiprows=10` y devuelve el DataFrame ancho.
+
+El diccionario `SIMAT_URLS_2023` al inicio de `etl_pipeline.py` codifica las 6 URLs (una por contaminante) para descargar el año 2023 completo. Para otro año, modifica `&anio=` en cada entrada (o parametriza el script).
+
+### Por qué no se cargan los CSVs al repo
+
+Cada CSV anual pesa **~8 MB** y los 6 juntos llegan a ~50 MB. Subirlos al repo:
+
+- Infla el tamaño del clone sin agregar valor (el portal SIMAT es público y estable).
+- Cualquier actualización requeriría re-commit del CSV.
+- Va contra la regla de la rúbrica ("si el dataset es pesado, no lo subas — pon un script que lo descargue").
+
+Por eso el repo solo trae el **código** que descarga + transforma + carga. El alumno corre el ETL una vez al inicio, los datos quedan en su Aurora, y a partir de ahí trabaja desde la base.
+
 ## :file_folder: Estructura del repositorio
 
 ```
@@ -43,7 +117,12 @@ ejemplo_proyecto_final/
 ├── analisis/
 │   └── queries_analiticas.sql          ← 5 queries con SQL avanzado
 └── dashboard/
-    └── dashboard_streamlit.py          ← 4 vistas interactivas
+    ├── generar_visualizaciones.py      ← script matplotlib que produce las 4 PNGs
+    └── img/
+        ├── 01_mapa.png
+        ├── 02_serie_mensual.png
+        ├── 03_top_estaciones.png
+        └── 04_heatmap.png
 ```
 
 ## :wrench: Cómo ejecutar
@@ -83,14 +162,17 @@ python scripts/etl_pipeline.py \
 
 El script reporta progreso por chunk y al final valida `count(*)` y `SUM(valor)` contra el CSV de origen.
 
-### 4. Abrir el dashboard
+### 4. Regenerar las visualizaciones
 
 ```bash
-pip install streamlit plotly
-streamlit run dashboard/dashboard_streamlit.py
+pip install matplotlib pandas numpy sqlalchemy psycopg2-binary
+
+export AURORA_HOST=aurora-mod4.cluster-XXX.us-east-1.rds.amazonaws.com
+export AURORA_PASSWORD=TU_PASSWORD
+python dashboard/generar_visualizaciones.py
 ```
 
-El dashboard requiere las mismas credenciales de Aurora — léelas de variables de entorno (`AURORA_HOST`, `AURORA_PASSWORD`).
+El script consulta Aurora si `AURORA_HOST` está definido; si no, genera datos sintéticos coherentes con los patrones del SIMAT (útil para previsualizar sin conexión). Las 4 PNGs se guardan en `dashboard/img/` y son las mismas que el README embebe abajo.
 
 ## :building_construction: Modelo dimensional
 
@@ -254,16 +336,41 @@ ORDER BY  delta DESC NULLS LAST
 LIMIT 10;
 ```
 
-## :bar_chart: Dashboard — 4 vistas
+## :bar_chart: Visualizaciones
 
-El dashboard en Streamlit ([`dashboard/dashboard_streamlit.py`](dashboard/dashboard_streamlit.py)) tiene:
+Cuatro vistas estáticas generadas con matplotlib a partir de las queries de [`analisis/queries_analiticas.sql`](analisis/queries_analiticas.sql). El script que las produce vive en [`dashboard/generar_visualizaciones.py`](dashboard/generar_visualizaciones.py) y soporta dos modos: queries reales contra Aurora cuando `AURORA_HOST` está definido, o datos sintéticos cuando no.
 
-1. **Mapa de PM2.5 promedio anual por estación** — color codificado por nivel (verde/amarillo/rojo según norma OMS), tamaño del punto por número de lecturas válidas.
-2. **Serie temporal mensual** — line chart por estación, filtrable por contaminante. Sirve para identificar tendencias y comparar.
-3. **Top 10 estaciones más contaminadas** — bar chart horizontal, ordenado, con el límite OMS marcado como referencia.
-4. **Heatmap horas × meses** — matriz de PM2.5 promedio mostrando patrones combinados temporales (las "horas pico" cambian de estación lluviosa a seca).
+### 1. Mapa — PM2.5 promedio anual por estación
 
-**Interactividad:** sidebar con filtros de estación, contaminante y rango de fechas. Todas las viz se actualizan en conjunto.
+![Mapa de estaciones RAMA coloreado por PM2.5 promedio](dashboard/img/01_mapa.png)
+
+Color rojo intenso = más PM2.5; tamaño del punto proporcional al número de lecturas válidas (estaciones con más cobertura aparecen más grandes). Las anotaciones traen el código RAMA de tres letras.
+
+**Lectura:** se ven nítidamente las estaciones del **norponiente** (CUA, SFE, MGH, FAC) en rojo, mientras que las del sur (AJM, COY, UAX) tienen tonos amarillos a verdes. Confirma la hipótesis de que el corredor industrial + tráfico del eje Reforma–Constituyentes concentra contaminación.
+
+### 2. Evolución mensual — top 5 estaciones más contaminadas
+
+![Líneas de PM2.5 mensual para 5 estaciones](dashboard/img/02_serie_mensual.png)
+
+La línea punteada roja marca el límite OMS (15 µg/m³). Las cinco estaciones del podio están **todas por arriba del límite durante casi todo el año**.
+
+**Lectura:** patrón estacional claro — **diciembre–febrero** (estación seca + inversión térmica + pirotecnia decembrina) y **noviembre** son los meses peores; **junio–agosto** (lluvias) son los más limpios. El "valle de verano" baja hasta ~10 µg/m³ en algunas estaciones.
+
+### 3. Top 10 estaciones más contaminadas
+
+![Bar chart horizontal con las 10 estaciones más contaminadas](dashboard/img/03_top_estaciones.png)
+
+Barras rojas = estaciones que rebasan el promedio anual el límite OMS; verdes = bajo el límite (en 2023 ninguna está bajo). La línea negra punteada marca los 15 µg/m³ de referencia.
+
+**Lectura:** las 10 peores van de **~16 a ~23 µg/m³** de promedio. Ninguna estación monitoreada cumplió la guía OMS en 2023 — incluso las más limpias estuvieron por encima al promediar las ~8 000 lecturas anuales.
+
+### 4. Heatmap hora × mes — PM2.5 promedio metropolitano
+
+![Heatmap 24 horas × 12 meses](dashboard/img/04_heatmap.png)
+
+Eje Y = hora del día (00–23, descendente); eje X = mes. Color rojo = PM2.5 elevado.
+
+**Lectura:** se ve el **patrón bimodal** muy claro: dos bandas horizontales rojas en **8–10 AM** (pico tráfico matutino) y **19–22** (regreso + actividad nocturna). La banda **00–05 AM es consistentemente la más limpia**. Verticalmente, **diciembre–febrero y noviembre** dominan; **julio–agosto** son las únicas columnas predominantemente verdes.
 
 ## :mag: Hallazgos principales
 
@@ -289,7 +396,7 @@ Tras correr las queries:
 - **SQL avanzado real, no decorativo**: las 5 queries responden las 3 preguntas planteadas + 2 follow-ups naturales. Eso aplica al Criterio 5.
 - **El dashboard cuenta una historia**: no son 3 gráficos sueltos, sino 4 vistas que progresivamente responden las preguntas. Eso aplica al Criterio 6.
 
-Este ejemplo obtendría niveles `[4, 4, 4, 4, 4, 3, 4]` según la rúbrica — el dashboard pierde 1 punto porque podría tener más interactividad (drill-down al hacer click en una estación del mapa). Calificación: `27/7 × 25 ≈ 96.4`.
+Este ejemplo obtendría niveles `[4, 4, 4, 4, 4, 3, 4]` según la rúbrica — el bloque de visualizaciones pierde 1 punto porque las 4 figuras son **estáticas** (PNG embebidas) en lugar de un dashboard interactivo con filtros tipo Streamlit/Power BI. Para llegar a nivel 4 en el Criterio 6, conviene migrar las mismas queries a una herramienta con interactividad (drill-down al click en el mapa, slicer por contaminante, etc.). Calificación: `27/7 × 25 ≈ 96.4`.
 
 ---
 
