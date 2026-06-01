@@ -2,6 +2,8 @@
 
 El proyecto final del módulo consiste en entregar una **solución analítica completa** sobre un problema de tu elección. Integra todas las técnicas vistas en el curso: modelado dimensional, infraestructura en AWS, ETL en Python, SQL avanzado y visualización. La idea es que apliques el flujo de un proyecto de BI real, desde la pregunta de negocio hasta el dashboard.
 
+> :bulb: **¿Necesitas un ejemplo?** Revisa [`ejemplo_proyecto_final/`](ejemplo_proyecto_final/README.md) — un proyecto completo sobre la calidad del aire en CDMX (SIMAT 2023) que cubre los siete criterios de esta rúbrica con su informe, scripts SQL, ETL Python y dashboard Streamlit.
+
 ## :dart: Objetivo
 
 Demostrar capacidad para:
