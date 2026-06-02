@@ -2,51 +2,62 @@
 
 PostgreSQL incluye **PL/pgSQL**, su lenguaje procedural que vive dentro del motor. Te permite escribir lógica de control (`IF`, `CASE`, `FOR`, `WHILE`), declarar variables, manipular cursores, y empaquetar todo en **funciones definidas por el usuario** y **procedimientos almacenados** que se invocan desde queries normales. Este tema cubre el lenguaje completo y cuándo (y cuándo no) conviene usarlo en lugar de SQL set-based.
 
+## :wrench: Setup técnico inicial
+
+- **JupySQL** — mismo magic `%%sql` que en Tema-05. La celda de Setup de cada notebook detecta si JupySQL ya está instalado y, si no, lo instala (útil en Colab que trae ipython-sql pre-cargado).
+- **Conexión SQLAlchemy** al cluster Aurora del Tema 01 — `northwind_oltp` y `northwind_dwh` ya cargados.
+- **Dataset:** todos los ejemplos y ejercicios usan Northwind (OLTP y DWH).
+
 ## :dart: Objetivos
 
-- Escribir bloques PL/pgSQL anónimos para lógica ad-hoc.
-- Usar las estructuras de control de flujo (`IF`, `CASE`, `FOR`, `WHILE`) de PL/pgSQL.
+- Escribir bloques PL/pgSQL anónimos (`DO $$ ... $$;`) para lógica ad-hoc.
+- Usar las estructuras de control de flujo (`IF`, `CASE`, `FOR`, `WHILE`).
 - Manejar cursores explícitos y entender cuándo aportan vs cuándo son innecesarios.
-- Crear, ejecutar y eliminar **procedimientos almacenados**.
-- Crear funciones definidas por el usuario que devuelven escalares o tablas.
+- Crear, ejecutar y eliminar **procedimientos almacenados** con `CALL`.
+- Crear funciones definidas por el usuario que devuelvan escalares, `SETOF`, o `TABLE`.
 - Distinguir cuándo conviene una función, un procedimiento, o quedarse en SQL plano.
 
 ## :file_folder: Contenido
 
+El tema se cubre en cinco notebooks Jupyter, en orden:
+
 <ins>1. Introducción a PL/pgSQL y bloques anónimos</ins>
 
-PL/pgSQL como lenguaje procedural integrado al motor PostgreSQL. Sintaxis básica: bloque `DO $$ ... $$;` para ejecución ad-hoc sin guardar el código. Variables locales con `DECLARE`. Asignación con `:=`. Mensajes con `RAISE NOTICE`.
+PL/pgSQL como lenguaje procedural integrado al motor. Sintaxis `DO $$ ... $$;` para ejecución ad-hoc. Variables con `DECLARE`. Asignación con `:=`. Mensajes con `RAISE NOTICE`/`WARNING`/`EXCEPTION`. Asignación desde queries con `SELECT INTO` y verificación con `FOUND`. `PERFORM` para ejecutar sin guardar resultado. Bloques anidados y scope. Manejo básico de excepciones con `BEGIN ... EXCEPTION ... END`.
+
+[**`Notebook 01`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/01_introduccion_y_bloques.ipynb)
 
 <ins>2. Estructuras de control de flujo</ins>
 
-- **`IF-THEN-ELSIF-ELSE-END IF`** — condicionales clásicas.
-- **`CASE`** — variantes de expresión y de sentencia.
-- **Ciclos `FOR`** — sobre rangos numéricos, sobre filas de queries, sobre elementos de arrays.
-- **Ciclos `WHILE`** — para condiciones de salida no determinadas por iteración.
-- **`EXIT`** y **`CONTINUE`** dentro de loops.
+`IF`-`ELSIF`-`ELSE`-`END IF`. `CASE` como expresión vs como sentencia. `LOOP` básico con `EXIT WHEN`. Los tres tipos de `FOR`: sobre rangos numéricos, sobre filas de query (el patrón más útil), sobre arrays con `FOREACH`. `WHILE` para condiciones de salida no determinadas. `CONTINUE` y loops etiquetados `<<nombre>>` para control en loops anidados.
 
-<ins>3. Cursores</ins>
+[**`Notebook 02`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/02_control_de_flujo.ipynb)
 
-Declaración con `DECLARE`. Operaciones: `OPEN`, `FETCH`, `CLOSE`. Cursores explícitos vs `FOR` loops sobre queries (que crean cursores implícitos por debajo). **Cuándo usar cursores:** procesamiento fila por fila con efectos secundarios (raro). **Cuándo evitar cursores:** transformaciones que se pueden hacer con `UPDATE/INSERT … SELECT` (lo común y lo eficiente).
+<ins>3. Funciones definidas por el usuario</ins>
 
-<ins>4. Procedimientos almacenados</ins>
+`CREATE FUNCTION` con parámetros y `RETURNS`. Defaults en parámetros. Diferencia entre `LANGUAGE plpgsql` (procedural) y `LANGUAGE sql` (inline-able, más rápido cuando aplica). Retornos: escalar, `SETOF`, `TABLE(...)` con `RETURN NEXT` y `RETURN QUERY`. Categorías de **volatilidad** (`IMMUTABLE`/`STABLE`/`VOLATILE`) y por qué importan al optimizador. `OR REPLACE`, `DROP FUNCTION` con firma, overloading. Caso práctico sobre Northwind DWH.
 
-`CREATE PROCEDURE`, parámetros `IN`, `OUT`, `INOUT`. Ejecución con `CALL`. Eliminación con `DROP PROCEDURE`. Casos de uso típicos: efectos secundarios, control explícito de transacciones (un procedimiento puede hacer `COMMIT` y `ROLLBACK` internamente — una función no puede).
+[**`Notebook 03`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/03_funciones.ipynb)
 
-<ins>5. Funciones definidas por el usuario</ins>
+<ins>4. Procedimientos almacenados y cursores</ins>
 
-`CREATE FUNCTION` con `RETURNS`. Funciones que devuelven escalares (`RETURNS NUMERIC`, etc.). Funciones que devuelven sets (`RETURNS TABLE`, `RETURNS SETOF`). **Categorías de volatilidad:** `IMMUTABLE` (no toca DB, mismo input → mismo output), `STABLE` (toca DB pero no escribe), `VOLATILE` (puede escribir o cambiar entre llamadas) — el optimizador las usa para decidir si cachear.
+Diferencia entre función y procedimiento (cómo se invocan, qué pueden hacer, control de transacciones). `CREATE PROCEDURE` + `CALL`. Parámetros con dirección `IN`/`OUT`/`INOUT`. Control de transacciones con `COMMIT`/`ROLLBACK` dentro del procedimiento. Cursores explícitos: `DECLARE`-`OPEN`-`FETCH`-`CLOSE`. Comparación con `FOR ... IN SELECT` (cursores implícitos). Tabla de decisión final: cuándo usar procedimiento, función, o SQL puro.
 
-<ins>6. Procedimiento vs función — cuándo elegir cada uno</ins>
+[**`Notebook 04`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/04_procedimientos_y_cursores.ipynb)
 
-- **Funciones:** cómputo determinista, **usables dentro de `SELECT`**, pueden formar parte de queries, pueden indexarse (si `IMMUTABLE`).
-- **Procedimientos:** efectos secundarios, control explícito de transacciones, **no usables en queries**, se invocan con `CALL`.
+<ins>5. Práctica</ins>
 
-Casos prácticos sobre el DW: función para calcular ventas netas por categoría/periodo, procedimiento para refrescar agregados pre-calculados, función `IMMUTABLE` para un cálculo que se reutiliza en muchas queries.
+**12 ejercicios graduales** que combinan las cuatro lecturas anteriores sobre Northwind. Estructurados en tres niveles: 4 fáciles (bloques anónimos con `IF`/`FOR`/`SELECT INTO`), 4 medios (funciones con parámetros, `RETURNS TABLE`, manejo de excepciones), 4 difíciles (procedimientos, validaciones de invariantes, decidir entre función/procedimiento/SQL puro). Cada ejercicio tiene enunciado + celda vacía + solución colapsable.
+
+[**`Notebook 05`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/05_practica.ipynb)
 
 ## :books: Material
 
-> Por publicar.
+Los cinco notebooks viven en este mismo directorio. Cada uno es **auto-contenido** — abre cualquiera y córrelo sin depender del estado de los anteriores. Solo asegúrate de tener el cluster Aurora del Tema 01 accesible (con `northwind_oltp` y `northwind_dwh` ya cargados) y de reemplazar `AURORA_HOST` y `AURORA_PASSWORD` en la celda de Setup con los tuyos.
+
+> :information_source: **Las funciones y procedimientos que crees viven en la base.** Si quieres mantener el schema limpio, ejecuta los `DROP FUNCTION IF EXISTS ...` que aparecen al final de cada notebook (o en cualquier momento desde DBeaver).
+
+> :warning: **Cuidado con la "trampa del bucle" en PL/pgSQL.** En este tema vas a ver muchos ejemplos con `FOR ... IN SELECT ... LOOP`. Antes de copiar ese patrón a tu código, **pregúntate si la misma transformación se puede hacer con SQL set-based** (`UPDATE`, `INSERT INTO ... SELECT`, etc.). En la mayoría de los casos, sí — y será 10-100× más rápido. PL/pgSQL es para cuando SQL puro **no alcanza**, no para reemplazarlo.
 
 ---
 
