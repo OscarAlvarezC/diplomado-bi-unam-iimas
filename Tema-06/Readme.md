@@ -1,6 +1,6 @@
 # Tema 06: PL/pgSQL — lógica procedural en el servidor
 
-PostgreSQL incluye **PL/pgSQL**, su lenguaje procedural que vive dentro del motor. Te permite escribir lógica de control (`IF`, `CASE`, `FOR`, `WHILE`), declarar variables, manipular cursores, y empaquetar todo en **funciones definidas por el usuario** y **procedimientos almacenados** que se invocan desde queries normales. Este tema cubre el lenguaje completo y cuándo (y cuándo no) conviene usarlo en lugar de SQL set-based.
+PostgreSQL incluye **PL/pgSQL**, su lenguaje procedural que vive dentro del motor. Te permite escribir lógica de control (`IF`, `CASE`, `FOR`, `WHILE`), declarar variables, manipular cursores, y empaquetar lógica en **procedimientos almacenados** invocables desde la base. Este tema cubre lo que pide el temario — control de flujo, cursores y procedimientos — y cuándo (y cuándo no) conviene usarlo en lugar de SQL set-based.
 
 ## :wrench: Setup técnico inicial
 
@@ -13,13 +13,12 @@ PostgreSQL incluye **PL/pgSQL**, su lenguaje procedural que vive dentro del moto
 - Escribir bloques PL/pgSQL anónimos (`DO $$ ... $$;`) para lógica ad-hoc.
 - Usar las estructuras de control de flujo (`IF`, `CASE`, `FOR`, `WHILE`).
 - Manejar cursores explícitos y entender cuándo aportan vs cuándo son innecesarios.
-- Crear, ejecutar y eliminar **procedimientos almacenados** con `CALL`.
-- Crear funciones definidas por el usuario que devuelvan escalares, `SETOF`, o `TABLE`.
-- Distinguir cuándo conviene una función, un procedimiento, o quedarse en SQL plano.
+- Crear, ejecutar y eliminar **procedimientos almacenados** (`CREATE PROCEDURE` / `CALL` / `DROP`).
+- Distinguir cuándo conviene un procedimiento o quedarse en SQL plano.
 
 ## :file_folder: Contenido
 
-El tema se cubre en cinco notebooks Jupyter, en orden:
+El tema se cubre en cuatro notebooks Jupyter, en orden:
 
 <ins>1. Introducción a PL/pgSQL y bloques anónimos</ins>
 
@@ -33,31 +32,23 @@ PL/pgSQL como lenguaje procedural integrado al motor. Sintaxis `DO $$ ... $$;` p
 
 [**`Notebook 02`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/02_control_de_flujo.ipynb)
 
-<ins>3. Funciones definidas por el usuario</ins> — *complementario (fuera del temario)*
+<ins>3. Procedimientos almacenados y cursores</ins>
 
-> :information_source: El temario oficial cubre, en PL/pgSQL, las **estructuras de control**, los **cursores** y los **procedimientos almacenados**; las "funciones" del temario son las **de ventana** (Tema 07). Este notebook sobre `CREATE FUNCTION` queda como material complementario opcional y puede saltarse sin romper la secuencia.
+Diferencia entre procedimiento y función (cómo se invocan). `CREATE PROCEDURE` + `CALL`. Parámetros con dirección `IN`/`OUT`/`INOUT`. `DROP PROCEDURE` para eliminarlos. Cursores explícitos: `DECLARE`-`OPEN`-`FETCH`-`CLOSE`, y su comparación con `FOR ... IN SELECT` (cursores implícitos). Tabla de decisión: procedimiento vs SQL puro.
 
-`CREATE FUNCTION` con parámetros y `RETURNS`. Defaults en parámetros. Diferencia entre `LANGUAGE plpgsql` (procedural) y `LANGUAGE sql` (inline-able, más rápido cuando aplica). Retornos: escalar, `SETOF`, `TABLE(...)` con `RETURN NEXT` y `RETURN QUERY`. Categorías de **volatilidad** (`IMMUTABLE`/`STABLE`/`VOLATILE`) y por qué importan al optimizador. `OR REPLACE`, `DROP FUNCTION` con firma, overloading. Caso práctico sobre Northwind DWH.
+[**`Notebook 03`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/03_procedimientos_y_cursores.ipynb)
 
-[**`Notebook 03`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/03_funciones.ipynb)
+<ins>4. Práctica</ins>
 
-<ins>4. Procedimientos almacenados y cursores</ins>
+**6 ejercicios graduales** sobre Northwind, en dos niveles: 4 fáciles (bloques anónimos con `IF`/`CASE`/`FOR`/`WHILE`/`SELECT INTO`) y 2 de procedimientos (`CREATE PROCEDURE`, validaciones, decisión procedimiento vs SQL puro). Cada ejercicio tiene enunciado + celda vacía + solución colapsable.
 
-Diferencia entre función y procedimiento (cómo se invocan, qué pueden hacer, control de transacciones). `CREATE PROCEDURE` + `CALL`. Parámetros con dirección `IN`/`OUT`/`INOUT`. Control de transacciones con `COMMIT`/`ROLLBACK` dentro del procedimiento. Cursores explícitos: `DECLARE`-`OPEN`-`FETCH`-`CLOSE`. Comparación con `FOR ... IN SELECT` (cursores implícitos). Tabla de decisión final: cuándo usar procedimiento, función, o SQL puro.
-
-[**`Notebook 04`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/04_procedimientos_y_cursores.ipynb)
-
-<ins>5. Práctica</ins>
-
-**12 ejercicios graduales** que combinan las cuatro lecturas anteriores sobre Northwind. Estructurados en tres niveles: 4 fáciles (bloques anónimos con `IF`/`FOR`/`SELECT INTO`), 4 medios (funciones con parámetros, `RETURNS TABLE`, manejo de excepciones), 4 difíciles (procedimientos, validaciones de invariantes, decidir entre función/procedimiento/SQL puro). Cada ejercicio tiene enunciado + celda vacía + solución colapsable.
-
-[**`Notebook 05`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/05_practica.ipynb)
+[**`Notebook 04`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/04_practica.ipynb)
 
 ## :books: Material
 
-Los cinco notebooks viven en este mismo directorio. Cada uno es **auto-contenido** — abre cualquiera y córrelo sin depender del estado de los anteriores. Solo asegúrate de tener el cluster Aurora del Tema 01 accesible (con `northwind_oltp` y `northwind_dwh` ya cargados) y de reemplazar `AURORA_HOST` y `AURORA_PASSWORD` en la celda de Setup con los tuyos.
+Los cuatro notebooks viven en este mismo directorio. Cada uno es **auto-contenido** — abre cualquiera y córrelo sin depender del estado de los anteriores. Solo asegúrate de tener el cluster Aurora del Tema 01 accesible (con `northwind_oltp` y `northwind_dwh` ya cargados) y de reemplazar `AURORA_HOST` y `AURORA_PASSWORD` en la celda de Setup con los tuyos.
 
-> :information_source: **Las funciones y procedimientos que crees viven en la base.** Si quieres mantener el schema limpio, ejecuta los `DROP FUNCTION IF EXISTS ...` que aparecen al final de cada notebook (o en cualquier momento desde DBeaver).
+> :information_source: **Los procedimientos que crees viven en la base.** Si quieres mantener el schema limpio, ejecuta los `DROP PROCEDURE IF EXISTS ...` que aparecen al final de cada notebook (o en cualquier momento desde DBeaver).
 
 > :warning: **Cuidado con la "trampa del bucle" en PL/pgSQL.** En este tema vas a ver muchos ejemplos con `FOR ... IN SELECT ... LOOP`. Antes de copiar ese patrón a tu código, **pregúntate si la misma transformación se puede hacer con SQL set-based** (`UPDATE`, `INSERT INTO ... SELECT`, etc.). En la mayoría de los casos, sí — y será 10-100× más rápido. PL/pgSQL es para cuando SQL puro **no alcanza**, no para reemplazarlo.
 
