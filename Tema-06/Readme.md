@@ -33,7 +33,9 @@ PL/pgSQL como lenguaje procedural integrado al motor. Sintaxis `DO $$ ... $$;` p
 
 [**`Notebook 02`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-06/02_control_de_flujo.ipynb)
 
-<ins>3. Funciones definidas por el usuario</ins>
+<ins>3. Funciones definidas por el usuario</ins> — *complementario (fuera del temario)*
+
+> :information_source: El temario oficial cubre, en PL/pgSQL, las **estructuras de control**, los **cursores** y los **procedimientos almacenados**; las "funciones" del temario son las **de ventana** (Tema 07). Este notebook sobre `CREATE FUNCTION` queda como material complementario opcional y puede saltarse sin romper la secuencia.
 
 `CREATE FUNCTION` con parámetros y `RETURNS`. Defaults en parámetros. Diferencia entre `LANGUAGE plpgsql` (procedural) y `LANGUAGE sql` (inline-able, más rápido cuando aplica). Retornos: escalar, `SETOF`, `TABLE(...)` con `RETURN NEXT` y `RETURN QUERY`. Categorías de **volatilidad** (`IMMUTABLE`/`STABLE`/`VOLATILE`) y por qué importan al optimizador. `OR REPLACE`, `DROP FUNCTION` con firma, overloading. Caso práctico sobre Northwind DWH.
 

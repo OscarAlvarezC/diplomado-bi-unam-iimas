@@ -6,26 +6,18 @@ Usar CTEs (Common Table Expressions) para escribir queries complejas legibles, y
 
 ## :pushpin: Temas
 
-- **CTEs simples (`WITH`):**
-  - Sintaxis y semántica.
-  - Diferencias frente a subqueries y vistas.
-  - Cuándo aportan: legibilidad, reutilización dentro de la query, debugging.
-- **CTEs recursivas (`WITH RECURSIVE`):**
-  - Estructura: caso base + caso recursivo + UNION ALL.
-  - Cómo PostgreSQL las evalúa.
-- **Análisis jerárquico:**
-  - Caso clásico: la jerarquía empleado → manager en Northwind.
-  - Recorrido descendente (todos los subordinados de un manager).
-  - Recorrido ascendente (cadena de mando completa).
-  - Cálculo del nivel jerárquico.
-- **Otros casos de uso recursivo:**
-  - Generación de secuencias (alternativa a `generate_series`).
-  - Bill-of-materials, redes, grafos.
-- **`UNION ALL`** como herramienta para combinar facts de distintos granos.
+- **CTEs simples (`WITH`):** sintaxis, semántica y CTEs encadenadas (legibilidad y reutilización dentro de la query).
+- **CTEs recursivas (`WITH RECURSIVE`):** estructura caso base + `UNION ALL` + caso recursivo, y cómo PostgreSQL las evalúa.
+- **Análisis jerárquico** (jerarquía empleado → jefe en Northwind):
+  - Recorrido descendente con cálculo del nivel (organigrama).
+  - Recorrido ascendente (cadena de mando).
+- **`UNION ALL`** — apilar resultados (y su papel en la recursión).
 
 ## :books: Material
 
-> Por publicar.
+[**`Notebook 01 — Common Table Expressions`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-08/01_cte.ipynb)
+
+Cubre lo explícito del temario: `WITH` simple y encadenadas, `WITH RECURSIVE` (jerarquía empleado→jefe, descendente y ascendente) y `UNION ALL`.
 
 ---
 

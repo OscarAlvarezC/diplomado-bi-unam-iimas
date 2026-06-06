@@ -12,20 +12,19 @@ Resolver problemas analíticos clásicos (rankings, comparativas con valores ady
   - `ROW_NUMBER` — fila secuencial.
   - `RANK` — con huecos.
   - `DENSE_RANK` — sin huecos.
-- **Funciones de desplazamiento:**
-  - `LEAD` — valor de la fila siguiente.
-  - `LAG` — valor de la fila anterior.
-- **Frames de ventana:** `ROWS BETWEEN`, `RANGE BETWEEN`.
+- **Función de desplazamiento `LEAD`** — valor de la fila siguiente (análisis de tendencia). Su gemela `LAG` se menciona de pasada.
+- **Frames de ventana** (`ROWS BETWEEN`) — lo necesario para los agregados móviles.
 - **Agregados móviles:**
-  - Promedios móviles (rolling averages).
   - Sumas acumulativas (running totals).
-  - Análisis lead (predicción de tendencias simples).
+  - Promedios móviles (rolling averages).
 
-Práctica intensiva sobre `fact_sales` × `dim_date`: top-N productos por mes, comparativas año-contra-año, rolling 30 días.
+Práctica sobre `fact_sales` × `dim_date` y `dim_product`: top-N productos por categoría, acumulados y promedios móviles mensuales, variación mes contra mes.
 
 ## :books: Material
 
-> Por publicar.
+[**`Notebook 01 — Funciones de ventana`**](https://colab.research.google.com/github/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/Tema-07/01_funciones_de_ventana.ipynb)
+
+Cubre exactamente lo explícito del temario: `OVER`, `PARTITION BY`, ranking (`ROW_NUMBER`/`RANK`/`DENSE_RANK`), top-N por grupo, agregados móviles y `LEAD`.
 
 ---
 
