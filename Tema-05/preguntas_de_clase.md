@@ -131,7 +131,7 @@ Resultado (fila de Janet) — **tres valores distintos** donde antes había "lo 
 
 Fíjate en lo importante: con autopandas, `v2` **ya no dice "34 años…"** sino `12478 days` — y además `12478 ≠ 12487`. Eso es lo que confunde.
 
-### Qué hace `autopandas`
+### ¿Qué hace `autopandas`?
 
 Sin autopandas, ves el **texto crudo** que manda PostgreSQL. Con `autopandas = True`, JupySQL convierte el resultado en un **DataFrame de pandas**, y el resultado pasa por `psycopg2` → `pandas`, donde **cada tipo de PostgreSQL se mapea a un tipo de Python**. La conversión clave es la del `interval`:
 
@@ -147,7 +147,7 @@ Sin autopandas, ves el **texto crudo** que manda PostgreSQL. Con `autopandas = T
 
 - **`v3` (`AGE(...)::TEXT`)** → como lo casteaste a texto **dentro de SQL**, llega a pandas ya como string. Pandas no lo toca y conserva el formato calendario `"34 years 2 mons 8 days"`.
 
-### Por qué difieren exactamente en 9 días
+### ¿Por qué difieren exactamente en 9 días?
 
 ```
  12487   (días reales, con bisiestos)
