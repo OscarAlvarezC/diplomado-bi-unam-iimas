@@ -5,8 +5,7 @@ Preguntas reales que hicieron alumnos durante las sesiones del Tema 05, con la r
 ## Índice
 
 1. [¿Por qué `CURRENT_DATE - hire_date` y `AGE(CURRENT_DATE, hire_date)` me dan valores distintos si miden "lo mismo"?](#por-qué-current_date---hire_date-y-agecurrent_date-hire_date-me-dan-valores-distintos-si-miden-lo-mismo)
-2. [¿Cómo extraigo los días totales de un `INTERVAL`? ¿No hay una forma directa? ¿Es exclusivo de PostgreSQL?](#cómo-extraigo-los-días-totales-de-un-interval-no-hay-una-forma-directa-es-exclusivo-de-postgresql)
-3. [Con `%config SqlMagic.autopandas = True`, la columna de `AGE` cambia de número. ¿Por qué?](#con-config-sqlmagicautopandas--true-la-columna-de-age-cambia-de-número-por-qué)
+2. [Con `%config SqlMagic.autopandas = True`, la columna de `AGE` cambia de número. ¿Por qué?](#con-config-sqlmagicautopandas--true-la-columna-de-age-cambia-de-número-por-qué)
 
 ---
 
@@ -63,45 +62,7 @@ FROM northwind_dwh.dim_employee
 ORDER BY hire_date;
 ```
 
-> :warning: **No confundas** `AGE(...)::DAYS` — **el tipo `DAYS` no existe** en PostgreSQL y la query falla con `ERROR: type "days" does not exist`. Solo puedes castear a tipos reales (`TEXT`, `INTEGER`, `INTERVAL`, …). Para "días desde un interval", ver la siguiente pregunta.
-
----
-
-## ¿Cómo extraigo los días totales de un `INTERVAL`? ¿No hay una forma directa? ¿Es exclusivo de PostgreSQL?
-
-Hay tres maneras de sacar "días" de un intervalo, y dan resultados **diferentes** porque significan cosas distintas. Tomando `INTERVAL '34 years 2 mons 8 days'` como ejemplo:
-
-| Método | Resultado | Qué es |
-|---|---|---|
-| `EXTRACT(DAY FROM i)` | `8` | solo el **componente** "día" del intervalo (el `8`), ignora años y meses |
-| `EXTRACT(EPOCH FROM i) / 86400` | `~12486.5` | días totales **aproximados** (mes=30, año=365.25) |
-| `fecha_fin - fecha_inicio` | `12487` | días reales **exactos** (resta de `date`, no usa interval) |
-
-### No existe una función directa de "días totales"
-
-PostgreSQL **no** tiene una función tipo `total_days(interval)`. Y no es un olvido: un `INTERVAL` guarda internamente **tres campos separados** — `months`, `days`, `seconds` — y **un mes no tiene un número fijo de días** (`INTERVAL '1 mon'` ¿son 28, 30, 31?). Como el intervalo ya perdió las fechas de las que vino, darte "días totales exactos" sería imposible sin asumir una convención. Lo más cercano a "directo" es el truco del EPOCH, que justamente asume mes=30 / año=365.25.
-
-**Conclusión:** si necesitas días exactos y tienes las fechas, **no pases por el interval** — resta las fechas (`date - date`). Esa *es* la forma directa y exacta.
-
-### ¿Es exclusivo de PostgreSQL? (la duda de "en MySQL sí se podía")
-
-El recuerdo es correcto, pero por un motivo que conviene entender: **MySQL no tiene un tipo `INTERVAL`**. Ahí `INTERVAL` es solo una palabra clave de sintaxis (`DATE_ADD(d, INTERVAL 1 DAY)`), no un tipo de columna. Por eso MySQL nunca enfrenta el problema de "meses guardados sin fecha" y te da funciones que calculan **directo desde dos fechas**:
-
-```sql
--- MySQL / MariaDB
-DATEDIFF(fecha_fin, fecha_inicio)              -- → días totales, directo y exacto
-TIMESTAMPDIFF(MONTH, fecha_inicio, fecha_fin)  -- meses totales
-TIMESTAMPDIFF(YEAR,  fecha_inicio, fecha_fin)  -- años totales
-```
-
-| Motor | ¿Tipo `INTERVAL` real? | "Días totales entre fechas" |
-|---|---|---|
-| **MySQL / MariaDB** | ❌ solo sintaxis | `DATEDIFF(f1, f2)` ✅ directo |
-| **SQL Server** | ❌ | `DATEDIFF(DAY, f1, f2)` ✅ directo |
-| **PostgreSQL** | ✅ real | `f1 - f2` (resta) ✅ / desde el interval ❌ |
-| **Oracle** | ✅ real | resta o `EXTRACT` |
-
-No es que MySQL "sí pueda extraer días de un interval" y Postgres no. Es que **MySQL evita el problema** (no almacena intervals → siempre calcula desde fechas), mientras que **PostgreSQL sí tiene intervals** y *por eso mismo* no puede darte días totales exactos desde uno. El equivalente de Postgres al `DATEDIFF` de MySQL ya lo tienes: es la resta `fecha_fin - fecha_inicio`.
+> :warning: **No confundas** `AGE(...)::DAYS` — **el tipo `DAYS` no existe** en PostgreSQL y la query falla con `ERROR: type "days" does not exist`. Solo puedes castear a tipos reales (`TEXT`, `INTEGER`, `INTERVAL`, …).
 
 ---
 
