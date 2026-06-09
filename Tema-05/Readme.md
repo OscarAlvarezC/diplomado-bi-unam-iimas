@@ -51,6 +51,10 @@ Los cuatro notebooks viven en este mismo directorio. Cada uno es **auto-contenid
 
 > :information_source: **JupySQL vs `pd.read_sql`** — en el Tema 04 ejecutabas SQL envolviéndolo en `pd.read_sql("...", engine)`. En este tema usamos JupySQL (`%%sql` magic) porque el contenido es 95% SQL y el envoltorio se volvía ruido visual. Las dos herramientas conviven sin problema: la misma conexión, los mismos engines, distinto azúcar sintáctico.
 
+## :grey_question: Preguntas de clase
+
+Preguntas reales que han hecho alumnos durante este tema, con la respuesta que demandó investigación en profundidad después de clase: [**`preguntas_de_clase.md`**](preguntas_de_clase.md).
+
 ---
 
 <p align="center">
