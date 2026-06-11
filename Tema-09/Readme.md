@@ -13,7 +13,7 @@ PostgreSQL soporta datos cuyo schema **no es fijo a nivel de columna**: una sola
 
 ## :file_folder: Contenido
 
-<ins>1. Por qué datos semi-estructurados</ins>
+<ins>1. ¿Por qué datos semi-estructurados?</ins>
 
 El problema: schemas que cambian por entidad. Productos heterogéneos donde cada categoría tiene atributos distintos (un libro tiene `paginas` y `autor`, una camiseta tiene `talla` y `color`); atributos de usuarios opcionales y variables; payloads de eventos donde la estructura depende del tipo. Las dos respuestas tradicionales — una tabla por tipo de entidad, o una tabla EAV — tienen problemas. PostgreSQL ofrece una tercera vía: **una columna que contiene la estructura variable**.
 
